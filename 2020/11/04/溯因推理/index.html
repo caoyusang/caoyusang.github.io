@@ -1,0 +1,626 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="caoyusang">
+  <meta name="keywords" content="">
+  <title>溯因推理 - caoyusang的科研日常</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>caoyusang</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/sea.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-11-04 18:32" pubdate>
+        2020年11月4日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      27
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">溯因推理</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h2 id="Abductive-Commonsense-Reasoning-溯因推理"><a href="#Abductive-Commonsense-Reasoning-溯因推理" class="headerlink" title="Abductive Commonsense Reasoning(溯因推理)"></a>Abductive Commonsense Reasoning(溯因推理)</h2><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1908.05739v2.pdf">论文地址</a><br><a target="_blank" rel="noopener" href="https://github.com/allenai/abductive-commonsense-reasoning">论文代码</a></p>
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><strong>溯因推理</strong>是对不完全观察情境的<strong>最合理解释</strong>或假设的推论。</p>
+<img src="/2020/11/04/%E6%BA%AF%E5%9B%A0%E6%8E%A8%E7%90%86/1.png" srcset="/img/loading.gif" class="">
+<p><strong>上图给出的是一个简明扼要的例子：</strong></p>
+<p>给定不同时间节点上的情境观测值 <script type="math/tex">O_{1}</script> 和 <script type="math/tex">O_{2}</script> ，溯因推理的任务是从给出的一众解释性假设 <script type="math/tex">H_{1}, \space H_{2}, \space \cdots ,H_{n}</script> 中选出<strong>最合理</strong>的。例如，上图在 <script type="math/tex">t_{0}</script> 时刻观测到的情境 <script type="math/tex">O_{1}</script> 是：<strong>Jenny打扫好了房间并给窗户留了条缝隙之后去工作了</strong>。而在 <script type="math/tex">t_{n}</script> 时刻，情境变成了：<strong>当Jenny回到家，发现房间里一片狼藉。</strong>针对这两个观测到的不同时间节点上情境，有若干个解释性假设 <script type="math/tex">H_{1}, \space H_{2}, \space H_{3}</script>。</p>
+<ul>
+<li>对于假设 <script type="math/tex">H_{1}</script> ，小偷的入室盗窃(<strong>broke into</strong>)很好的承接了 <script type="math/tex">O_{1}</script> 中”<strong>未关紧窗户(a crack open)</strong>“带来的安全隐患，并很好地解释了情境 <script type="math/tex">O_{2}</script> 中房间为什么一团乱(<strong>小偷翻东西</strong>)，因此看上去假设 <script type="math/tex">H_{1}</script> 非常合理的解释了情境 <script type="math/tex">O_{1}</script> 到情境 <script type="math/tex">O_{2}</script> 的转换。</li>
+<li>对于假设 <script type="math/tex">H_{2}</script> ，假设中提到的大只的鸟(<strong>large bird</strong>)似乎不太可能从窗户缝隙飞进房间，但是如果不考虑情境 <script type="math/tex">O_{1}</script>，该假设可以很好地解释房间乱的现象(<strong>鸟儿被困房间，为了逃离，弄得房间很乱</strong>)</li>
+<li>对于假设 <script type="math/tex">H_{3}</script>，前半部分<strong>(At work)</strong>可以很好地承接情境 <script type="math/tex">O_{1}</script>(<strong>Jenny去工作了，因此Jenny在工作中</strong>)，但是该假设后半部分(<strong>blew her papers everywhere</strong>)完全没法解释情境 <script type="math/tex">O_{2}</script>， 因为该假设完全指的是发生在<strong>办公处</strong>的事情，而情境 <script type="math/tex">O_{2}</script> 则是Jenny<strong>家中</strong>的场景。</li>
+</ul>
+<p>综合以上对三个假设的考量，我们很容易得出，第一个假设是最符合情境 <script type="math/tex">O_{1}</script> 和 <script type="math/tex">O_{2}</script> 的。然而这看似简单的推理过程，对于现有的模型来说，却不是那么容易的。</p>
+<p>虽然长期以来<strong>”溯因“</strong>这种行为被认为是人们解读、理解自然语言的核心，但受限于数据集的缺乏和模型的性能，支撑溯因自然语言推理和生成的研究却相对较少。</p>
+<h3 id="ART数据集"><a href="#ART数据集" class="headerlink" title="ART数据集"></a>ART数据集</h3><p>ART(<strong>叙事文本中的溯因推理</strong>——ABDUCTIVE REASONING IN NARRATIVE TEXT)是第一个用于研究叙事文本中溯因推理的大规模基准数据集。其组成如下：</p>
+<ul>
+<li><strong>20K左右的叙述背景</strong> ——成对的观察结果&lt;<script type="math/tex">O
+_{1}\space，O_{2}</script>&gt;<ul>
+<li>这些观察情境是根据<strong>ROCStories</strong>数据集进行编写的。<strong>ROCStories</strong>是一个由五句话组成的手动精选短篇故事的大集合。它被设计为每个故事都有一个清晰的开始和结束，这自然对应到ART数据集中的 <script type="math/tex">O_{1},O_{2}</script> 。</li>
+</ul>
+</li>
+<li><strong>超过200K的解释性假设</strong><ul>
+<li>按可能的解释性假设 <script type="math/tex">h^{+}</script> 和不太可能的解释性假设 <script type="math/tex">h^{-}</script> 进行众包。对于 <script type="math/tex">h^{-}</script> 的众包 ,要求众包工人在 <script type="math/tex">h^{+}</script> 的基础上，进行最小限度的编辑(最多改动5个单词)，为每个 <script type="math/tex">h^{+}</script> 创造不可信的假设变量 <script type="math/tex">h^{-}</script>。</li>
+</ul>
+</li>
+<li><strong>数据集分析</strong><ul>
+<li>下面分别分析了训练集、开发集、测试集上对应每个观测的平均对应的正反解释性假设的个数和假设及观测文本句的平均词长。</li>
+</ul>
+</li>
+</ul>
+<img src="/2020/11/04/%E6%BA%AF%E5%9B%A0%E6%8E%A8%E7%90%86/2.png" srcset="/img/loading.gif" class="">
+<h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p>论文中提出的两个溯因推理任务分别是αNLI(溯因自然语言推理——Abductive Natural Language Inference)和αNLG(溯因自然语言生成 —— Abductive Natural Language Generation)。</p>
+<p>ART数据集中每个例子按如下格式定义：</p>
+<ul>
+<li><script type="math/tex">O_{1}</script> —— <script type="math/tex">t_{1}</script>时刻的观察</li>
+<li><script type="math/tex">O_{2}</script> —— <script type="math/tex">t_{2}</script>时刻的观察</li>
+<li><script type="math/tex">h^{+}</script> —— 对观察 <script type="math/tex">O_{1}</script> 和观察 <script type="math/tex">O_{2}</script> 的更合理的解释</li>
+<li><script type="math/tex">h^{-}</script> —— 对观察 <script type="math/tex">O_{1}</script> 和观察 <script type="math/tex">O_{2}</script> 来说不太合理的解释</li>
+</ul>
+<h4 id="αNLI"><a href="#αNLI" class="headerlink" title="αNLI"></a>αNLI</h4><img src="/2020/11/04/%E6%BA%AF%E5%9B%A0%E6%8E%A8%E7%90%86/4.png" srcset="/img/loading.gif" class="">
+<p>给定一对观测和一对解释性假设，αNLI的任务是选出两个假设中更有可能的那个。</p>
+<p>在概率框架下模型的目标函数为：</p>
+<script type="math/tex; mode=display">
+h^{*}=\arg \max _{h^{i}} P\left(H=h^{i} \mid O_{1}, O_{2}\right)</script><p>根据贝叶斯法则，以观测 <script type="math/tex">O_{1}</script> 为先验条件，可以重写上述公式：</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+\begin{aligned}
+P\left(h^{i} \mid O_{1}, O_{2}\right) = \frac{P\left(O_{2}, O_{1}, h^{i}\right)}{P\left(O_{1} , O_{2}\right)} \\
+=\frac{P\left(O_{2}\mid h^{i}, O_{1}\right)P\left(h^{i},O_{1}\right)}{P\left(O_{2}, O_{1}\right)} \\
+=\frac{P\left(O_{2}\mid h^{i}, O_{1}\right)P\left(h^{i} \mid O_{1}\right)}{P\left(O_{2}\mid O_{1}\right)}
+\end{aligned}
+\end{equation}</script><p>因为 <script type="math/tex">P\left(O_{2}\mid O_{1}\right)</script> 是定值，所求又是优化问题，所以可以仅考虑左侧的目标函数与右侧乘式的相关关系即可：</p>
+<script type="math/tex; mode=display">
+P\left(h^{i} \mid O_{1}, O_{2}\right) \propto P\left(O_{2} \mid h^{i}, O_{1}\right) P\left(h^{i} \mid O_{1}\right)</script><p>根据上式，建立如下若干独立性假设，为αNLI任务构建一套概率模型：</p>
+<img src="/2020/11/04/%E6%BA%AF%E5%9B%A0%E6%8E%A8%E7%90%86/3.png" srcset="/img/loading.gif" class="">
+<ul>
+<li><script type="math/tex">H_{i}</script> 与 <script type="math/tex">O_{1},O_{2}</script>都无关时(模型没用到观测值)</li>
+</ul>
+<script type="math/tex; mode=display">
+P\left(h^{i} \mid O_{1}, O_{2}\right)=P\left(h_{i}\right)</script><ul>
+<li><p><script type="math/tex">H_{i}</script> 仅与 <script type="math/tex">O_{1},O_{2}</script>其中一个有关（模型用到了一个观测值）</p>
+</li>
+<li><p><strong>线性链</strong>模型 —— <script type="math/tex">H_{i}</script> 与 <script type="math/tex">O_{1},O_{2}</script>都直接相关，但 <script type="math/tex">O_{1} \perp O_{2}</script> (模型使用两个观测值，但独立地考虑了每个观测值对假设的影响)，</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+h^{*}=\arg \max _{h^{i}} P\left(O_{2} \mid h^{i}\right) P\left(h^{i} \mid O_{1}\right) \text { where }\left(O_{1} \perp O_{2} \mid H\right)</script><ul>
+<li><strong>全连接</strong>(模型使用两个观测值，结合两个观测值的信息选择合理的假设)，目标函数为：</li>
+</ul>
+<script type="math/tex; mode=display">
+h^{*}=\arg \max _{h^{i}} P\left(O_{2} \mid h^{i},O_{1}\right) P\left(h^{i} \mid O_{1}\right)</script><p>在论文的实验中，将不同的独立性假设文本输入BERT进行编码。对于前两个概率模型，可以通过简单地将模型的输入限制为相关变量来加强独立性。另一方面，相关线性链模型将所有三个变量 <script type="math/tex">O_{1},O_{2},H</script> 都作为输入，通过限制模型的形式以加强条件独立性。具体来说，学习一个具有二分类功能的分类器:</p>
+<script type="math/tex; mode=display">
+P_{\text {Linear }} \text { Chain }\left(h \mid O_{1}, O_{2}\right) \propto e^{\phi\left(O_{1}, h\right)+\phi^{\prime}\left(h, O_{2}\right)}</script><p>其中，<script type="math/tex">\phi</script> 和 <script type="math/tex">\phi^{\prime}</script> 为产生标量值的神经网络模型。</p>
+<h4 id="αNLG"><a href="#αNLG" class="headerlink" title="αNLG"></a>αNLG</h4><p>给定 <script type="math/tex">O_{1},O_{2},h^{+}</script> 为一组的的训练数据，<strong>αNLG</strong>的任务就是最大化 <script type="math/tex">O_{1},O_{2},h^{+}</script> 对应的文本句在生成模型中的生成概率。同时，还可以在给定两个观测的基础上再添加背景知识 <script type="math/tex">\text{K}</script> 作为条件，模型的损失函数构造如下：</p>
+<script type="math/tex; mode=display">
+\mathcal{L}=-\sum_{i=1}^{N} \log P\left(w_{i}^{h} \mid w_{<i}^{h}, w_{1}^{o 1} \ldots w_{m}^{o 1}, w_{1}^{o 2} \ldots w_{n}^{o 2}, \mathcal{K}\right)</script><p>其中，<script type="math/tex">O_{1}=\left\{w_{1}^{o 1} \ldots w_{m}^{o 1}\right\}</script> ，<script type="math/tex">O_{2}=\left\{w_{1}^{o 2} \ldots w_{n}^{o 2}\right\}</script>，<script type="math/tex">h^{+}=\left\{w_{1}^{h} \ldots w_{l}^{h}\right\}</script>，它们都由其自然语言文本对应的token组成。 <script type="math/tex">w_{<i}^{h}</script> 代表当前位置的前 <script type="math/tex">i</script> 个token，<script type="math/tex">w_{i}^{h}</script> 为当前位置 <script type="math/tex">i</script> 处的token。模型的训练目标就是最大化句子的生成概率 <script type="math/tex">P</script>，也即最小化上述公式的损失 <script type="math/tex">L</script>。</p>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><h4 id="αNLI-1"><a href="#αNLI-1" class="headerlink" title="αNLI"></a>αNLI</h4><p>αNLI任务被构造成了一个二分类问题。</p>
+<h5 id="Baseline"><a href="#Baseline" class="headerlink" title="Baseline"></a>Baseline</h5><ul>
+<li><strong>SVM</strong> —— 利用Glove词嵌入，考虑词长度、词的重叠和情感特征等对两个假设选项进行选择。(<strong>50.6%</strong>)</li>
+<li><strong>BOW</strong> —— 将两个观察和一个解释性假设文本串接在一起，利用<strong>Glove</strong>为串接起来的文本构建句子嵌入，再通过一个全连接网络为包含每个不同的解释性假设选项的句子的嵌入打分。(<strong>50.5%</strong>)</li>
+<li><strong>Bi-LSTM + max-pooling</strong> —— 用Bi-LSTM编码句子，使用经过最大池化后的句子嵌入进行打分。(<strong>50.8%</strong>)</li>
+</ul>
+<p>可以看到，传统分类器 + 上下文无关的单词嵌入的方式对解决这个二分类问题看上去几乎毫无作用(因为随机二选一都有一半的概率选对)。</p>
+<h5 id="实验模型"><a href="#实验模型" class="headerlink" title="实验模型"></a>实验模型</h5><p>采用预训练模型GPT和BERT编码观测和解释性假设。</p>
+<ul>
+<li>对于GPT，将观测 <script type="math/tex">O_{1}</script> 和解释性假设 <script type="math/tex">H</script> 串接在一起，然后使用 [SEP] 将其与观测 <script type="math/tex">O_{2}</script> 分隔开，以[START] 和 [SEP] 结尾。</li>
+<li>对于BERT，根据不同独立性假设。有如下五种输入的构造方式：</li>
+</ul>
+<img src="/2020/11/04/%E6%BA%AF%E5%9B%A0%E6%8E%A8%E7%90%86/6.png" srcset="/img/loading.gif" class="">
+<h5 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h5><img src="/2020/11/04/%E6%BA%AF%E5%9B%A0%E6%8E%A8%E7%90%86/5.png" srcset="/img/loading.gif" class="">
+<p>最后一列代表模型在论文提出的 <script type="math/tex">\text{ART}</script> 数据集上的表现，和前四个baseline相比，基于GPT和BERT构造的分类模型在数据集上的表现明显提高了很多，最好的<strong>BERT-ft[Linear Chain]</strong>比最佳baseline提升了10.1个百分点，达到了68.9。但是和人类的表现相比，这样的结果还是非常差的。因此，在溯因推理方面的研究还有很多工作要做。</p>
+<h4 id="αNLG-1"><a href="#αNLG-1" class="headerlink" title="αNLG"></a>αNLG</h4><h5 id="实验模型-1"><a href="#实验模型-1" class="headerlink" title="实验模型"></a>实验模型</h5><ul>
+<li><p><script type="math/tex">O_{1}-O_{2}-\text{Only}</script> —— 以组成两个观测值 <script type="math/tex">O_{1}</script> 和 <script type="math/tex">O_{2}</script> 的token为起始训练GPT2。</p>
+</li>
+<li><p>使用<strong>COMET</strong>生成<strong>ATOMIC</strong>格式(<strong>如果-那么</strong>)的知识 —— 包含常识知识的图，是一个以推理“如果-那么”的知识为主的知识库，它以事件作为节点，下列九大关系作为边：</p>
+</li>
+</ul>
+<img src="/2020/11/04/%E6%BA%AF%E5%9B%A0%E6%8E%A8%E7%90%86/10.png" srcset="/img/loading.gif" class="">
+<p><strong>ATOMIC</strong>是对<script type="math/tex">\text{ART}</script> 数据集中的叙事上下文进行推理所需的背景常识的来源。<strong>COMET</strong>是基于<strong>ATOMIC</strong>训练的专门实现常识知识图自动构建的Transformer，这里借助<strong>COMET</strong>生成基于事件的常识推理知识，然后再GPT2中集成了COMET生成的信息用于αNLG任务。集成方式分两种：</p>
+<img src="/2020/11/04/%E6%BA%AF%E5%9B%A0%E6%8E%A8%E7%90%86/9.png" srcset="/img/loading.gif" class="">
+<ul>
+<li><strong>COMeT-Txt+GPT-2</strong>（作为文本短语的方式集成）</li>
+</ul>
+<p>在单词嵌入层嵌入输入标记之后，我们在通过Transformer架构的层之前，向串接的观察序列添加18个(对应于每个观察的九个关系)<strong>自然语言文本</strong>，由GPT2进行编码。</p>
+<ul>
+<li><strong>COMeT-Emb+GPT2</strong>（作为嵌入的方式集成）</li>
+</ul>
+<p>和上面那种方式一样，不过在观察序列前添加的是18个<strong>COMeT Embedding</strong>，这允许模型在处理COMeT嵌入时学习每个token的表示——有效地将背景常识知识集成到语言模型中。</p>
+<img src="/2020/11/04/%E6%BA%AF%E5%9B%A0%E6%8E%A8%E7%90%86/7.png" srcset="/img/loading.gif" class="">
+<h5 id="评估-1"><a href="#评估-1" class="headerlink" title="评估"></a>评估</h5><img src="/2020/11/04/%E6%BA%AF%E5%9B%A0%E6%8E%A8%E7%90%86/8.png" srcset="/img/loading.gif" class="">
+<ul>
+<li><strong>自动评估</strong> —— BLEU、METEOR、ROUGE、CIDEr、BERT-Score</li>
+<li><strong>人工评估</strong> —— 向众包人员展示成对的观察结果和一个生成的假设，要求他们标注该假设是否解释了给定的观察结果。最后一栏为对应的评估分数。人工编写的假设在96%的情况下是正确的，而我们最好的生成模型，即使有背景常识知识的增强，也只能达到45%——这表明αNLG生成任务对当前最优越的文本生成器来说尤其具有挑战性。</li>
+</ul>
+<h5 id="生成实例"><a href="#生成实例" class="headerlink" title="生成实例"></a>生成实例</h5><img src="/2020/11/04/%E6%BA%AF%E5%9B%A0%E6%8E%A8%E7%90%86/11.png" srcset="/img/loading.gif" class="">
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>文章提出了第一项研究，调查基于语言的溯因推理的可行性。概念化并引入溯因自然语言推理(αNLI)——一个关注叙事语境中溯因推理的新任务。该任务被表述为一个选择题回答问题。文章还介绍了溯因自然语言生成(αNLG)——一种新的任务，需要机器为给定的观察结果生成可信的假设。为了支持这些任务，创建并引入了一个新的挑战数据集ART，它由20k个常识性叙述和200k多个解释性假设组成。在实验中，基于最先进的NLI和语言模型建立了这一新任务的Baseline，其准确率为68.9%，与人类性能(91.4%)有相当大的差距。αNLG任务要困难得多——虽然人类可以写出96%的有效解释，但是当前表现最好模型只能达到45%。文章的分析让我们对深度预训练语言模型无法执行的推理类型有了新的见解——尽管预训练模型在NLI蕴涵的密切相关但不同的任务中表现出色，但是在应对基于 <script type="math/tex">\text{ART}</script> 数据集提出的溯因推理和溯因生成任务时，表现却差强人意，这为未来的研究指出了有趣的途径。作者希望ART将成为未来基于语言的溯因推理研究的一个具有挑战性的基准，并且αNLI和αNLG任务将鼓励在人工智能系统中实现复杂推理能力的表征学习。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%BA%AF%E5%9B%A0%E6%8E%A8%E7%90%86/">溯因推理</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/NLP/">NLP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/11/04/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E4%BB%BB%E5%8A%A1%E6%A2%B3%E7%90%86/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">自然语言处理任务梳理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/04/%E6%9E%84%E5%BB%BA%E5%8A%A8%E6%80%81%E7%9F%A5%E8%AF%86%E8%B7%AF%E5%BE%84%E7%94%9F%E6%88%90%E5%99%A8%E7%94%A8%E4%BA%8E%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/">
+                        <span class="hidden-mobile">构建动态知识路径生成器用于常识推理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "溯因推理&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

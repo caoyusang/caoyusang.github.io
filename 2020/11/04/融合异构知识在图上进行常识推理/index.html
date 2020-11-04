@@ -1,0 +1,647 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="caoyusang">
+  <meta name="keywords" content="">
+  <title>融合异构知识在图上进行常识推理 - caoyusang的科研日常</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>caoyusang</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/sea.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-11-04 18:20" pubdate>
+        2020年11月4日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      35
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">融合异构知识在图上进行常识推理</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h2 id="融合异构知识进行常识问答"><a href="#融合异构知识进行常识问答" class="headerlink" title="融合异构知识进行常识问答"></a>融合异构知识进行常识问答</h2><p>论文标题 —— 《Graph-Based Reasoning over Heterogeneous External Knowledge for Commonsense Question Answering》<br><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1909.05311v2.pdf">论文来源</a><br><a target="_blank" rel="noopener" href="https://github.com/DecstionBack/AAAI_2020_CommonsenseQA">论文代码</a></p>
+<h3 id="任务介绍"><a href="#任务介绍" class="headerlink" title="任务介绍"></a>任务介绍</h3><h4 id="任务概述"><a href="#任务概述" class="headerlink" title="任务概述"></a>任务概述</h4><p>以CSQA（常识问答）为例，针对未提及背景知识的问题，要求考虑背景知识并作出回答</p>
+<h4 id="任务形式"><a href="#任务形式" class="headerlink" title="任务形式"></a>任务形式</h4><p><strong>输入：</strong>问题Q=q_1 q_2⋯q_m和包含n个答案的候选答案集合A={a_1,a_2,⋯,a_n}<br><strong>目标：</strong>从候选集合中选出正确答案<br><strong>评价指标：</strong>准确率</p>
+<h3 id="面临的问题"><a href="#面临的问题" class="headerlink" title="面临的问题"></a>面临的问题</h3><ul>
+<li><p>在与问题相关的背景知识中如何获取evidence信息（抽取三元组，为知识源构建图）</p>
+</li>
+<li><p>如何基于获取到的evidence信息做出预测（图表示学习+图推理来解决）</p>
+</li>
+</ul>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><img src="/2020/11/04/%E8%9E%8D%E5%90%88%E5%BC%82%E6%9E%84%E7%9F%A5%E8%AF%86%E5%9C%A8%E5%9B%BE%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/1.png" srcset="/img/loading.gif" class="">
+<h4 id="从外部知识库抽取evidence"><a href="#从外部知识库抽取evidence" class="headerlink" title="从外部知识库抽取evidence"></a>从外部知识库抽取evidence</h4><h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5><ol>
+<li><p>人工标注——耗时耗力耗财</p>
+</li>
+<li><p>仅从同构（结构化/非结构化）知识源中抽取evidence——没有同时利用不同来源的知识，得到的evidence可能不够全面</p>
+</li>
+<li><p>融合结构化与非结构化知识库中的知识，例如融合结构化的ConceptNet库和纯文本的Wikipedia库，并从中抽取evidence</p>
+</li>
+</ol>
+<h5 id="具体实施"><a href="#具体实施" class="headerlink" title="具体实施"></a>具体实施</h5><p>从ConceptNet中抽取</p>
+<ol>
+<li><p>在ConceptNet中确定不同的问题和选项中出现的实体；</p>
+</li>
+<li><p>从ConceptNet中抽取从问题中的实体到候选中的实体的路径（小于 3 hops）</p>
+</li>
+</ol>
+<p>从Wikipedia中抽取</p>
+<ol>
+<li><p>使用 Spacy 从中抽取出 107M 个句子，并用 Elastic Search 工具构建句子索引；</p>
+</li>
+<li><p>对于每个训练样例，去除问句和候选中的停用词，然后将所有词串联，作为检索查询 ；</p>
+</li>
+<li><p>使用 Elastic 搜索引擎 在检索查询和所有句子之间进行排序，选择出 top-K 个句子作为 Wikipedia 提供的证据信息（在实验中 K=10）；</p>
+</li>
+</ol>
+<h4 id="为每个知识源构建图"><a href="#为每个知识源构建图" class="headerlink" title="为每个知识源构建图"></a>为每个知识源构建图</h4><h5 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h5><ol>
+<li><p>对于ConceptNet库，用其自身的三元组即可</p>
+</li>
+<li><p>对于Wikipedia库，通过语义角色标注SRL(semantic role labeling)来抽取句子中的三元组</p>
+</li>
+</ol>
+<h5 id="具体实施-1"><a href="#具体实施-1" class="headerlink" title="具体实施"></a>具体实施</h5><p><strong>构建ConceptNet图</strong></p>
+<ol>
+<li><p>把从ConceptNet中抽取出的路径拆分成三元组的形式，将每个三元组看做一个节点，融合到图中；对于含有相同实体的三元组，给图中对应到的节点加上一条边；</p>
+</li>
+<li><p>为了获取ConceptNet中节点的上下文词表示，将三元组根据关系模板转化为自然语言语句；</p>
+</li>
+</ol>
+<p><strong>构建Wikipedia图</strong></p>
+<ol>
+<li><p>使用SRL抽出句子中的每个谓词的论元，谓词和论元作为节点，它们之间的关系作为边</p>
+</li>
+<li><p>同样地，为了增强构建图的连通性，基于两条给定的规则进行节点a,b之间的加边：</p>
+<ul>
+<li>b 中包含 a 且 a 的词数大于3</li>
+<li>a 与 b 仅有一个不同的词，并且 a 和 b 包含的词数都大于3</li>
+</ul>
+</li>
+</ol>
+<h4 id="编码图信息、聚集evidence信息"><a href="#编码图信息、聚集evidence信息" class="headerlink" title="编码图信息、聚集evidence信息"></a>编码图信息、聚集evidence信息</h4><img src="/2020/11/04/%E8%9E%8D%E5%90%88%E5%BC%82%E6%9E%84%E7%9F%A5%E8%AF%86%E5%9C%A8%E5%9B%BE%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/2.png" srcset="/img/loading.gif" class="">
+<h5 id="具体实施-2"><a href="#具体实施-2" class="headerlink" title="具体实施"></a>具体实施</h5><ol>
+<li><p>利用Topology Sort算法，根据知识抽取部分得到的图结构,对evidence句的顺序进行重排；<br>利用得到的图的结构，通过重定义evidence词之间的相对位置，来让语义相关的词的相对位置更加接近；<br>利用evidence内部的关系结构获取更好的上下文表示；</p>
+</li>
+<li><p>排好顺序的从ConceptNet库、Wikipedia库中抽出的evidence句、问题、所有选项<br>以上4个部分的串接，在使用了[sep]进行分隔后，作为XLNet的输入进行编码</p>
+</li>
+</ol>
+<h4 id="进行最终的预测"><a href="#进行最终的预测" class="headerlink" title="进行最终的预测"></a>进行最终的预测</h4><h5 id="具体实施-3"><a href="#具体实施-3" class="headerlink" title="具体实施"></a>具体实施</h5><ul>
+<li><p>把两个evidence图看作一个无向图，利用GCN对知识图和XLNet编码提供的问答+evidence的词级向量表示，来进行编码来获得节点层次的表示</p>
+</li>
+<li><p>evidence传播：</p>
+<ul>
+<li>从邻居节点聚集信息；</li>
+<li>组合、更新节点表示</li>
+</ul>
+</li>
+<li><p>利用图注意力网络对经过GCN得到的节点表示以及XLNet的input表示进行处理，聚集图级别的表示，进而进行最终的预测打分</p>
+</li>
+</ul>
+<h3 id="重点模块及方法阐述"><a href="#重点模块及方法阐述" class="headerlink" title="重点模块及方法阐述"></a>重点模块及方法阐述</h3><h4 id="SRL"><a href="#SRL" class="headerlink" title="SRL"></a>SRL</h4><p>语义角色标注（Semantic Role Labeling，SRL）以句子的谓词为中心，不对句子所包含的语义信息进行深入分析，只分析句子中各成分与谓词之间的关系，即句子的谓词（Predicate）- 论元（Argument）结构。并用语义角色来描述这些结构关系，是许多自然语言理解任务（如信息抽取，篇章分析，深度问答等）的一个重要中间步骤。在研究中一般都假定谓词是给定的，所要做的就是找出给定谓词的各个论元和它们的语义角色。</p>
+<h4 id="ConceptNet"><a href="#ConceptNet" class="headerlink" title="ConceptNet"></a>ConceptNet</h4><p>ConceptNet：常识知识库，它以三元组形式的关系型知识构成。</p>
+<h4 id="ElaticSearch"><a href="#ElaticSearch" class="headerlink" title="ElaticSearch"></a>ElaticSearch</h4><p>ElasticSearch：一个基于Lucene的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，是当前流行的企业级搜索引擎。</p>
+<h4 id="Topology-Sort"><a href="#Topology-Sort" class="headerlink" title="Topology Sort"></a>Topology Sort</h4><img src="/2020/11/04/%E8%9E%8D%E5%90%88%E5%BC%82%E6%9E%84%E7%9F%A5%E8%AF%86%E5%9C%A8%E5%9B%BE%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/3.png" srcset="/img/loading.gif" class="">
+<ul>
+<li><p><strong>处理ConceptNet</strong></p>
+<p>将三元组转化为自然语句，例如，(mammals, HasA, hair) -&gt; mammals has hair</p>
+</li>
+<li><p><strong>处理Wikipedia</strong></p>
+<p>以evidence句作为句子图中的节点来构建句子图，如果在构建wikipedia图的过程中，节点p和q分别在句子s和t中，则为句子图中的代表两个相应句子的节点添加一条边。<br>利用拓扑排序算法对这些构建的句子图中的节点进行排序。</p>
+</li>
+</ul>
+<h4 id="XLNET"><a href="#XLNET" class="headerlink" title="XLNET"></a>XLNET</h4><p><strong>使用XLNet而不采用BERT的原因，总结起来有以下几点：</strong></p>
+<ul>
+<li><p>BERT训练数据和测试数据之间的不一致性，这也叫作Discrephancy。当我们训练BERT的时候，<br> 会随机的Mask掉一些单词的，但实际上在使用的过程当中，我们却没有MASK这类的标签，<br> 所以这个问题就导致训练的过程和使用（测试）的过程其实不太一样，这是一个主要的问题。</p>
+</li>
+<li><p>BERT并不能用来生成数据。由于BERT本身是依赖于DAE的结构来训练的，所以不像那些基于语言模型训练出来的模型具备很好地生成能力。<br> 之前的方法比如NNLM，ELMo是基于语言模型生成的，所以用训练好的模型可以生成出一些句子、文本等。<br> 但基于这类生成模型的方法论本身也存在一些问题，因为理解一个单词在上下文里的意思的时候，语言模型只考虑了它的上文，而没有考虑下文！</p>
+</li>
+</ul>
+<p>基于这些BERT的缺点，学者们提出了XLNet, 而且也借鉴了语言模型，还有BERT的优缺点。具体做法如下：</p>
+<ul>
+<li><p>首先，生成模型是单向的，即便我们使用Bidirectional LSTM类模型，其实本质是使用了两套单向的模型。<br> 通过使用permutation language model, 也就是把所有可能的permutation全部考虑进来。</p>
+</li>
+<li><p>另外，为了迎合这种改变，他们在原来的Transformer Encoder架构上做了改进，引入双流注意力机制,<br> 而且为了更好地处理较长的文本，进而使用的是Transformer-XL。 </p>
+</li>
+</ul>
+<h4 id="GCN"><a href="#GCN" class="headerlink" title="GCN"></a>GCN</h4><p>图卷积神经网络，实际上跟CNN的作用一样，就是一个特征提取器，只不过它的对象是图数据（结构十分不规则，数据不具有平移不变性，<br>这让适用于处理图片、语言这类欧氏空间数据的传统的CNN、RNN瞬间失效）。</p>
+<p>GCN精妙地设计了一种从图数据中提取特征的方法，从而让我们可以使用这些特征去对图数据进行节点分类<br>（node classification）、图分类（graph classification）、边预测（link prediction），还可以顺便得到图的嵌入表示（graph embedding）。</p>
+<p>在Step 4对evidence图进行编码的过程，实际上就相当于对图数据进行了特征的提取。</p>
+<p>GCN也是一个神经网络层，层与层之间的传播方式如下（利用了拉普拉斯矩阵）：</p>
+<script type="math/tex; mode=display">
+H^{l+1}=\sigma\left(\widetilde{D}^{-\frac{1}{2}} \tilde{A} \widetilde{D}^{-\frac{1}{2}} H^{l} W^{l}\right)</script><p>需要说明的是，<script type="math/tex">\tilde{A}=A+I</script>为图的邻接矩阵，I为单位阵。<script type="math/tex">\tilde{D}</script> 为 <script type="math/tex">\tilde{A}</script> 的度矩阵。<script type="math/tex">H</script> 为每一层的特征。对于输入层 <script type="math/tex">H=X</script>。</p>
+<img src="/2020/11/04/%E8%9E%8D%E5%90%88%E5%BC%82%E6%9E%84%E7%9F%A5%E8%AF%86%E5%9C%A8%E5%9B%BE%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/4.png" srcset="/img/loading.gif" class="">
+<p>若构造一个两层的GCN来进行分类任务，激活函数分别采用ReLU和softmax，则整体的正向传播公式为：</p>
+<script type="math/tex; mode=display">
+\mathrm{Z}=\mathrm{f}(\mathrm{X}, \mathrm{A})=\operatorname{softmax}\left(\tilde{A} \operatorname{Re} L U\left(\tilde{A} X W^{(0)}\right) W^{(1)}\right)</script><p>上图中的GCN输入一个图，通过若干层GCN每个node的特征从X变成了Z，但是，无论中间有多少层，node之间的连接关系，即A，都是共享的。</p>
+<p>GCN的特别之处：即使不训练，完全使用随机初始化的参数W，GCN提取出来的特征就已经非常优秀了！</p>
+<h4 id="GAT"><a href="#GAT" class="headerlink" title="GAT"></a>GAT</h4><p>和所有的attention mechanism一样，GAT的计算也分为两步走：</p>
+<ul>
+<li>计算注意力系数；对于顶点i，注意计算它与它的邻接节点的相似系数</li>
+</ul>
+<script type="math/tex; mode=display">
+  e_{i j}=a\left(W \overrightarrow{h_{i}}, W \overrightarrow{h_{j}}\right)</script><p>其中共享参数W的线性映射给顶点的特征进行了增强，a(·)把拼接后的高维特征映射到一个实数上，这个过程一般通过一个单层的前馈神经网络来实现.对相关系数用softmax进行归一化便得到了注意力系数。 要理解计算过程可见下图。</p>
+<img src="/2020/11/04/%E8%9E%8D%E5%90%88%E5%BC%82%E6%9E%84%E7%9F%A5%E8%AF%86%E5%9C%A8%E5%9B%BE%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/5.png" srcset="/img/loading.gif" class="">
+<ul>
+<li>加权求和。把计算好的注意力系数进行加权求和，加上多头机制进行增强</li>
+</ul>
+<img src="/2020/11/04/%E8%9E%8D%E5%90%88%E5%BC%82%E6%9E%84%E7%9F%A5%E8%AF%86%E5%9C%A8%E5%9B%BE%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/6.png" srcset="/img/loading.gif" class="">
+<h4 id="GCN与GAT的异同"><a href="#GCN与GAT的异同" class="headerlink" title="GCN与GAT的异同"></a>GCN与GAT的异同</h4><ul>
+<li><strong>同</strong>：GCN与GAT都是将邻居顶点的特征聚合到中心顶点上（一种aggregate运算），利用graph上的局部平稳性学习新的顶点特征表达。</li>
+<li><strong>异</strong>：GCN利用了拉普拉斯矩阵，GAT利用attention系数。</li>
+</ul>
+<h5 id="为什么要融合异构知识源？"><a href="#为什么要融合异构知识源？" class="headerlink" title="为什么要融合异构知识源？"></a>为什么要融合异构知识源？</h5><ul>
+<li><strong>结构化知识</strong> (Structured Knowledge Source)：包含大量的三元组信息（概念及其之间的关系），利于推理，但是存在覆盖度低的问题；</li>
+<li><strong>非结构化知识</strong> (Unstructured Knowledge Source)：即 Plain-Text，包含大量冗余的、覆盖范围广的信息，可以辅助/补充结构化知识；</li>
+</ul>
+<img src="/2020/11/04/%E8%9E%8D%E5%90%88%E5%BC%82%E6%9E%84%E7%9F%A5%E8%AF%86%E5%9C%A8%E5%9B%BE%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/7.png" srcset="/img/loading.gif" class="">
+<p>在结构化知识和非结构化知识的协同作用下，模型选出了最佳答案。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/">常识推理</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/NLP/">NLP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/11/04/%E6%9E%84%E5%BB%BA%E5%8A%A8%E6%80%81%E7%9F%A5%E8%AF%86%E8%B7%AF%E5%BE%84%E7%94%9F%E6%88%90%E5%99%A8%E7%94%A8%E4%BA%8E%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">构建动态知识路径生成器用于常识推理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/04/B%E7%AB%99%E5%BC%B9%E5%B9%95%E7%88%AC%E5%8F%96/">
+                        <span class="hidden-mobile">B站弹幕爬取</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "融合异构知识在图上进行常识推理&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

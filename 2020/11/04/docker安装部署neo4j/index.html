@@ -1,0 +1,613 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="caoyusang">
+  <meta name="keywords" content="">
+  <title>docker安装部署neo4j - caoyusang的科研日常</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>caoyusang</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/sea.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-11-04 15:37" pubdate>
+        2020年11月4日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">docker安装部署neo4j</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h3 id="docker部署neo4j"><a href="#docker部署neo4j" class="headerlink" title="docker部署neo4j"></a>docker部署neo4j</h3><p>环境：ubuntu16.04LTS</p>
+<h4 id="docker安装"><a href="#docker安装" class="headerlink" title="docker安装"></a>docker安装</h4><p>详见：<a target="_blank" rel="noopener" href="https://www.runoob.com/docker/ubuntu-docker-install.html">菜鸟教程(docker安装)</a></p>
+<h4 id="docker国内镜像源配置"><a href="#docker国内镜像源配置" class="headerlink" title="docker国内镜像源配置"></a>docker国内镜像源配置</h4><p>第一步，进入<a target="_blank" rel="noopener" href="https://cr.console.aliyun.com/">阿里云</a>，登陆后点击左侧的镜像加速，生成自己的镜像加速地址。</p>
+<img src="/2020/11/04/docker%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2neo4j/%E9%98%BF%E9%87%8C%E4%BA%91%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F%E5%9C%B0%E5%9D%80%E7%94%9F%E6%88%90.png" srcset="/img/loading.gif" class="" title="阿里云镜像加速">
+<p>第二步，选择ubuntu，执行阿里云推荐的终端命令，即可更新docker的镜像源为阿里云镜像。</p>
+<h4 id="docker部署neo4j-1"><a href="#docker部署neo4j-1" class="headerlink" title="docker部署neo4j"></a>docker部署neo4j</h4><h5 id="拉取neo4j镜像"><a href="#拉取neo4j镜像" class="headerlink" title="拉取neo4j镜像"></a>拉取neo4j镜像</h5><p>第一步，从镜像源中找合适的镜像</p>
+<pre><code class="hljs apache"><span class="hljs-attribute">docker</span> search neo<span class="hljs-number">4</span>j</code></pre>
+
+<p>第二步，拉取镜像源</p>
+<pre><code class="hljs gcode">docker pull <span class="hljs-symbol">neo4</span>j<span class="hljs-comment">(:版本号)</span> <span class="hljs-comment">//缺省 “:版本号” 时默认安装latest版本的</span></code></pre>
+<p>第三步，查看本地镜像，检验是否拉取成功</p>
+<pre><code class="hljs ebnf"><span class="hljs-attribute">docker images</span></code></pre>
+<img src="/2020/11/04/docker%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2neo4j/%E6%9C%AC%E5%9C%B0%E9%95%9C%E5%83%8F.png" srcset="/img/loading.gif" class="" title="本地镜像">
+<h5 id="构建neo4j容器"><a href="#构建neo4j容器" class="headerlink" title="构建neo4j容器"></a>构建neo4j容器</h5><p>第一步，在你根目录的任意一个子目录（我这里是/home)下建立四个基本的文件夹</p>
+<ul>
+<li>data——数据存放的文件夹</li>
+<li>logs——运行的日志文件夹</li>
+<li>conf——数据库配置文件夹（在配置文件<strong>neo4j.conf</strong>中配置包括开放远程连接、设置默认激活的数据库）</li>
+<li>import——为了大批量导入csv来构建数据库，需要导入的节点文件<strong>nodes.csv</strong>和关系文件<strong>rel.csv</strong>需要放到这个文件夹下）</li>
+</ul>
+<pre><code class="hljs haml">docker run -d --name container_name \  //-d表示容器后台运行 --name指定容器名字
+	-<span class="ruby">p <span class="hljs-number">7474</span><span class="hljs-symbol">:</span><span class="hljs-number">7474</span> -p <span class="hljs-number">7687</span><span class="hljs-symbol">:</span><span class="hljs-number">7687</span> \  /<span class="hljs-regexp">/映射容器的端口号到宿主机的端口号</span></span>
+<span class="ruby">	-v /home/neo4j/<span class="hljs-symbol">data:</span>/data \  /<span class="hljs-regexp">/把容器内的数据目录挂载到宿主机的对应目录下</span></span>
+<span class="ruby">	-v /home/neo4j/<span class="hljs-symbol">logs:</span>/logs \  /<span class="hljs-regexp">/挂载日志目录</span></span>
+<span class="ruby">	-v /home/neo4j/<span class="hljs-symbol">conf:</span>/var/lib/neo4j/conf   /<span class="hljs-regexp">/挂载配置目录</span></span>
+<span class="ruby">	-v /home/neo4j/<span class="hljs-symbol">import:</span>/var/lib/neo4j/import \  /<span class="hljs-regexp">/挂载数据导入目录</span></span>
+<span class="ruby">	--env NEO4J_AUTH=neo4j/password \  /<span class="hljs-regexp">/设定数据库的名字的访问密码</span></span>
+<span class="ruby">	neo4j /<span class="hljs-regexp">/指定使用的镜像</span></span></code></pre>
+<p>一个可以直接复制粘贴到终端执行的代码模板</p>
+<pre><code class="hljs awk">docker run -d --name container_name -p <span class="hljs-number">7474</span>:<span class="hljs-number">7474</span> -p <span class="hljs-number">7687</span>:<span class="hljs-number">7687</span> -v <span class="hljs-regexp">/home/</span>neo4j<span class="hljs-regexp">/data:/</span>data -v <span class="hljs-regexp">/home/</span>neo4j<span class="hljs-regexp">/logs:/</span>logs -v <span class="hljs-regexp">/home/</span>neo4j<span class="hljs-regexp">/conf:/</span>var<span class="hljs-regexp">/lib/</span>neo4j<span class="hljs-regexp">/conf -v /</span>home<span class="hljs-regexp">/neo4j/im</span>port:<span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/neo4j/im</span>port --env NEO4J_AUTH=neo4j/password neo4j</code></pre>
+<p>其中<strong>container_name</strong>可以自己指定，挂载在根目录下的子目录可以根据你自己的实际情况进行替换，我这里是<strong>/home</strong>。另外<strong>NEO4J_AUTH</strong>也是你自己来进行设置。</p>
+<p>执行完上述命令后就在后台把neo4j容器启动起来了，这个时候你就能在宿主机的浏览器中输入</p>
+<pre><code class="hljs angelscript">localhost:<span class="hljs-number">7474</span></code></pre>
+<p>输入用户名和密码就能登录到数据库了。</p>
+<img src="/2020/11/04/docker%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2neo4j/neo4j%E7%95%8C%E9%9D%A2.png" srcset="/img/loading.gif" class="" title="neo4j界面">
+<h5 id="neo4j配置"><a href="#neo4j配置" class="headerlink" title="neo4j配置"></a>neo4j配置</h5><p>上述方式启动的neo4j是按照默认的配置进行启动的，而默认的数据库配置是不允许远程登陆的，这样对于在服务器上使用docker搭载neo4j的同学来说，就很不方便了。所以我们对默认配置进行一些改变，改变如下：</p>
+<pre><code class="hljs awk"><span class="hljs-regexp">//</span> 进入容器配置目录挂载在宿主机的对应目录，我这里是<span class="hljs-regexp">/home/</span>neo4j/conf
+cd <span class="hljs-regexp">/home/</span>neo4j/conf
+
+<span class="hljs-regexp">//</span> vim编辑器打开neo4j.conf
+vim neo4j.conf
+
+<span class="hljs-regexp">//</span> 进行以下更改
+<span class="hljs-regexp">//</span>在文件配置末尾添加这一行
+dbms.connectors.default_listen_address=<span class="hljs-number">0.0</span>.<span class="hljs-number">0.0</span>  <span class="hljs-regexp">//</span>指定连接器的默认监听ip为<span class="hljs-number">0.0</span>.<span class="hljs-number">0.0</span>，即允许任何ip连接到数据库
+
+<span class="hljs-regexp">//</span>修改
+dbms.connector.bolt.listen_address=<span class="hljs-number">0.0</span>.<span class="hljs-number">0.0</span>:<span class="hljs-number">7687</span>  <span class="hljs-regexp">//</span>取消注释并把对bolt请求的监听“地址:端口”改为“<span class="hljs-number">0.0</span>.<span class="hljs-number">0.0</span>:<span class="hljs-number">7687</span>”
+dbms.connector.http.listen_address=<span class="hljs-number">0.0</span>.<span class="hljs-number">0.0</span>:<span class="hljs-number">7474</span>  <span class="hljs-regexp">//</span>取消注释并把对http请求的监听“地址:端口”改为“<span class="hljs-number">0.0</span>.<span class="hljs-number">0.0</span>:<span class="hljs-number">7474</span>”</code></pre>
+<p>保存后退出，重启neo4j容器，可以使用容器的省略id或者生成容器时指定的容器名进行重启。</p>
+<pre><code class="hljs applescript">docker restart 容器<span class="hljs-built_in">id</span>（或者容器名）</code></pre>
+<p><strong>防火墙设置</strong></p>
+<pre><code class="hljs awk"><span class="hljs-regexp">//</span> 查看当前防火墙状态，若为“inactive”，则防火墙已关闭，不必进行接续操作。
+sudo ufw status
+
+<span class="hljs-regexp">//</span> 若防火墙状态为“active”，则使用下列命令开放端口
+sudo ufw allow <span class="hljs-number">7474</span>
+sudo ufw allow <span class="hljs-number">7687</span>
+
+<span class="hljs-regexp">//</span> 重启防火墙
+sudo ufw reload</code></pre>
+<h4 id="neo4j数据导入"><a href="#neo4j数据导入" class="headerlink" title="neo4j数据导入"></a>neo4j数据导入</h4><p>neo4j数据的批量导入方法</p>
+<img src="/2020/11/04/docker%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2neo4j/%E5%AF%BC%E5%85%A5%E6%96%B9%E6%B3%95.png" srcset="/img/loading.gif" class="" title="导入方法">
+<p>为了加快速度，使用官方的<strong>Neo4j-import</strong>进行导入</p>
+<pre><code class="hljs awk"><span class="hljs-regexp">//</span> 数据准备
+清空data<span class="hljs-regexp">/databases/g</span>raph.db文件夹(如果有),将清洗好的结点文件nodes.csv和关系文件rel.csv拷贝到宿主机<span class="hljs-regexp">/home/</span>neo4j/import中
+
+<span class="hljs-regexp">//</span> docker以exec方式进入容器的交互式终端
+docker exec -it container_name(or container_id) <span class="hljs-regexp">/bin/</span>bash
+
+<span class="hljs-regexp">//</span> 停掉neo4j
+bin/neo4j stop
+
+<span class="hljs-regexp">//</span>使用如下命令导入
+bin/neo4j-admin import \
+	--database=graph.db \	        <span class="hljs-regexp">//</span>指定导入的数据库，没有系统则会在data/databases下自动创建一个
+	--nodes .<span class="hljs-regexp">/import/</span>nodes.csv 		<span class="hljs-regexp">//</span>指定导入的节点文件位置
+	--relationships .<span class="hljs-regexp">/import/</span>rel.csv <span class="hljs-regexp">//</span>指定导入的关系文件位置
+	--skip-duplicate-nodes=true 	<span class="hljs-regexp">//</span>设置重复节点自动过滤
+	--skip-bad-relationships=true 	<span class="hljs-regexp">//</span>设置bad关系自动过滤
+	
+<span class="hljs-regexp">//</span>可执行一行式终端命令
+bin<span class="hljs-regexp">/neo4j-admin import --database=graph.db --nodes ./im</span>port<span class="hljs-regexp">/nodes.csv --relationships ./im</span>port/rel.csv --skip-duplicate-nodes=true --skip-bad-relationships=true
+
+<span class="hljs-regexp">//</span> 容器内启动neo4j
+bin/neo4j start
+
+<span class="hljs-regexp">//</span> 退出交互式终端但是保证neo4j后台继续运行
+ctrl + P + Q
+
+<span class="hljs-regexp">//</span>保险起见，重启neo4j容器
+docker restart container_name(or container_id)</code></pre>
+<p>重启后使用另一台主机向服务器发送http请求进行远程登陆，在浏览器中输入</p>
+<pre><code class="hljs angelscript">服务器ip:<span class="hljs-number">7474</span></code></pre>
+<p><strong>切换连接模式</strong>为 <strong>bolt:/</strong> ，输入用户名和密码进行登陆，登陆成功发现在数据库一栏没找到新导入的数据库<strong>graph.db</strong></p>
+<p>这是因为配置不够全，继续进到容器挂载到宿主机的<strong>/home/neo4j/conf</strong>中对<strong>neo4j.conf</strong>进行配置</p>
+<pre><code class="hljs reasonml"><span class="hljs-comment">//在文件末尾添加默认的数据库</span>
+dbms.active_database=graph.db
+
+<span class="hljs-comment">// 保存后重启容器</span>
+docker restart container<span class="hljs-constructor">_name(<span class="hljs-params">or</span> <span class="hljs-params">container_id</span>)</span></code></pre>
+<p>重新进行远程连接，此时数据库的默认选择应该就切换到了新导入的graph.db。</p>
+<h4 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a>数据清洗</h4><p>数据如何清洗成两个符合neo4j-import导入格式的csv文件？</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/muruibin88/article/details/106475757">ownthink_kg 1.4亿数据快速导入Neo4j</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jievince/rdf-converter">GO语言编写的开源数据清洗工具</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/docker/">docker</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/11/04/B%E7%AB%99%E5%BC%B9%E5%B9%95%E7%88%AC%E5%8F%96/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">B站弹幕爬取</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "docker安装部署neo4j&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

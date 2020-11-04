@@ -1,0 +1,722 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="caoyusang">
+  <meta name="keywords" content="">
+  <title>B站弹幕爬取 - caoyusang的科研日常</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>caoyusang</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/sea.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-11-04 17:01" pubdate>
+        2020年11月4日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      31
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">B站弹幕爬取</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h3 id="B站弹幕爬取"><a href="#B站弹幕爬取" class="headerlink" title="B站弹幕爬取"></a>B站弹幕爬取</h3><h4 id="单个视频弹幕的爬取"><a href="#单个视频弹幕的爬取" class="headerlink" title="单个视频弹幕的爬取"></a>单个视频弹幕的爬取</h4><pre><code>B站弹幕都是以xml文件的形式存在的，而xml文件的请求地址是如下形式：
+</code></pre><pre><code class="hljs html">http://comment.bilibili.com/233182992.xml</code></pre>
+<img src="/2020/11/04/B%E7%AB%99%E5%BC%B9%E5%B9%95%E7%88%AC%E5%8F%96/1.png" srcset="/img/loading.gif" class="">
+<pre><code>其中，**233182992**是**cid**，这个需要从原视频的网页中获取。获取了**cid**之后，就可以按照上述的形式拼接请求地址，发送**get**请求，获取对应的xml文件。
+</code></pre><h5 id="cid获取"><a href="#cid获取" class="headerlink" title="cid获取"></a>cid获取</h5><pre><code>以华农兄弟的某个视频为例，进入视频主页。
+</code></pre><ul>
+<li>右键启用<strong>检查模式</strong></li>
+<li>选择<strong>网络</strong>(Network)，刷新网页</li>
+<li>点开第一个文件，选择<strong>响应</strong>(response)</li>
+<li>使用<strong>CTRL + F</strong>进行字段查找，输入<strong>“cid:”</strong>，发现匹配到的第一个cid就是视频的cid</li>
+</ul>
+<img src="/2020/11/04/B%E7%AB%99%E5%BC%B9%E5%B9%95%E7%88%AC%E5%8F%96/2.png" srcset="/img/loading.gif" class="">
+<pre><code>接下来，就是如何从视频主页返回的网页信息中**提取cid**。
+</code></pre><ul>
+<li>确定视频的<strong>bv号</strong> </li>
+<li>根据bv号确定请求地址 </li>
+<li>使用<strong>正则表达式</strong>从网页返回的文本中匹配cid</li>
+<li>根据拿到的cid请求<strong>获取xml</strong>文件</li>
+</ul>
+<h5 id="xml文件解析"><a href="#xml文件解析" class="headerlink" title="xml文件解析"></a>xml文件解析</h5><pre><code>获取到xml文件之后，需要从xml文件中提取出弹幕文本。调用lxml库中的etree类，etree.HTML()可以用来解析字符串格式的HTML文档对象，将传进去的字符串转变成Element对象。作为Element对象，可以方便的使用getparent()、remove()、xpath()等方法。这里使用xpath来提取需要的那部分弹幕文本。
+</code></pre><h5 id="爬虫封装"><a href="#爬虫封装" class="headerlink" title="爬虫封装"></a>爬虫封装</h5><p>完整代码如下：</p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> requests
+<span class="hljs-keyword">import</span> re
+<span class="hljs-keyword">from</span> lxml <span class="hljs-keyword">import</span> etree
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BiliBiliDanMu</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, bv, filename</span>):</span>
+        <span class="hljs-comment"># 根据bv号构造要爬取的视频url地址</span>
+        self.video_url = <span class="hljs-string">&quot;https://bilibili.com/video/BV&quot;</span> + bv
+        self.filename = filename
+        self.headers = &#123;
+            <span class="hljs-string">&quot;User-Agent&quot;</span>: <span class="hljs-string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)\</span>
+<span class="hljs-string">             AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36 Edg/85.0.564.44&quot;</span>
+        &#125;
+
+    <span class="hljs-comment"># 获取视频的cid</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_video_cid</span>(<span class="hljs-params">self</span>):</span>
+        response = requests.get(self.video_url, headers=self.headers)
+        html = response.content.decode()
+        cid = re.findall(<span class="hljs-string">r&#x27;(&quot;cid&quot;:)([0-9]+)&#x27;</span>, html)
+        <span class="hljs-comment"># 有的视频没有这个字段，我们跳过它</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(cid) == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">return</span> cid[<span class="hljs-number">0</span>][<span class="hljs-number">-1</span>]
+
+    <span class="hljs-comment"># 获取请求弹幕xml文件返回的内容</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_content</span>(<span class="hljs-params">self, xml_url</span>):</span>
+        response = requests.get(xml_url, headers=self.headers)
+        <span class="hljs-keyword">return</span> response.content
+
+    <span class="hljs-comment"># 解析获取到的内容，得到包含视频所有弹幕的列表</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">extract_danmu</span>(<span class="hljs-params">self, content_str</span>):</span>
+        html = etree.HTML(content_str)
+        danmu_list = html.xpath(<span class="hljs-string">&quot;//d/text()&quot;</span>)
+        <span class="hljs-keyword">return</span> danmu_list
+
+    <span class="hljs-comment"># 将弹幕逐行写入并保存为txt文件</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">save</span>(<span class="hljs-params">self, save_items</span>):</span>
+        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(self.filename, <span class="hljs-string">&#x27;w&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:
+            lines = []
+            <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> save_items:
+                lines.append(item + <span class="hljs-string">&#x27;\n&#x27;</span>)
+            f.writelines(lines)
+
+    <span class="hljs-comment"># 爬虫的过程封装</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">crawl</span>(<span class="hljs-params">self</span>):</span>
+        cid = self.get_video_cid()
+        <span class="hljs-comment"># 跳过没有cid字段的视频</span>
+        <span class="hljs-keyword">if</span> cid <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+            xml_url = <span class="hljs-string">&quot;http://comment.bilibili.com/&quot;</span> + <span class="hljs-built_in">str</span>(cid) + <span class="hljs-string">&quot;.xml&quot;</span>
+            content_str = self.get_content(xml_url)
+            danmu_lst = self.extract_danmu(content_str)
+            self.save(danmu_lst)
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">pass</span>
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    bv = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入视频的bv号: &quot;</span>)
+    dm = BiliBiliDanMu(bv, <span class="hljs-string">&#x27;./output/&#123;&#125;.txt&#x27;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">str</span>(bv)))
+    dm.crawl()</code></pre>
+<h4 id="up主所有视频的弹幕爬取"><a href="#up主所有视频的弹幕爬取" class="headerlink" title="up主所有视频的弹幕爬取"></a>up主所有视频的弹幕爬取</h4><pre><code>仍然以华农兄弟的视频为例，进入华农兄弟的个人空间的视频页，地址如下：
+</code></pre><pre><code class="hljs html">https://space.bilibili.com/250858633/video</code></pre>
+<h5 id="视频页数和up名字获取"><a href="#视频页数和up名字获取" class="headerlink" title="视频页数和up名字获取"></a>视频页数和up名字获取</h5><pre><code>仍然启用网页检查，来看我们需要的信息究竟该如何请求。
+
+首先，选中网络中的**XHR选项**，刷新页面，点击出现的**search**文件，点击响应，**左键连击3次**，选中响应返回的全部数据，其实，这里返回的就是一个**json文件**。
+</code></pre><img src="/2020/11/04/B%E7%AB%99%E5%BC%B9%E5%B9%95%E7%88%AC%E5%8F%96/3.png" srcset="/img/loading.gif" class="">
+<pre><code>我们使用一个在线工具来看看这个json文件的结构：[json工具](http://json.cn/)
+</code></pre><img src="/2020/11/04/B%E7%AB%99%E5%BC%B9%E5%B9%95%E7%88%AC%E5%8F%96/4.png" srcset="/img/loading.gif" class="">
+<pre><code>从这个结构里可以看到，**tlist字段**下包含了三类视频的类型id及数目(**count字段**)。而视频页的**最大固定展示数目为30**，因此，我们通过一个简单的计算就可以得到up主视频的总页数。由页数，也就能确定**循环请求的次数**。请求的**url地址**如下：
+</code></pre><img src="/2020/11/04/B%E7%AB%99%E5%BC%B9%E5%B9%95%E7%88%AC%E5%8F%96/5.png" srcset="/img/loading.gif" class="">
+<pre><code class="hljs html">https://api.bilibili.com/x/space/arc/search？mid=250858633&amp;ps=30&amp;tid=0&amp;pn=1&amp;keyword=&amp;order=pubdate&amp;jsonp=jsonp</code></pre>
+<pre><code>其中，**mid**为up主的id号，**pn**为视频页号。
+</code></pre><h5 id="视频bv号批量获取"><a href="#视频bv号批量获取" class="headerlink" title="视频bv号批量获取"></a>视频bv号批量获取</h5><pre><code>从上述方式获取到的json文件中，我们可以不仅可以推断视频页的**总页数**，还能获取到当前页**所有视频的BV号以及作者信息**，根据BV号就能使用前面获取单个视频弹幕的代码来逐一获取当前页号下所有视频的弹幕了。
+</code></pre><img src="/2020/11/04/B%E7%AB%99%E5%BC%B9%E5%B9%95%E7%88%AC%E5%8F%96/6.png" srcset="/img/loading.gif" class="">
+<h5 id="爬虫封装-1"><a href="#爬虫封装-1" class="headerlink" title="爬虫封装"></a>爬虫封装</h5><p>完整代码如下：</p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> requests
+<span class="hljs-keyword">import</span> json
+<span class="hljs-keyword">import</span> re
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">from</span> bilibili_danmu <span class="hljs-keyword">import</span> BiliBiliDanMu
+
+uper_name = <span class="hljs-literal">None</span>
+
+
+<span class="hljs-comment"># 获取某个up主的全部视频的弹幕</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AllBv</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, up_id</span>):</span>
+        self.up_id = up_id
+        self.headers = &#123;
+            <span class="hljs-string">&quot;User-Agent&quot;</span>: <span class="hljs-string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)\</span>
+<span class="hljs-string">                     AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36 Edg/85.0.564.44&quot;</span>
+        &#125;
+
+    <span class="hljs-comment"># 获取视频总页数</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_pages_num</span>(<span class="hljs-params">self</span>):</span>
+        url = <span class="hljs-string">&#x27;https://api.bilibili.com/x/space/arc/search?mid=&#123;&#125;\</span>
+<span class="hljs-string">        &amp;ps=30&amp;tid=0&amp;pn=1&amp;keyword=&amp;order=pubdate&amp;jsonp=jsonp&#x27;</span>.<span class="hljs-built_in">format</span>(self.up_id)
+        response = requests.get(url=url, headers=self.headers)
+        json_dict = json.loads(response.content.decode())
+        video_dict = json_dict[<span class="hljs-string">&#x27;data&#x27;</span>][<span class="hljs-string">&#x27;list&#x27;</span>][<span class="hljs-string">&#x27;tlist&#x27;</span>]
+        total_videos = <span class="hljs-number">0</span>
+        <span class="hljs-keyword">global</span> uper_name
+        <span class="hljs-keyword">for</span> _, v <span class="hljs-keyword">in</span> video_dict.items():
+            total_videos += v[<span class="hljs-string">&#x27;count&#x27;</span>]
+        <span class="hljs-keyword">for</span> comment <span class="hljs-keyword">in</span> json_dict[<span class="hljs-string">&#x27;data&#x27;</span>][<span class="hljs-string">&#x27;list&#x27;</span>][<span class="hljs-string">&#x27;vlist&#x27;</span>]:
+            <span class="hljs-keyword">if</span> <span class="hljs-built_in">str</span>(comment[<span class="hljs-string">&#x27;mid&#x27;</span>]) == self.up_id:
+                uper_name = comment[<span class="hljs-string">&#x27;author&#x27;</span>]
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-keyword">continue</span>
+        <span class="hljs-comment"># 每页最多30个视频</span>
+        <span class="hljs-keyword">return</span> uper_name, <span class="hljs-built_in">int</span>(total_videos / <span class="hljs-number">30</span> + <span class="hljs-number">1</span>)
+
+    <span class="hljs-comment"># 获取返回的json</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_pages_json</span>(<span class="hljs-params">self, total_pages</span>):</span>
+        json_dict_lst = []
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, total_pages + <span class="hljs-number">1</span>):
+            url = <span class="hljs-string">&#x27;https://api.bilibili.com/x/space/arc/search?mid=&#123;&#125;&amp;ps=30&amp;tid=0&amp;pn=&#123;&#125; \</span>
+<span class="hljs-string">            &amp;keyword=&amp;order=pubdate&amp;jsonp=jsonp&#x27;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">str</span>(self.up_id), <span class="hljs-built_in">str</span>(i))
+            response = requests.get(url=url, headers=self.headers)
+            json_dict_lst.append(json.loads(response.content.decode()))
+        <span class="hljs-keyword">return</span> json_dict_lst
+
+    <span class="hljs-comment"># 从json文件中获取bv号列表</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_bv_from_json</span>(<span class="hljs-params">self, json_dict</span>):</span>
+        v_lst = json_dict[<span class="hljs-string">&#x27;data&#x27;</span>][<span class="hljs-string">&#x27;list&#x27;</span>][<span class="hljs-string">&#x27;vlist&#x27;</span>]
+        bv_lst = []
+        <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> v_lst:
+            bv_lst.append(item[<span class="hljs-string">&#x27;bvid&#x27;</span>][<span class="hljs-number">2</span>:])
+        <span class="hljs-keyword">return</span> bv_lst
+
+    <span class="hljs-comment"># 将得到的bv号列表存到一个txt文件中，文件夹名字以up主名字命名</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">save_bv_lst</span>(<span class="hljs-params">self, bv_lst, au_name</span>):</span>
+        folder = au_name
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(folder):
+            os.mkdir(folder)
+        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(au_name + <span class="hljs-string">&#x27;/bv_lst.txt&#x27;</span>, <span class="hljs-string">&#x27;a&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:
+            lines = []
+            <span class="hljs-keyword">for</span> bv_id <span class="hljs-keyword">in</span> bv_lst:
+                lines.append(bv_id + <span class="hljs-string">&#x27;\n&#x27;</span>)
+            f.writelines(lines)
+
+    <span class="hljs-comment"># 封装爬取过程，返回up主的名字和所有视频的bv号列表</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">crawl</span>(<span class="hljs-params">self</span>):</span>
+        up_name, pages_total = self.get_pages_num()
+        bv_video_lst = []
+        json_dict_lst = self.get_pages_json(pages_total)
+        <span class="hljs-keyword">for</span> json_file <span class="hljs-keyword">in</span> json_dict_lst:
+            bv_lst = self.get_bv_from_json(json_file)
+            bv_video_lst = bv_video_lst + bv_lst
+            self.save_bv_lst(bv_lst, <span class="hljs-string">&#x27;./&#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(up_name))
+        <span class="hljs-keyword">return</span> up_name, bv_video_lst
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+
+    up_id = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;please input up_id: &quot;</span>)
+    <span class="hljs-comment"># 实例化</span>
+    abm = AllBv(up_id)
+    author_name, bv_video_list = abm.crawl()
+    <span class="hljs-comment"># 借助单独一个bv视频弹幕爬取的类BiliBiliDanMu进行弹幕的爬取</span>
+    <span class="hljs-keyword">for</span> bv <span class="hljs-keyword">in</span> bv_video_list:
+        bm = BiliBiliDanMu(bv, <span class="hljs-string">&#x27;./&#123;&#125;/&#123;&#125;.txt&#x27;</span>.<span class="hljs-built_in">format</span>(author_name, <span class="hljs-built_in">str</span>(bv)))
+        bm.crawl()
+</code></pre>
+<h4 id="制作词云"><a href="#制作词云" class="headerlink" title="制作词云"></a>制作词云</h4><pre><code class="hljs python"><span class="hljs-keyword">from</span> wordcloud <span class="hljs-keyword">import</span> WordCloud
+<span class="hljs-keyword">import</span> jieba
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-comment"># 1:打开词云文本</span>
+txt = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;./a.txt&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>).read()
+<span class="hljs-comment"># 2:用jieba进行分词</span>
+txt_cut = <span class="hljs-string">&quot;&quot;</span>.join(jieba.cut(txt, cut_all=<span class="hljs-literal">False</span>) )
+
+<span class="hljs-comment"># 3:设置词云的属性</span>
+font = <span class="hljs-string">&quot;C:\\Windows\\Fonts\\simkai.TTF&quot;</span>     <span class="hljs-comment"># 词云的中文字体所在路径，不设置字体的话，很可能出现乱码</span>
+wc = WordCloud(font_path=font,
+               background_color=<span class="hljs-string">&quot;white&quot;</span>,
+               height=<span class="hljs-number">800</span>,
+               width=<span class="hljs-number">1000</span>
+               )
+
+<span class="hljs-comment"># 4:生成词云</span>
+wc.generate(txt_cut)
+
+<span class="hljs-comment"># 5:存储词云</span>
+wc.to_file(<span class="hljs-string">&quot;./demo.png&quot;</span>)</code></pre>
+<p>效果图如下：</p>
+<img src="/2020/11/04/B%E7%AB%99%E5%BC%B9%E5%B9%95%E7%88%AC%E5%8F%96/7.png" srcset="/img/loading.gif" class="">
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%88%AC%E8%99%AB/">爬虫</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Python/">Python</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/11/04/%E8%9E%8D%E5%90%88%E5%BC%82%E6%9E%84%E7%9F%A5%E8%AF%86%E5%9C%A8%E5%9B%BE%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">融合异构知识在图上进行常识推理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/04/docker%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2neo4j/">
+                        <span class="hidden-mobile">docker安装部署neo4j</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "B站弹幕爬取&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

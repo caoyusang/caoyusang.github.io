@@ -1,0 +1,648 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="caoyusang">
+  <meta name="keywords" content="">
+  <title>构建动态知识路径生成器用于常识推理 - caoyusang的科研日常</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>caoyusang</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/sea.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-11-04 18:25" pubdate>
+        2020年11月4日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      35
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">构建动态知识路径生成器用于常识推理</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h2 id="构建常识问答知识路径生成器"><a href="#构建常识问答知识路径生成器" class="headerlink" title="构建常识问答知识路径生成器"></a>构建常识问答知识路径生成器</h2><h3 id="论文贡献"><a href="#论文贡献" class="headerlink" title="论文贡献"></a>论文贡献</h3><p>  提出学习一个多跳知识路径产生器来根据问题动态产生结构化证据。生成器以预先训练的语言模型为主干，利用语言模型中存储的大量非结构化知识来补充知识库的不完整性。路径生成器生成的这些相关路径被进一步聚合为知识嵌入，并与文本编码器给出的上下文嵌入进行融合。</p>
+<h3 id="论文架构"><a href="#论文架构" class="headerlink" title="论文架构"></a>论文架构</h3><img src="/2020/11/04/%E6%9E%84%E5%BB%BA%E5%8A%A8%E6%80%81%E7%9F%A5%E8%AF%86%E8%B7%AF%E5%BE%84%E7%94%9F%E6%88%90%E5%99%A8%E7%94%A8%E4%BA%8E%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/1.png" srcset="/img/loading.gif" class="">
+<ul>
+<li><p>从问题和答案选择中提取实体</p>
+</li>
+<li><p>使用构造的路径生成器生成一个多跳知识路径来连接每对问答实体</p>
+<p>生成器学习将问题实体（红色）和选择实体（绿色）与生成的路径连接起来，这些路径充当QA的动态KG。</p>
+</li>
+</ul>
+<img src="/2020/11/04/%E6%9E%84%E5%BB%BA%E5%8A%A8%E6%80%81%E7%9F%A5%E8%AF%86%E8%B7%AF%E5%BE%84%E7%94%9F%E6%88%90%E5%99%A8%E7%94%A8%E4%BA%8E%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/2.png" srcset="/img/loading.gif" class="">
+<ul>
+<li>将生成的路径聚合为一个知识嵌入，并将其与文本编码器中的上下文嵌入相融合以进行分类。</li>
+</ul>
+<h4 id="识别实体"><a href="#识别实体" class="headerlink" title="识别实体"></a>识别实体</h4><p>从问题选项对中识别出问题中出现的实体和选项中出现的实体</p>
+<ul>
+<li>字符串匹配(论文中实际使用的方法)</li>
+<li>NER(命名实体识别)</li>
+</ul>
+<h4 id="知识路径采样"><a href="#知识路径采样" class="headerlink" title="知识路径采样"></a>知识路径采样</h4><p>使用随机游走从一个常识KG中抽取符号路径，为GPT-2知识路径生成器采样具有代表性的关系路径作为训练的原始数据。</p>
+<p><strong>提高路径质量</strong></p>
+<p>假设使用Random Walk采样的这些样本路径包含和常识问答任务相关的知识，为了保证这些采样路径的质量，制定了两种启发式策略：</p>
+<ul>
+<li><p>保证相关性——定义了一个可能对回答常识问题有帮助的关系类型的子集。例如 {atlocation，isa}。在进行采样之前，丢弃一些被认为是帮助不大甚至无用处的关系类型，这些关系对于回答问题没什么帮助，这些关系包括：relatedto（相关)、synonym（同义）、antonym（反义）、derived-from（派生自）、formof（一种..形式）、etymologicallyderivedfrom（词源派生自） 和 etymologicallyrelatedto（词源相关）。</p>
+</li>
+<li><p>保证信息性——要求采样的路径不包含具有重复关系类型的边，即路径上每条边的关系都是唯一的。</p>
+</li>
+</ul>
+<h5 id="局部采样（帮助生成器生成适用于任务的路径）"><a href="#局部采样（帮助生成器生成适用于任务的路径）" class="headerlink" title="局部采样（帮助生成器生成适用于任务的路径）"></a>局部采样（帮助生成器生成适用于任务的路径）</h5><ul>
+<li>其中<script type="math/tex">E</script> 为实体集，<script type="math/tex">R</script>为关系集，<script type="math/tex">E</script> 由问题实体和选项实体组成，<script type="math/tex">R</script> 为定义的关系集合关系。以此给出静态的知识图(KG)，<script type="math/tex">G=(E,R)</script>。</li>
+<li>随机游走是从任务训练集中的问题和答案选择中出现的实体开始的。随机游走算法进行图 <script type="math/tex">G</script> 上的路径采样，采样的路径形式为<script type="math/tex">({e_{0},r_{0},e_{1},r_{1},\cdots ,r_{T-1},e_{T}})</script>，其中<script type="math/tex">e_{T} \epsilon E</script>，<script type="math/tex">r_{T} \epsilon R</script>，<script type="math/tex">T</script> 为路径跳数</li>
+</ul>
+<h5 id="全局采样（防止生成器偏向生成KG的局部结构的路径）"><a href="#全局采样（防止生成器偏向生成KG的局部结构的路径）" class="headerlink" title="全局采样（防止生成器偏向生成KG的局部结构的路径）"></a>全局采样（防止生成器偏向生成KG的局部结构的路径）</h5><p>从静态KG中随机采样一些实体，并从它们开始进行随机游走，得到一些局部KG以外的路径用于生成器的泛化。</p>
+<p>此外，还为每个关系添加了一个反向关系，这样采样的路径中不光有正向的路径和有反向的路径，这将使得路径生成器更加灵活地连接两个实体。</p>
+<p>除此之外，还对具有混合跳数的路径进行采样，以训练生成器在需要事用可变长的路径来连接实体。对跳数从1到3的路径进行采样，以构造具有混合跳数的路径集。从特定任务数据集的全局采样和局部采样中获得的路径数如下表所示。将这两种抽样策略的路径合并，并进一步将其分成训练/开发/测试集，其比率为 9:0.5:0.5。</p>
+<img src="/2020/11/04/%E6%9E%84%E5%BB%BA%E5%8A%A8%E6%80%81%E7%9F%A5%E8%AF%86%E8%B7%AF%E5%BE%84%E7%94%9F%E6%88%90%E5%99%A8%E7%94%A8%E4%BA%8E%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/3.png" srcset="/img/loading.gif" class="">
+<h4 id="基于GPT-2的路径生成器构建"><a href="#基于GPT-2的路径生成器构建" class="headerlink" title="基于GPT-2的路径生成器构建"></a>基于GPT-2的路径生成器构建</h4><p>  在随机游走采样的那些路径上对GPT-2进行微调。</p>
+<p>  GPT-2是一种预训练的大容量语言模型，它从庞大的语料库中编码出丰富的非结构化知识。用它来作为路径生成器带来的好处是双重的：</p>
+<ul>
+<li>微调时使用到的结构化知识路径帮助丰富GPT-2，使得它学到按照设计生成具有“常识”风格路径的能力。</li>
+<li>GPT-2从庞大的语料库中编码出的非结构化知识可以缓解KG的稀疏性问题。</li>
+</ul>
+<img src="/2020/11/04/%E6%9E%84%E5%BB%BA%E5%8A%A8%E6%80%81%E7%9F%A5%E8%AF%86%E8%B7%AF%E5%BE%84%E7%94%9F%E6%88%90%E5%99%A8%E7%94%A8%E4%BA%8E%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/4.png" srcset="/img/loading.gif" class="">
+<h5 id="采样的路径转化为文本化输入"><a href="#采样的路径转化为文本化输入" class="headerlink" title="采样的路径转化为文本化输入"></a><strong>采样的路径转化为文本化输入</strong></h5><p>  GPT-2 使用字节对编码（Byte Pair Encoding）方式来创建词汇表中的词（token），也就是说词（token）其实通常只是单词的一部分。使用GPT2的字节对编码(Byte-Pair Encoding)方法将上一步直接对知识图进行随机游走采样得到的符号路径转换成GPT-2输入的文本形式：</p>
+<script type="math/tex; mode=display">
+{x}=\left\{X_{0}, Y_{0}, X_{1}, Y_{1}, \ldots, Y_{T-1}, X_{T}\right\}</script><p>  其中，<script type="math/tex">X_{t}=\left\{x_{t}^{0}, x_{t}^{1}, \ldots, x_{t}^{\left|e_{t}\right|}\right\}</script> 是实体 <script type="math/tex">e_{t}</script> 的短语token，而<script type="math/tex">Y_{t}=\left\{y_{t}^{0}, y_{t}^{1}, \ldots, y_{t}^{\left|r_{t}\right|}\right\}</script>是关系 <script type="math/tex">r_{t}</script> 的短语token。<br>  这样生成的文本形式的路径，方可在GPT-2中作为输入。</p>
+<h6 id="字节对编码方法"><a href="#字节对编码方法" class="headerlink" title="字节对编码方法"></a><strong>字节对编码方法</strong></h6><p>  BPE最早是一种数据压缩算法，于2015年被引入到机器翻译领域并很快得到推广。该算法简单有效，因而目前它是最流行的子词表构建方法。GPT-2和RoBERTa使用的Subword算法都是BPE。</p>
+<p>  BPE获得Subword的步骤如下：</p>
+<ul>
+<li>准备足够大的训练语料，并确定期望的Subword词表大小；</li>
+<li>将单词拆分为成最小单元。比如英文中26个字母加上各种符号，这些作为初始词表；</li>
+<li>在语料上统计单词内相邻单元对的频数，选取频数最高的单元对合并成新的Subword单元；</li>
+<li>重复第3步直到达到第1步设定的Subword词表大小或下一个最高频数为1。</li>
+</ul>
+<p>假设有语料集经过统计后表示为{‘l o w &lt;/w&gt;’: 5, ‘l o w e r &lt;/w&gt;’: 2, ‘n e w e s t &lt;/w&gt;’: 6, ‘w i d e s t &lt;/w&gt;’: 3}，其中数字代表的是对应单词在语料中的频数。其中&lt;/w&gt;为终止符，用于区分单词的边界。</p>
+<p>step 1, 最高频连续字节对”e”和”s”出现了6+3=9次，合并成”es”。输出：</p>
+<pre><code class="hljs json">&#123;&#x27;l o w &lt;/w&gt;&#x27;: 5, &#x27;l o w e r &lt;/w&gt;&#x27;: 2, &#x27;n e w es t &lt;/w&gt;&#x27;: 6, &#x27;w i d es t &lt;/w&gt;&#x27;: 3&#125;</code></pre>
+<p>step 2, 最高频连续字节对”es”和”t”出现了6+3=9次, 合并成”est”。输出：</p>
+<pre><code class="hljs json">&#123;&#x27;l o w &lt;/w&gt;&#x27;: 5, &#x27;l o w e r &lt;/w&gt;&#x27;: 2, &#x27;n e w est &lt;/w&gt;&#x27;: 6, &#x27;w i d est &lt;/w&gt;&#x27;: 3&#125;</code></pre>
+<p>step 3, 以此类推，最高频连续字节对为”est”和”&lt;/w&gt;” 输出：</p>
+<pre><code class="hljs json">&#123;&#x27;l o w &lt;/w&gt;&#x27;: 5, &#x27;l o w e r &lt;/w&gt;&#x27;: 2, &#x27;n e w est&lt;/w&gt;&#x27;: 6, &#x27;w i d est&lt;/w&gt;&#x27;: 3&#125;</code></pre>
+<p>……</p>
+<p>step n, 继续迭代直到达到预设的subword词表大小或下一个最高频的字节对出现频率为1。</p>
+<h6 id="编码和解码"><a href="#编码和解码" class="headerlink" title="编码和解码"></a>编码和解码</h6><ul>
+<li><p>编码</p>
+<p>在之前的算法中，已经得到了subword的词表，对该词表按照子词长度由大到小排序。编码时，对于每个单词，遍历排好序的子词词表寻找是否有token是当前单词的子字符串，如果有，则该token是表示单词的tokens之一。</p>
+<p>从最长的token迭代到最短的token，尝试将每个单词中的子字符串替换为token。 最终，我们将迭代所有tokens，并将所有子字符串替换为tokens。 如果仍然有子字符串没被替换但所有token都已迭代完毕，则将剩余的子词替换为特殊token，如<unk>。</p>
+</li>
+</ul>
+<p>例子</p>
+<pre><code class="hljs text">// 给定单词序列
+[“the&lt;/w&gt;”, “highest&lt;/w&gt;”, “mountain&lt;/w&gt;”]
+
+// 假设已有排好序的subword词表
+[“errrr&lt;/w&gt;”, “tain&lt;/w&gt;”, “moun”, “est&lt;/w&gt;”, “high”, “the&lt;/w&gt;”, “a&lt;/w&gt;”]
+
+// 迭代结果
+&quot;the&lt;/w&gt;&quot; -&gt; [&quot;the&lt;/w&gt;&quot;]
+&quot;highest&lt;/w&gt;&quot; -&gt; [&quot;high&quot;, &quot;est&lt;/w&gt;&quot;]
+&quot;mountain&lt;/w&gt;&quot; -&gt; [&quot;moun&quot;, &quot;tain&lt;/w&gt;&quot;]</code></pre>
+<ul>
+<li>解码</li>
+</ul>
+<p>将所有的tokens拼在一起，以<script type="math/tex"></w></script>为界定符。</p>
+<p>例子：</p>
+<pre><code class="hljs python">// 编码序列
+[“the&lt;/w&gt;”, “high”, “est&lt;/w&gt;”, “moun”, “tain&lt;/w&gt;”]
+
+// 解码序列
+“the&lt;/w&gt; highest&lt;/w&gt; mountain&lt;/w&gt;”</code></pre>
+<p>通过BPE编码和解码，为采样的路径构造出适合GPT-2的输入的文本格式。</p>
+<h5 id="GPT-2生成器输入构造"><a href="#GPT-2生成器输入构造" class="headerlink" title="GPT-2生成器输入构造"></a>GPT-2生成器输入构造</h5><p>  为了进一步模拟生成器提供一个问题实体和一个选择实体的场景，在每个路径的开始处添加最后一个实体短语标记 <script type="math/tex">x_{T}</script> 和一个单独的标记[SEP]。这样，生成器将知道在生成路径时它应该输出的最后一个实体。</p>
+<img src="/2020/11/04/%E6%9E%84%E5%BB%BA%E5%8A%A8%E6%80%81%E7%9F%A5%E8%AF%86%E8%B7%AF%E5%BE%84%E7%94%9F%E6%88%90%E5%99%A8%E7%94%A8%E4%BA%8E%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/5.png" srcset="/img/loading.gif" class="">
+<p> 将目标实体 + [SEP]标记 + 起始实体，即灰色部分交给GPT-2生成器来生成连接这两个实体的路径。</p>
+<p>  已知前 <script type="math/tex">t-1</script> 个生成的token <script type="math/tex">s_{<t}</script>，当前第t个位置生成token <script type="math/tex">s_{t}</script> 的概率为：</p>
+<script type="math/tex; mode=display">
+P\left(s_{t} \mid s_{<t}\right)=\operatorname{softmax}\left(\mathbf{W}_{\text {vocab}} \cdot \mathbf{h}_{\mathrm{t}}\right)</script><p>  这里 <script type="math/tex">h_{t}</script> 表示在解码时GPT-2对 <script type="math/tex">s_{t}</script> 的最终表示， <script type="math/tex">W_{vocab}</script> 是GPT-2使用的词汇表的嵌入矩阵。</p>
+<p>  为了在给定实体对的情况下最大化生成句子 <script type="math/tex">s</script> 的概率，将损失函数定义为：</p>
+<script type="math/tex; mode=display">
+\mathcal{L}=-\sum_{\mathbf{s}} \log P\left(\mathbf{s} \mid X_{T},[S E P], X_{0}\right)</script><p>  其中，<script type="math/tex">P\left(\mathbf{s} \mid X_{T},[S E P], X_{0}\right)</script> 为条件概率的乘积，另外，由于输入的 <script type="math/tex">X_{0}</script> 和 <script type="math/tex">X_{1}</script> 以及 <script type="math/tex">[SEP]</script>是固定的输入，所以 <script type="math/tex">t</script> 的下标从 <script type="math/tex">|X_{0}|+|X_{1}| + 1</script> 开始。</p>
+<script type="math/tex; mode=display">
+P\left(\mathbf{s} \mid X_{T},[S E P], X_{0}\right)=\prod_{t=\left|X_{0}\right|+\left|X_{T}\right|+1}^{|\mathbf{s}|} P\left(s_{t} \mid s_{<t}\right)</script><h4 id="文本编码器的选择和构建"><a href="#文本编码器的选择和构建" class="headerlink" title="文本编码器的选择和构建"></a>文本编码器的选择和构建</h4><p>  本文常识问答的框架由两个主要部分组成。第一部分是前面提到的路径生成器。第二部分是一个上下文编码器，它对问题和选择进行编码，以输出一个上下文嵌入 <script type="math/tex">c</script> 作为非结构化证据。</p>
+<img src="/2020/11/04/%E6%9E%84%E5%BB%BA%E5%8A%A8%E6%80%81%E7%9F%A5%E8%AF%86%E8%B7%AF%E5%BE%84%E7%94%9F%E6%88%90%E5%99%A8%E7%94%A8%E4%BA%8E%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/6.png" srcset="/img/loading.gif" class="">
+<p>  该论文实验采用的文本编码器为BERT和Robert，两种常用的文本输入上下文编码器。问题和选择通过添加一些特殊的标记串接起来，然后输入上下文编码器得到 <script type="math/tex">c</script> 。上下文嵌入 <script type="math/tex">c</script> 和路径生成器生成的路径进行Attention之后，输出一个知识嵌入 <script type="math/tex">p</script> 作为结构化证据。最后，这两类证据被输入分类器，为每个选择输出一个似然性得分。</p>
+<h5 id="KE-知识嵌入-模块"><a href="#KE-知识嵌入-模块" class="headerlink" title="KE(知识嵌入)模块"></a>KE(知识嵌入)模块</h5><p>路径生成器GPT-2为每对问题选项生成一条最终的推理路径，对于生成的这些长度不一的离散路径，将GPT-2中最后一层隐藏状态的平均值 <script type="math/tex">p_{k}</script> 作为路径嵌入，从而最大限度地利用路径生成器。</p>
+<script type="math/tex; mode=display">
+\mathbf{p}_{\mathbf{k}}=\operatorname{MEAN}\left(\left\{\mathbf{h}_{\mathbf{0}}, \mathbf{h}_{\mathbf{1}}, \ldots, \mathbf{h}_{\mathbf{T}}\right\}\right)</script><p>  由于GPT-2已经在一个大型语料库上进行了预训练，这样的表示应该足以保存路径的信息。</p>
+<p>  由于并非所有的路径都会对决定哪个选择是正确答案做出同等贡献，所以我们利用非结构化证据，即上面提到的上下文嵌入c作为编码这种结构化证据的指导。</p>
+<script type="math/tex; mode=display">
+\mathbf{p}=W_{p r o j} \cdot \sum_{k} \alpha_{k} \mathbf{p}_{k}</script><p>  其中 <script type="math/tex">W_{proj}</script> 是个可学习的映射矩阵，<script type="math/tex">\alpha_{k}</script> 为每条路径嵌入的注意力权重，其计算公式如下：</p>
+<script type="math/tex; mode=display">
+\alpha_{k}=\frac{\exp \left(s_{k}\right)}{\sum_{k^{\prime}} \exp \left(s_{k^{\prime}}\right)}</script><p>  其中，<script type="math/tex">s_{k}</script> 的计算公式如下，注意力网络由 <script type="math/tex">W_{att}</script> 和 <script type="math/tex">b_{att}</script> 参数化</p>
+<script type="math/tex; mode=display">
+s_{k}=\mathbf{c}^{\top} \tanh \left(\mathbf{W}_{a t t} \cdot \mathbf{p}_{k}+\mathbf{b}_{a t t}\right)</script><h5 id="融合异质信息进行分类"><a href="#融合异质信息进行分类" class="headerlink" title="融合异质信息进行分类"></a>融合异质信息进行分类</h5><p>  分类器利用路径生成器产生的路径嵌入 <script type="math/tex">p</script> 和文本编码器产生的非结构化的问题选项的上下文嵌入 <script type="math/tex">c</script> 来计算问题选择对的似然性。</p>
+<p>  <strong>如何计算似然性</strong>？</p>
+<p>  将 <script type="math/tex">c</script> 和 <script type="math/tex">p</script> 连接起来，并将它们提供给最终的线性分类层为每个问题选项对获取一个最终得分，这里涉及一个线性变换：</p>
+<script type="math/tex; mode=display">
+f(q, a)=\mathbf{W}_{c l s} \cdot[\mathbf{c} ; \mathbf{p}]+\mathbf{b}_{c l s}</script><p>  最后通过一个softmax层对得分进行标准化，得到所有选择的最终概率。</p>
+<h3 id="Baselines"><a href="#Baselines" class="headerlink" title="Baselines"></a>Baselines</h3><h4 id="Pre-trained-LM"><a href="#Pre-trained-LM" class="headerlink" title="Pre-trained LM"></a><strong>Pre-trained LM</strong></h4><ul>
+<li><p>BERT</p>
+</li>
+<li><p>RoBERTa</p>
+<p>在该论文的框架中，使用了RoBERTa最后一层隐藏状态的平均池作为上下文嵌入，并将其输入到线性分类器以获得分数。</p>
+</li>
+</ul>
+<h4 id="KG"><a href="#KG" class="headerlink" title="KG"></a><strong>KG</strong></h4><ul>
+<li>静态KG，例如KagNet和RGCN</li>
+<li>动态KG，该论文使用到的GPT-2路径动态生成</li>
+</ul>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><img src="/2020/11/04/%E6%9E%84%E5%BB%BA%E5%8A%A8%E6%80%81%E7%9F%A5%E8%AF%86%E8%B7%AF%E5%BE%84%E7%94%9F%E6%88%90%E5%99%A8%E7%94%A8%E4%BA%8E%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/7.png" srcset="/img/loading.gif" class="">
+<p>当使用RoBERTa作为上下文编码器以及上面提及的路径生成器之后，模型在CSQA的表现同baseline相比是最好的，但是当使用BERT作为上下文编码器时，表现并没有优于所有使用静态KG的模型。这是方法的局限性，在某种程度上仍然依赖上下文编码器来聚合具有注意机制的路径。如何设计一个与文本模块耦合较少的路径生成器是今后的工作。</p>
+<p>​    </p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>  该论文提出了一种生成多跳知识路径的生成器，作为回答常识问题的结构化证据。为了学习这样一个路径生成器，微调了GPT-2，从一个常识KG中随机抽取样本。然后生成器将每对问答实体用一条知识路径连接起来。这些路径被进一步聚合为知识嵌入，并与文本编码器给出的上下文嵌入进行融合。在两个基准数据集上的实验结果表明，该论文的框架在性能上优于强预训练语言模型和静态KG增强方法。除此之外，还证明了所生成的路径在信息性和帮助性方面是可以解释的。未来的工作包括如何将生成器与文本编码器解耦，以及如何更好地融合知识。</p>
+<h3 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h3><ul>
+<li>BPE字节对编码方法的内容摘自文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/86965595">https://zhuanlan.zhihu.com/p/86965595</a></li>
+<li>论文地址：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2005.00691.pdf">《Connecting the Dots: A Knowledgeable Path Generator for Commonsense Question Answering》</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/">常识推理</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/NLP/">NLP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/11/04/%E6%BA%AF%E5%9B%A0%E6%8E%A8%E7%90%86/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">溯因推理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/04/%E8%9E%8D%E5%90%88%E5%BC%82%E6%9E%84%E7%9F%A5%E8%AF%86%E5%9C%A8%E5%9B%BE%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/">
+                        <span class="hidden-mobile">融合异构知识在图上进行常识推理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "构建动态知识路径生成器用于常识推理&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
