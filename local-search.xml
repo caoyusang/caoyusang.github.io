@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>常识问答大比拼</title>
+    <link href="/2020/11/17/%E5%B8%B8%E8%AF%86%E9%97%AE%E7%AD%94%E5%A4%A7%E6%AF%94%E6%8B%BC/"/>
+    <url>/2020/11/17/%E5%B8%B8%E8%AF%86%E9%97%AE%E7%AD%94%E5%A4%A7%E6%AF%94%E6%8B%BC/</url>
+    
+    <content type="html"><![CDATA[<h2 id="不同的道路"><a href="#不同的道路" class="headerlink" title="不同的道路"></a>不同的道路</h2><img src="/2020/11/17/%E5%B8%B8%E8%AF%86%E9%97%AE%E7%AD%94%E5%A4%A7%E6%AF%94%E6%8B%BC/0.png" class=""><h3 id="不引入相关知识"><a href="#不引入相关知识" class="headerlink" title="不引入相关知识"></a>不引入相关知识</h3><h4 id="Baseline"><a href="#Baseline" class="headerlink" title="Baseline"></a>Baseline</h4><h5 id="BERT-MLP-Softmax"><a href="#BERT-MLP-Softmax" class="headerlink" title="BERT + MLP + Softmax"></a>BERT + MLP + Softmax</h5><img src="/2020/11/17/%E5%B8%B8%E8%AF%86%E9%97%AE%E7%AD%94%E5%A4%A7%E6%AF%94%E6%8B%BC/1.png" class=""><p>BERT可以换成RoBERTa、XLNet或者ALBERT等。</p><h4 id="Text2Text"><a href="#Text2Text" class="headerlink" title="Text2Text"></a>Text2Text</h4><h5 id="T5"><a href="#T5" class="headerlink" title="T5"></a>T5</h5><p>提出了一种文本到文本的范式，需要指定任务类型。</p><img src="/2020/11/17/%E5%B8%B8%E8%AF%86%E9%97%AE%E7%AD%94%E5%A4%A7%E6%AF%94%E6%8B%BC/4.png" class=""><h5 id="UnifiedQA"><a href="#UnifiedQA" class="headerlink" title="UnifiedQA"></a>UnifiedQA</h5><p>使用单个QA系统，跨越不同QA数据集的格式障碍。虽然基于T5，但不需要指定任务类型。</p><img src="/2020/11/17/%E5%B8%B8%E8%AF%86%E9%97%AE%E7%AD%94%E5%A4%A7%E6%AF%94%E6%8B%BC/5.png" class=""><h3 id="引入相关知识"><a href="#引入相关知识" class="headerlink" title="引入相关知识"></a>引入相关知识</h3><h4 id="ConceptNet-Wikipedia-XLNet-GNN"><a href="#ConceptNet-Wikipedia-XLNet-GNN" class="headerlink" title="ConceptNet + Wikipedia + XLNet + GNN"></a>ConceptNet + Wikipedia + XLNet + GNN</h4><img src="/2020/11/17/%E5%B8%B8%E8%AF%86%E9%97%AE%E7%AD%94%E5%A4%A7%E6%AF%94%E6%8B%BC/2.png" class=""><h4 id="ConceptNet-GPT2-ALBERT-RN"><a href="#ConceptNet-GPT2-ALBERT-RN" class="headerlink" title="ConceptNet + GPT2 + ALBERT + RN"></a>ConceptNet + GPT2 + ALBERT + RN</h4><img src="/2020/11/17/%E5%B8%B8%E8%AF%86%E9%97%AE%E7%AD%94%E5%A4%A7%E6%AF%94%E6%8B%BC/3.png" class=""><h4 id="ConceptNet-ALBERT-KCR"><a href="#ConceptNet-ALBERT-KCR" class="headerlink" title="ConceptNet + ALBERT + KCR"></a>ConceptNet + ALBERT + KCR</h4><ul><li>为每个QA对获取三元组路径<ul><li>找到三元组路径<ul><li>[CLS] stem [SEP] question_concept relation choice_concept [SEP]</li></ul></li><li>没找到三元组路径<ul><li>找到选项实体相关的其他三元组 —— [CLS] stem [SEP] choice_concept relation object [SEP]</li><li>没找到任何三元组 —— [CLS] stem [SEP] question_concept [SEP] choice_concept [SEP]</li></ul></li></ul></li><li>根据以上三种输入模式，经ALBERT文本编码得到文本嵌入hc</li><li>hc经过一个线性分类器得到QA对的置信得分</li></ul><h4 id="Wikipedia-ALBERT"><a href="#Wikipedia-ALBERT" class="headerlink" title="Wikipedia + ALBERT"></a>Wikipedia + ALBERT</h4><ul><li>清洗Wikipedia数据，得到word: definition形式的句子</li><li>输入构造 —— [CLS] ‘Q:’ + question [SEP] ‘A:’ + Choice + 10 recalled word of definition [SEP]</li><li>取ALBERT编码后得到的最后四层隐层向量的平均hc</li><li>hc经一个线性层和Softmax层得到归一化的QA对得分</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>常识推理</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>NLP</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>预训练模型——开创NLP新纪元</title>
     <link href="/2020/11/16/%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E2%80%94%E2%80%94%E5%BC%80%E5%88%9BNLP%E6%96%B0%E7%BA%AA%E5%85%83/"/>
     <url>/2020/11/16/%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E2%80%94%E2%80%94%E5%BC%80%E5%88%9BNLP%E6%96%B0%E7%BA%AA%E5%85%83/</url>
