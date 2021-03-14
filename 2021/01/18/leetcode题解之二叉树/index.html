@@ -1,0 +1,1890 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="caoyusang">
+  <meta name="keywords" content="">
+  <title>leetcode题解之二叉树 - caoyusang的科研日常</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>caoyusang</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/7.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-18 23:44" pubdate>
+        2021年1月18日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      6.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      147
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">leetcode题解之二叉树</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：6 分钟前
+                
+              </p>
+            
+            <div class="markdown-body" id="post-body">
+              <h5 id="938-二叉搜索树的范围和"><a href="#938-二叉搜索树的范围和" class="headerlink" title="938.二叉搜索树的范围和"></a>938.二叉搜索树的范围和</h5><h6 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">rangeSumBST</span><span class="hljs-params">(TreeNode root, <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">if</span> (root.val &gt;= low &amp;&amp; root.val &lt;= high)&#123;
+            sum += root.val;
+        &#125;
+        <span class="hljs-keyword">if</span> (root.val &gt; low) rangeSumBST(root.left, low, high);
+        <span class="hljs-keyword">if</span> (root.val &lt; high) rangeSumBST(root.right, low, high);
+        <span class="hljs-keyword">return</span> sum;
+    &#125;
+&#125;</code></pre>
+<h5 id="617-融合两棵二叉树"><a href="#617-融合两棵二叉树" class="headerlink" title="617.融合两棵二叉树"></a>617.融合两棵二叉树</h5><h6 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">mergeTrees</span><span class="hljs-params">(TreeNode t1, TreeNode t2)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (t1 == <span class="hljs-keyword">null</span> &amp;&amp; t2 == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+        TreeNode tmp = <span class="hljs-keyword">new</span> TreeNode(-<span class="hljs-number">1</span>);
+        <span class="hljs-keyword">if</span> (t1 != <span class="hljs-keyword">null</span> &amp;&amp; t2 != <span class="hljs-keyword">null</span>)&#123;
+            tmp.val = t1.val + t2.val;
+            tmp.left = mergeTrees(t1.left, t2.left);
+            tmp.right = mergeTrees(t1.right, t2.right);
+            
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (t1 == <span class="hljs-keyword">null</span>)&#123;
+            tmp.val = t2.val;
+            tmp.left = mergeTrees(<span class="hljs-keyword">null</span>, t2.left);
+            tmp.right = mergeTrees(<span class="hljs-keyword">null</span>, t2.right);
+            
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            tmp.val = t1.val;
+            tmp.left = mergeTrees(t1.left, <span class="hljs-keyword">null</span>);
+            tmp.right = mergeTrees(t1.right, <span class="hljs-keyword">null</span>);
+        &#125;
+        <span class="hljs-keyword">return</span> tmp;
+    &#125;
+&#125;</code></pre>
+<h5 id="897-升序搜索树"><a href="#897-升序搜索树" class="headerlink" title="897.升序搜索树"></a>897.升序搜索树</h5><h6 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    TreeNode pre = <span class="hljs-keyword">new</span> TreeNode(-<span class="hljs-number">1</span>);
+    TreeNode p = pre;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">increasingBST</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (root.left != <span class="hljs-keyword">null</span>)&#123;
+            increasingBST(root.left);
+        &#125;
+        p.right = <span class="hljs-keyword">new</span> TreeNode(root.val);
+        p = p.right;
+        <span class="hljs-keyword">if</span> (root.right != <span class="hljs-keyword">null</span>)&#123;
+            increasingBST(root.right);
+        &#125;
+        <span class="hljs-keyword">return</span> pre.right;
+    &#125;
+&#125;</code></pre>
+<h5 id="589-N叉树的先序遍历"><a href="#589-N叉树的先序遍历" class="headerlink" title="589.N叉树的先序遍历"></a>589.N叉树的先序遍历</h5><h6 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title">preorder</span><span class="hljs-params">(Node root)</span> </span>&#123;
+        <span class="hljs-comment">// recursive</span>
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> res;
+        res.add(root.val);
+        <span class="hljs-keyword">for</span> (Node child: root.children) &#123;
+            preorder(child);
+        &#125;
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+&#125;</code></pre>
+<h5 id="590-N叉树的后序遍历"><a href="#590-N叉树的后序遍历" class="headerlink" title="590.N叉树的后序遍历"></a>590.N叉树的后序遍历</h5><h6 id="题解-4"><a href="#题解-4" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title">postorder</span><span class="hljs-params">(Node root)</span> </span>&#123;
+        <span class="hljs-comment">// recursive</span>
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> res;
+        <span class="hljs-keyword">for</span> (Node child : root.children) &#123;
+            postorder(child);
+        &#125;
+        res.add(root.val);
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+&#125;</code></pre>
+<h5 id="1022-根到叶二进制数的和"><a href="#1022-根到叶二进制数的和" class="headerlink" title="1022.根到叶二进制数的和"></a>1022.根到叶二进制数的和</h5><h6 id="题解-5"><a href="#题解-5" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">sumRootToLeaf</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        <span class="hljs-comment">// recursive</span>
+        <span class="hljs-keyword">return</span> dfs(root, <span class="hljs-number">0</span>);
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode node, <span class="hljs-keyword">int</span> sum)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (node == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        sum = (sum &lt;&lt; <span class="hljs-number">1</span>) + node.val;
+        <span class="hljs-keyword">return</span> (node.left == <span class="hljs-keyword">null</span> &amp;&amp; node.right == <span class="hljs-keyword">null</span>) ? sum : dfs(node.left, sum) + dfs(node.right, sum);
+    &#125;
+&#125;</code></pre>
+<h5 id="559-N叉树的最大深度"><a href="#559-N叉树的最大深度" class="headerlink" title="559.N叉树的最大深度"></a>559.N叉树的最大深度</h5><h6 id="题解-6"><a href="#题解-6" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxDepth</span><span class="hljs-params">(Node root)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">if</span> (root.children.size() == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">int</span> max_d = Integer.MIN_VALUE;
+        <span class="hljs-keyword">for</span> (Node node: root.children)&#123;
+            max_d = Math.max(max_d, maxDepth(node));
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> + max_d;
+    &#125;
+&#125;</code></pre>
+<h5 id="965-单值树判断"><a href="#965-单值树判断" class="headerlink" title="965.单值树判断"></a>965.单值树判断</h5><h6 id="题解-7"><a href="#题解-7" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isUnivalTree</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> helper(root, root.val);
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">helper</span><span class="hljs-params">(TreeNode node, <span class="hljs-keyword">int</span> val)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (node == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        <span class="hljs-keyword">return</span> node.val == val &amp;&amp; helper(node.left, val) &amp;&amp; helper(node.right, val);
+    &#125;
+&#125;</code></pre>
+<h5 id="872-叶子节点序列相同树判断"><a href="#872-叶子节点序列相同树判断" class="headerlink" title="872.叶子节点序列相同树判断"></a>872.叶子节点序列相同树判断</h5><h6 id="题解-8"><a href="#题解-8" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    List&lt;Integer&gt; res1 = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    List&lt;Integer&gt; res2 = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">leafSimilar</span><span class="hljs-params">(TreeNode root1, TreeNode root2)</span> </span>&#123;
+        getLeafVal(root1, res1);
+        getLeafVal(root2, res2);
+        <span class="hljs-keyword">return</span> res1.equals(res2);
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">getLeafVal</span><span class="hljs-params">(TreeNode node, List&lt;Integer&gt; res)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (node == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span>;
+        getLeafVal(node.left, res);
+        <span class="hljs-keyword">if</span> (node.left == <span class="hljs-keyword">null</span> &amp;&amp; node.right == <span class="hljs-keyword">null</span>)&#123;
+            res.add(node.val);            
+        &#125;
+        getLeafVal(node.right, res);
+    &#125;
+&#125;</code></pre>
+<h5 id="637-二叉树每层节点的平均值"><a href="#637-二叉树每层节点的平均值" class="headerlink" title="637.二叉树每层节点的平均值"></a>637.二叉树每层节点的平均值</h5><h6 id="题解-9"><a href="#题解-9" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Double&gt; <span class="hljs-title">averageOfLevels</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        List&lt;Double&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+        Queue&lt;TreeNode&gt; q = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();
+        q.add(root);
+        <span class="hljs-keyword">while</span>(!q.isEmpty())&#123;
+            <span class="hljs-keyword">double</span> sum = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">int</span> size = q.size();
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++)&#123;
+                TreeNode outNode = q.poll();
+                sum += outNode.val;
+                <span class="hljs-keyword">if</span> (outNode.left != <span class="hljs-keyword">null</span>) q.add(outNode.left);
+                <span class="hljs-keyword">if</span> (outNode.right != <span class="hljs-keyword">null</span>) q.add(outNode.right);
+            &#125;
+            res.add(sum / size);
+        &#125;
+        <span class="hljs-keyword">return</span> res;
+        
+    &#125;
+&#125;</code></pre>
+<h5 id="100-相同树"><a href="#100-相同树" class="headerlink" title="100.相同树"></a>100.相同树</h5><h6 id="题解-10"><a href="#题解-10" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isSameTree</span><span class="hljs-params">(TreeNode p, TreeNode q)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (p == <span class="hljs-keyword">null</span> &amp;&amp; q == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        <span class="hljs-keyword">if</span> (p == <span class="hljs-keyword">null</span> || q == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        <span class="hljs-keyword">if</span> (p.val == q.val)&#123;
+            <span class="hljs-keyword">return</span> isSameTree(p.left, q.left) &amp;&amp; isSameTree(p.right, q.right);
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+       
+    &#125;
+&#125;</code></pre>
+<h5 id="101-对称二叉树"><a href="#101-对称二叉树" class="headerlink" title="101.对称二叉树"></a>101.对称二叉树</h5><h6 id="题解-11"><a href="#题解-11" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isSymmetric</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        <span class="hljs-keyword">return</span> dfs(root.left, root.right);
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode left, TreeNode right)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (left == <span class="hljs-keyword">null</span> &amp;&amp; right == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        <span class="hljs-keyword">if</span> (left == <span class="hljs-keyword">null</span> || right == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        <span class="hljs-keyword">if</span> (left.val != right.val) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        <span class="hljs-keyword">return</span> dfs(left.left, right.right) &amp;&amp; dfs(left.right, right.left);
+    &#125;
+&#125;</code></pre>
+<h5 id="102-二叉树的层序遍历"><a href="#102-二叉树的层序遍历" class="headerlink" title="102.二叉树的层序遍历"></a>102.二叉树的层序遍历</h5><h6 id="题解-12"><a href="#题解-12" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    List&lt;List&lt;Integer&gt;&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> res;
+        Queue&lt;TreeNode&gt; q = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();
+        q.add(root);
+        <span class="hljs-keyword">while</span>(!q.isEmpty())&#123;
+            <span class="hljs-keyword">int</span> size = q.size();
+            List&lt;Integer&gt; tmp = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++)&#123;
+                TreeNode cur = q.poll();
+                tmp.add(cur.val);
+                <span class="hljs-keyword">if</span> (cur.left != <span class="hljs-keyword">null</span>) q.add(cur.left);
+                <span class="hljs-keyword">if</span> (cur.right != <span class="hljs-keyword">null</span>) q.add(cur.right);
+            &#125;
+            res.add(tmp);
+        &#125;
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+&#125;</code></pre>
+<h5 id="404-二叉树的左叶子节点总数"><a href="#404-二叉树的左叶子节点总数" class="headerlink" title="404.二叉树的左叶子节点总数"></a>404.二叉树的左叶子节点总数</h5><h6 id="题解-13"><a href="#题解-13" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-comment">//存储结果</span>
+    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">sumOfLeftLeaves</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-comment">//左叶子节点</span>
+        <span class="hljs-keyword">if</span> (root.left != <span class="hljs-keyword">null</span> &amp;&amp; root.left.left == <span class="hljs-keyword">null</span> &amp;&amp; root.left.right ==<span class="hljs-keyword">null</span>) res += root.left.val;
+        sumOfLeftLeaves(root.left);
+        sumOfLeftLeaves(root.right);
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+&#125;</code></pre>
+<h5 id="257-二叉树路径"><a href="#257-二叉树路径" class="headerlink" title="257.二叉树路径"></a>257.二叉树路径</h5><h6 id="题解-14"><a href="#题解-14" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    List&lt;String&gt; paths = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">binaryTreePaths</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> paths;
+        dfs(root, String.valueOf(root.val));
+        <span class="hljs-keyword">return</span> paths;
+        
+        
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode node, String subPath)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (node == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span>;
+        <span class="hljs-keyword">if</span> (node.left == <span class="hljs-keyword">null</span> &amp;&amp; node.right == <span class="hljs-keyword">null</span>) &#123;
+            paths.add(subPath);
+        &#125;
+        <span class="hljs-keyword">if</span> (node.left != <span class="hljs-keyword">null</span>)&#123;
+            dfs(node.left, subPath + <span class="hljs-string">&quot;-&gt;&quot;</span> + node.left.val);
+        &#125;
+        <span class="hljs-keyword">if</span> (node.right != <span class="hljs-keyword">null</span>)&#123;
+            dfs(node.right, subPath + <span class="hljs-string">&quot;-&gt;&quot;</span> + node.right.val);
+        &#125;
+    &#125; 
+&#125;</code></pre>
+<h5 id="108-将有序数组转化为平衡二叉搜索树"><a href="#108-将有序数组转化为平衡二叉搜索树" class="headerlink" title="108.将有序数组转化为平衡二叉搜索树"></a>108.将有序数组转化为平衡二叉搜索树</h5><h6 id="题解-15"><a href="#题解-15" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">sortedArrayToBST</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> helper(<span class="hljs-number">0</span>, nums.length - <span class="hljs-number">1</span>, nums);
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">helper</span><span class="hljs-params">(<span class="hljs-keyword">int</span> lf, <span class="hljs-keyword">int</span> rt, <span class="hljs-keyword">int</span>[] nums)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (lf &gt; rt) <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+        <span class="hljs-keyword">int</span> mid = (rt - lf) / <span class="hljs-number">2</span> + lf;
+        TreeNode node = <span class="hljs-keyword">new</span> TreeNode(nums[mid]);
+        node.left = helper(lf, mid - <span class="hljs-number">1</span>, nums);
+        node.right = helper(mid + <span class="hljs-number">1</span>, rt, nums);
+        <span class="hljs-keyword">return</span> node;
+
+    &#125;
+&#125;</code></pre>
+<h5 id="653-二叉搜索树版两数之和"><a href="#653-二叉搜索树版两数之和" class="headerlink" title="653.二叉搜索树版两数之和"></a>653.二叉搜索树版两数之和</h5><h6 id="题解-16"><a href="#题解-16" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">inorder</span><span class="hljs-params">(TreeNode root, List&lt;Integer&gt; tree)</span></span>&#123;
+        <span class="hljs-keyword">if</span>(root != <span class="hljs-keyword">null</span>)&#123;
+            inorder(root.left, tree);
+            tree.add(root.val);
+            inorder(root.right, tree);
+        &#125;
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">findTarget</span><span class="hljs-params">(TreeNode root, <span class="hljs-keyword">int</span> k)</span> </span>&#123;
+        List&lt;Integer&gt; tree = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+        inorder(root, tree);
+        <span class="hljs-keyword">int</span> start = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> end = tree.size() - <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">while</span>(start &lt; end)&#123;
+            <span class="hljs-keyword">int</span> sum = tree.get(start) + tree.get(end);
+            <span class="hljs-keyword">if</span>(sum == k)&#123;
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+            &#125;
+            <span class="hljs-keyword">if</span>(sum &lt; k)&#123;
+                start++;
+            &#125; <span class="hljs-keyword">else</span> &#123;
+                end--;
+            &#125;
+        &#125;
+        
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    &#125;
+&#125;</code></pre>
+<h5 id="530-平衡二叉搜索树中的最小绝对误差"><a href="#530-平衡二叉搜索树中的最小绝对误差" class="headerlink" title="530.平衡二叉搜索树中的最小绝对误差"></a>530.平衡二叉搜索树中的最小绝对误差</h5><h6 id="题解-17"><a href="#题解-17" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-keyword">int</span> cnt = <span class="hljs-number">0</span>;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getMinimumDifference</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        inOrder(root);
+        <span class="hljs-keyword">int</span>[] minAbd = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[cnt - <span class="hljs-number">1</span>];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; minAbd.length; i++)&#123;
+            minAbd[i] = res.get(i + <span class="hljs-number">1</span>) - res.get(i);
+        &#125;
+        <span class="hljs-keyword">return</span> minOfArray(minAbd);
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">inOrder</span><span class="hljs-params">(TreeNode node)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (node != <span class="hljs-keyword">null</span>)&#123;
+            inOrder(node.left);
+            res.add(node.val);
+            cnt++;
+            inOrder(node.right);
+        &#125;
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minOfArray</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] arr)</span></span>&#123;
+        <span class="hljs-keyword">int</span> minValue = Integer.MAX_VALUE;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> tmp : arr)&#123;
+            minValue = Math.min(minValue, tmp);
+        &#125;
+        <span class="hljs-keyword">return</span> minValue;
+    &#125;
+&#125;</code></pre>
+<h5 id="993-二叉树的表兄妹节点判定"><a href="#993-二叉树的表兄妹节点判定" class="headerlink" title="993.二叉树的表兄妹节点判定"></a>993.二叉树的表兄妹节点判定</h5><h6 id="题解-18"><a href="#题解-18" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs plain"></code></pre>
+<h5 id="235-二叉搜索树的最低公共祖先-自己可以是自己的祖先"><a href="#235-二叉搜索树的最低公共祖先-自己可以是自己的祖先" class="headerlink" title="235.二叉搜索树的最低公共祖先(自己可以是自己的祖先)"></a>235.二叉搜索树的最低公共祖先(自己可以是自己的祖先)</h5><h6 id="题解-19"><a href="#题解-19" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">lowestCommonAncestor</span><span class="hljs-params">(TreeNode root, TreeNode p, TreeNode q)</span> </span>&#123;
+        <span class="hljs-comment">// 不在同一边，则根节点为LCA</span>
+        <span class="hljs-keyword">if</span> ((root.val &lt;= p.val &amp;&amp; root.val &gt;= q.val) || (root.val &gt;= p.val &amp;&amp; root.val &lt;= q.val)) &#123;
+            <span class="hljs-keyword">return</span> root;
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (root.val &lt;= Math.min(p.val, q.val))&#123; 			<span class="hljs-comment">//同在右边，递归右子树</span>
+            <span class="hljs-keyword">return</span> lowestCommonAncestor(root.right, p, q);
+        &#125; <span class="hljs-keyword">else</span> &#123; 
+            <span class="hljs-keyword">return</span> lowestCommonAncestor(root.left, p, q);
+        &#125;
+            
+    &#125;
+&#125;</code></pre>
+<h5 id="236-二叉树的最低公共祖先-自己可以是自己的祖先"><a href="#236-二叉树的最低公共祖先-自己可以是自己的祖先" class="headerlink" title="236.二叉树的最低公共祖先(自己可以是自己的祖先)"></a><code>236.二叉树的最低公共祖先(自己可以是自己的祖先)</code></h5><h6 id="题解-20"><a href="#题解-20" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for a binary tree node.</span>
+<span class="hljs-comment"> * public class TreeNode &#123;</span>
+<span class="hljs-comment"> *     int val;</span>
+<span class="hljs-comment"> *     TreeNode left;</span>
+<span class="hljs-comment"> *     TreeNode right;</span>
+<span class="hljs-comment"> *     TreeNode(int x) &#123; val = x; &#125;</span>
+<span class="hljs-comment"> * &#125;</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">lowestCommonAncestor</span><span class="hljs-params">(TreeNode root, TreeNode p, TreeNode q)</span> </span>&#123;
+        <span class="hljs-comment">//root为空，返回null;</span>
+        <span class="hljs-comment">//p或q为当前子树的根，则LCA为p或q</span>
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span> || p == root || q == root) <span class="hljs-keyword">return</span> root;
+        
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        
+        <span class="hljs-comment">//p,q分别在左右子树，左右子树的根就是LCA</span>
+        <span class="hljs-keyword">if</span> (left != <span class="hljs-keyword">null</span> &amp;&amp; right != <span class="hljs-keyword">null</span>)&#123;
+            <span class="hljs-keyword">return</span> root;
+        &#125;
+        <span class="hljs-comment">//p,q在同一子树，要么p为LCA，要么q为LCA</span>
+        <span class="hljs-keyword">return</span> left == <span class="hljs-keyword">null</span> ? right : left;
+    &#125;
+&#125;</code></pre>
+<h5 id="572-子树判断"><a href="#572-子树判断" class="headerlink" title="572.子树判断"></a>572.子树判断</h5><h6 id="题解-21"><a href="#题解-21" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isSubtree</span><span class="hljs-params">(TreeNode s, TreeNode t)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (s == <span class="hljs-keyword">null</span> || t == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        <span class="hljs-keyword">if</span> (s.val == t.val &amp;&amp; isSameTree(s, t)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        <span class="hljs-keyword">return</span> isSubtree(s.left, t) || isSubtree(s.right, t);
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isSameTree</span><span class="hljs-params">(TreeNode p, TreeNode q)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (p == <span class="hljs-keyword">null</span> &amp;&amp; q == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        <span class="hljs-keyword">if</span> (p == <span class="hljs-keyword">null</span> || q == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        <span class="hljs-keyword">if</span> (p.val == q.val)&#123;
+            <span class="hljs-keyword">return</span> isSameTree(p.left, q.left) &amp;&amp; isSameTree(p.right, q.right);
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+       
+    &#125;
+&#125;</code></pre>
+<h5 id="501-找二叉搜索树中出现次数最多的结点值集合"><a href="#501-找二叉搜索树中出现次数最多的结点值集合" class="headerlink" title="501.找二叉搜索树中出现次数最多的结点值集合"></a>501.找二叉搜索树中出现次数最多的结点值集合</h5><h6 id="题解-22"><a href="#题解-22" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    List&lt;Integer&gt; inList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    Map&lt;Integer,Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] findMode(TreeNode root) &#123;
+        <span class="hljs-keyword">int</span> maxCount = <span class="hljs-number">1</span>;
+        inOrder(root);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k : inList)&#123;
+            <span class="hljs-keyword">if</span> (map.containsKey(k))&#123;
+                <span class="hljs-keyword">int</span> cnt = map.get(k) + <span class="hljs-number">1</span>;
+                map.put(k, cnt);
+                maxCount = Math.max(maxCount, cnt);
+            &#125; <span class="hljs-keyword">else</span>&#123;
+                map.put(k, <span class="hljs-number">1</span>);
+            &#125;
+        &#125;
+        <span class="hljs-keyword">int</span>[] result = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[map.size()];
+        <span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> key: map.keySet())&#123;
+            <span class="hljs-keyword">if</span>(map.get(key) == maxCount)&#123;
+                result[index++] = key;
+            &#125;
+        &#125;
+        
+        <span class="hljs-keyword">return</span> Arrays.copyOf(result, index);
+        
+        
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">inOrder</span><span class="hljs-params">(TreeNode node)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (node != <span class="hljs-keyword">null</span>)&#123;
+            inOrder(node.left);
+            inList.add(node.val);
+            inOrder(node.right);
+        &#125;
+    &#125;
+&#125;</code></pre>
+<h5 id="1315-祖先节点中有值为偶数的节点的值之和"><a href="#1315-祖先节点中有值为偶数的节点的值之和" class="headerlink" title="1315.祖先节点中有值为偶数的节点的值之和"></a>1315.祖先节点中有值为偶数的节点的值之和</h5><h6 id="题解-23"><a href="#题解-23" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">sumEvenGrandparent</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">if</span> (root.val % <span class="hljs-number">2</span> == <span class="hljs-number">0</span> &amp;&amp; root.left != <span class="hljs-keyword">null</span>)&#123;
+            sum += (root.left.left != <span class="hljs-keyword">null</span> ? root.left.left.val : <span class="hljs-number">0</span>);
+            sum += (root.left.right != <span class="hljs-keyword">null</span> ? root.left.right.val : <span class="hljs-number">0</span>);
+            
+        &#125;
+        <span class="hljs-keyword">if</span> (root.val % <span class="hljs-number">2</span> == <span class="hljs-number">0</span> &amp;&amp; root.right != <span class="hljs-keyword">null</span>)&#123;
+            sum += (root.right.left != <span class="hljs-keyword">null</span> ? root.right.left.val : <span class="hljs-number">0</span>);
+            sum += (root.right.right != <span class="hljs-keyword">null</span> ? root.right.right.val : <span class="hljs-number">0</span>);
+        &#125;
+        sumEvenGrandparent(root.left);
+        sumEvenGrandparent(root.right);
+        <span class="hljs-keyword">return</span> sum;
+    &#125;
+&#125;</code></pre>
+<h5 id="1302-最底层叶子节点值和"><a href="#1302-最底层叶子节点值和" class="headerlink" title="1302.最底层叶子节点值和"></a>1302.最底层叶子节点值和</h5><h6 id="题解-24"><a href="#题解-24" class="headerlink" title="题解"></a>题解</h6><p><strong><em>法一（层次遍历，复杂度太高）</em></strong></p>
+<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    List&lt;List&lt;Integer&gt;&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-keyword">int</span> cnt = -<span class="hljs-number">1</span>;
+    <span class="hljs-keyword">int</span> sumLeaves = <span class="hljs-number">0</span>;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">deepestLeavesSum</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        Deque&lt;TreeNode&gt; q = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();
+        q.addLast(root);
+        <span class="hljs-keyword">while</span>(!q.isEmpty())&#123;
+            <span class="hljs-keyword">int</span> size = q.size();
+            List&lt;Integer&gt; tmp = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++)&#123;
+                TreeNode cur = q.pollFirst();
+                tmp.add(cur.val);
+                <span class="hljs-keyword">if</span> (cur.left != <span class="hljs-keyword">null</span>) q.addLast(cur.left);
+                <span class="hljs-keyword">if</span> (cur.right != <span class="hljs-keyword">null</span>) q.addLast(cur.right);
+            &#125;
+            res.add(tmp);
+            cnt++;
+        &#125;
+        <span class="hljs-keyword">for</span> (Integer val : res.get(cnt))&#123;
+            sumLeaves += val;
+        &#125;
+        <span class="hljs-keyword">return</span> sumLeaves;
+    &#125;
+&#125;</code></pre>
+<p><strong><em>法二（深度优先）</em></strong></p>
+<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+	<span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">int</span> maxDepth = -<span class="hljs-number">1</span>;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">deepestLeavesSum</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        dfs(root, <span class="hljs-number">0</span>);
+        <span class="hljs-keyword">return</span> sum;
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode node, <span class="hljs-keyword">int</span> dp)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (node == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span>;
+        <span class="hljs-keyword">if</span> (node.left == <span class="hljs-keyword">null</span> &amp;&amp; node.right == <span class="hljs-keyword">null</span>)&#123;
+            <span class="hljs-keyword">if</span> (dp &gt; maxDepth)&#123;
+                sum = node.val;
+                maxDepth = dp;
+            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (dp == maxDepth)&#123;
+                sum += node.val;
+            &#125;
+        &#125;
+        dfs(node.left, dp + <span class="hljs-number">1</span>);
+        dfs(node.right, dp + <span class="hljs-number">1</span>);
+    &#125;
+&#125;</code></pre>
+<h5 id="654-给定数组构造最大二叉树"><a href="#654-给定数组构造最大二叉树" class="headerlink" title="654.给定数组构造最大二叉树"></a>654.给定数组构造最大二叉树</h5><h6 id="题解-25"><a href="#题解-25" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">constructMaximumBinaryTree</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> build_tree(nums, <span class="hljs-number">0</span>, nums.length - <span class="hljs-number">1</span>);
+        
+    &#125;
+    <span class="hljs-function">TreeNode <span class="hljs-title">build_tree</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span></span>&#123;
+        <span class="hljs-comment">// base case</span>
+        <span class="hljs-keyword">if</span> (left &gt; right) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+        &#125;
+        <span class="hljs-comment">// find the maximum and index of array</span>
+        <span class="hljs-keyword">int</span> index = -<span class="hljs-number">1</span>, max_val = Integer.MIN_VALUE;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = left; i &lt;= right; i++)&#123;
+            <span class="hljs-keyword">if</span> (max_val &lt; nums[i])&#123;
+                max_val = nums[i];
+                index = i;
+            &#125;
+        &#125;
+        TreeNode root = <span class="hljs-keyword">new</span> TreeNode(max_val);
+        root.left = build_tree(nums, left, index - <span class="hljs-number">1</span>);
+        root.right = build_tree(nums, index + <span class="hljs-number">1</span>, right);
+        <span class="hljs-keyword">return</span> root;
+    &#125;
+&#125;</code></pre>
+<h5 id="1008-由先序遍历序列构造二叉搜索树"><a href="#1008-由先序遍历序列构造二叉搜索树" class="headerlink" title="1008.由先序遍历序列构造二叉搜索树"></a>1008.由先序遍历序列构造二叉搜索树</h5><h6 id="题解-26"><a href="#题解-26" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">bstFromPreorder</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] preorder)</span> </span>&#123;
+        TreeNode root = <span class="hljs-keyword">new</span> TreeNode(preorder[<span class="hljs-number">0</span>]);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; preorder.length; i++)&#123;
+            insertBST(preorder[i], root);
+        &#125;
+        <span class="hljs-keyword">return</span> root;
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">insertBST</span><span class="hljs-params">(<span class="hljs-keyword">int</span> val,TreeNode node)</span></span>&#123;
+        <span class="hljs-keyword">if</span>(val &lt; node.val)&#123;
+            <span class="hljs-keyword">if</span>(node.left == <span class="hljs-keyword">null</span>)&#123;
+                TreeNode node1 = <span class="hljs-keyword">new</span> TreeNode(val, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>);
+                node.left = node1;
+            &#125;
+            <span class="hljs-keyword">else</span>
+                insertBST(val, node.left);
+        &#125; <span class="hljs-keyword">else</span>&#123;
+            <span class="hljs-keyword">if</span>(node.right == <span class="hljs-keyword">null</span>)&#123;
+                TreeNode node1 = <span class="hljs-keyword">new</span> TreeNode(val, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>);
+                node.right = node1;
+            &#125;
+            <span class="hljs-keyword">else</span>
+                insertBST(val, node.right);
+        &#125;
+    &#125;
+&#125;</code></pre>
+<h5 id="1305-二叉搜索树中的全部元素"><a href="#1305-二叉搜索树中的全部元素" class="headerlink" title="1305.二叉搜索树中的全部元素"></a>1305.二叉搜索树中的全部元素</h5><h6 id="题解-27"><a href="#题解-27" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title">getAllElements</span><span class="hljs-params">(TreeNode root1, TreeNode root2)</span> </span>&#123;
+        inOrder(root1);
+        inOrder(root2);
+        Collections.sort(res);
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">inOrder</span><span class="hljs-params">(TreeNode root)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (root != <span class="hljs-keyword">null</span>) &#123;
+            inOrder(root.left);
+            res.add(root.val);
+            inOrder(root.right);
+        &#125;
+    &#125;
+&#125;</code></pre>
+<h5 id="701-二叉搜索树的插入"><a href="#701-二叉搜索树的插入" class="headerlink" title="701.二叉搜索树的插入"></a>701.二叉搜索树的插入</h5><h6 id="题解-28"><a href="#题解-28" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">insertIntoBST</span><span class="hljs-params">(TreeNode root, <span class="hljs-keyword">int</span> val)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TreeNode(val);
+        <span class="hljs-keyword">if</span> (val &gt; root.val)&#123;
+            root.right = insertIntoBST(root.right, val);
+        &#125;
+        <span class="hljs-keyword">if</span> (val &lt; root.val)&#123;
+            root.left = insertIntoBST(root.left, val);
+        &#125;
+        <span class="hljs-keyword">return</span> root;
+    &#125;
+&#125;</code></pre>
+<h5 id="1325-基于给定值删除叶子节点（如果父节点-也为给定值-在上一次删除后成为叶子节点，也应当删除）"><a href="#1325-基于给定值删除叶子节点（如果父节点-也为给定值-在上一次删除后成为叶子节点，也应当删除）" class="headerlink" title="1325.基于给定值删除叶子节点（如果父节点(也为给定值)在上一次删除后成为叶子节点，也应当删除）"></a>1325.基于给定值删除叶子节点（如果父节点(也为给定值)在上一次删除后成为叶子节点，也应当删除）</h5><h6 id="题解-29"><a href="#题解-29" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">removeLeafNodes</span><span class="hljs-params">(TreeNode root, <span class="hljs-keyword">int</span> target)</span> </span>&#123;
+        <span class="hljs-comment">//base case</span>
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+        <span class="hljs-comment">//recursive, delete nodes before getting left and right</span>
+        root.left = removeLeafNodes(root.left, target);
+        root.right = removeLeafNodes(root.right, target);
+        <span class="hljs-comment">//delete leaf nodes</span>
+        <span class="hljs-keyword">if</span> (root != <span class="hljs-keyword">null</span> &amp;&amp; root.val == target &amp;&amp; root.left == <span class="hljs-keyword">null</span> &amp;&amp; root.right == <span class="hljs-keyword">null</span>)&#123;
+            root = <span class="hljs-keyword">null</span>;
+        &#125;
+        <span class="hljs-keyword">return</span> root; 
+    &#125;
+&#125;</code></pre>
+<h5 id="814-二叉树剪枝"><a href="#814-二叉树剪枝" class="headerlink" title="814.二叉树剪枝"></a>814.二叉树剪枝</h5><h6 id="题解-30"><a href="#题解-30" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">pruneTree</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        <span class="hljs-comment">//this problem equals removing leaf 0 recursively</span>
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+        root.left = pruneTree(root.left);
+        root.right = pruneTree(root.right);
+        <span class="hljs-keyword">if</span> (root != <span class="hljs-keyword">null</span> &amp;&amp; root.val == <span class="hljs-number">0</span> &amp;&amp; root.left == <span class="hljs-keyword">null</span> &amp;&amp; root.right == <span class="hljs-keyword">null</span>)&#123;
+            root = <span class="hljs-keyword">null</span>;
+        &#125;
+        <span class="hljs-keyword">return</span> root;
+    &#125;
+&#125;</code></pre>
+<h5 id="1104-锯齿二叉树路径"><a href="#1104-锯齿二叉树路径" class="headerlink" title="1104.锯齿二叉树路径"></a>1104.锯齿二叉树路径</h5><h6 id="题解-31"><a href="#题解-31" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">int</span> dp = -<span class="hljs-number">1</span>;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title">pathInZigZagTree</span><span class="hljs-params">(<span class="hljs-keyword">int</span> label)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (label == <span class="hljs-number">1</span>)&#123;
+            <span class="hljs-keyword">return</span> Arrays.asList(<span class="hljs-keyword">new</span> Integer[]&#123;<span class="hljs-number">1</span>&#125;);
+        &#125;
+        <span class="hljs-comment">//get corresponding depth</span>
+        <span class="hljs-keyword">int</span> tmp = label;
+        <span class="hljs-keyword">while</span> (tmp != <span class="hljs-number">0</span>)&#123;
+            tmp /= <span class="hljs-number">2</span>;
+            dp++;
+        &#125;
+        <span class="hljs-comment">//这里定义结果数组时需要使用包装类Integer, 为了Arrays.asList()能转化</span>
+        Integer[] reverseRes = <span class="hljs-keyword">new</span> Integer[dp + <span class="hljs-number">1</span>];
+        reverseRes[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">while</span> (dp &gt;= <span class="hljs-number">0</span>)&#123;
+            reverseRes[dp] = label;
+            <span class="hljs-comment">//the former node.val is 2^dp + 2^(dp+1) - 1</span>
+            label = (<span class="hljs-keyword">int</span>)Math.pow(<span class="hljs-number">2</span>, dp - <span class="hljs-number">1</span>) + (<span class="hljs-keyword">int</span>)Math.pow(<span class="hljs-number">2</span>, dp) - (<span class="hljs-keyword">int</span>)(label / <span class="hljs-number">2</span>) - <span class="hljs-number">1</span>;
+            dp--;
+        &#125;
+        <span class="hljs-comment">//Arrays.asList(arr) -&gt; ArrayList</span>
+        <span class="hljs-keyword">return</span> Arrays.asList(reverseRes);
+        
+    &#125;
+&#125;</code></pre>
+<h5 id="1448-计算二叉树”好节点”的数目-从根节点到叶节点的路径中，值最大的节点就是”好节点”"><a href="#1448-计算二叉树”好节点”的数目-从根节点到叶节点的路径中，值最大的节点就是”好节点”" class="headerlink" title="1448.计算二叉树”好节点”的数目(从根节点到叶节点的路径中，值最大的节点就是”好节点”)"></a>1448.计算二叉树”好节点”的数目(从根节点到叶节点的路径中，值最大的节点就是”好节点”)</h5><h6 id="题解-32"><a href="#题解-32" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">goodNodes</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        countNodes(root, root.val);
+        <span class="hljs-keyword">return</span> res;   
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">countNodes</span><span class="hljs-params">(TreeNode node, <span class="hljs-keyword">int</span> maxVal)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (node == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span>;
+        <span class="hljs-keyword">if</span> (node.val &gt;= maxVal)&#123;
+            res++;
+            maxVal = node.val;
+        &#125;
+        countNodes(node.left, maxVal);
+        countNodes(node.right, maxVal);
+    &#125;
+&#125;</code></pre>
+<h5 id="1161-二叉树的最大层和所在的最低层数"><a href="#1161-二叉树的最大层和所在的最低层数" class="headerlink" title="1161.二叉树的最大层和所在的最低层数"></a>1161.二叉树的最大层和所在的最低层数</h5><h6 id="题解-33"><a href="#题解-33" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxLevelSum</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> max = Integer.MIN_VALUE;
+        <span class="hljs-comment">//记录层数</span>
+        <span class="hljs-keyword">int</span> level = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> maxLevel = <span class="hljs-number">0</span>;
+        Queue&lt;TreeNode&gt; q = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();
+        q.add(root);
+        <span class="hljs-keyword">while</span>(!q.isEmpty())&#123;
+            <span class="hljs-keyword">int</span> size = q.size();
+            <span class="hljs-comment">//每层初始计数置零</span>
+            <span class="hljs-keyword">int</span> levelSum = <span class="hljs-number">0</span>;
+            <span class="hljs-comment">//更新层数</span>
+            level++;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++)&#123;
+                TreeNode cur = q.poll();
+                levelSum += cur.val;
+                <span class="hljs-comment">//每层遍历到最后一个节点时，进行层和的比较</span>
+                <span class="hljs-keyword">if</span> (i == size - <span class="hljs-number">1</span>)&#123;
+                    <span class="hljs-keyword">if</span> (levelSum &gt; max)&#123;
+                        max = levelSum;
+                        maxLevel = level;
+                    &#125;
+                &#125;
+                <span class="hljs-keyword">if</span> (cur.left != <span class="hljs-keyword">null</span>) q.add(cur.left);
+                <span class="hljs-keyword">if</span> (cur.right != <span class="hljs-keyword">null</span>) q.add(cur.right);
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> maxLevel;
+
+    &#125;
+&#125;</code></pre>
+<h5 id="979-二叉树中分发硬币"><a href="#979-二叉树中分发硬币" class="headerlink" title="979.二叉树中分发硬币"></a>979.二叉树中分发硬币</h5><h6 id="题解-34"><a href="#题解-34" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for a binary tree node.</span>
+<span class="hljs-comment"> * public class TreeNode &#123;</span>
+<span class="hljs-comment"> *     int val;</span>
+<span class="hljs-comment"> *     TreeNode left;</span>
+<span class="hljs-comment"> *     TreeNode right;</span>
+<span class="hljs-comment"> *     TreeNode() &#123;&#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span>
+<span class="hljs-comment"> *         this.val = val;</span>
+<span class="hljs-comment"> *         this.left = left;</span>
+<span class="hljs-comment"> *         this.right = right;</span>
+<span class="hljs-comment"> *     &#125;</span>
+<span class="hljs-comment"> * &#125;</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
+    <span class="hljs-comment">//将所有移动的绝对值加起来</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">distributeCoins</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        help(root);
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+    <span class="hljs-comment">//后序遍历，将子节点多余的硬币(无论正负)全部分给父节点</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">help</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> l = help(root.left);
+        <span class="hljs-keyword">int</span> r = help(root.right);
+        <span class="hljs-comment">//当前结点硬币拥有数目</span>
+        <span class="hljs-keyword">int</span> total = l + r + root.val;
+        <span class="hljs-comment">//向上分发次数累加</span>
+        res += Math.abs(total - <span class="hljs-number">1</span>);
+        <span class="hljs-keyword">return</span> total - <span class="hljs-number">1</span>;
+    &#125;
+&#125;</code></pre>
+<h5 id="1026-二叉树中结点和祖先结点的最大差值"><a href="#1026-二叉树中结点和祖先结点的最大差值" class="headerlink" title="1026.二叉树中结点和祖先结点的最大差值"></a>1026.二叉树中结点和祖先结点的最大差值</h5><h6 id="题解-35"><a href="#题解-35" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for a binary tree node.</span>
+<span class="hljs-comment"> * public class TreeNode &#123;</span>
+<span class="hljs-comment"> *     int val;</span>
+<span class="hljs-comment"> *     TreeNode left;</span>
+<span class="hljs-comment"> *     TreeNode right;</span>
+<span class="hljs-comment"> *     TreeNode() &#123;&#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span>
+<span class="hljs-comment"> *         this.val = val;</span>
+<span class="hljs-comment"> *         this.left = left;</span>
+<span class="hljs-comment"> *         this.right = right;</span>
+<span class="hljs-comment"> *     &#125;</span>
+<span class="hljs-comment"> * &#125;</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> maxDiff = Integer.MIN_VALUE;
+    <span class="hljs-comment">//找每条路径上的最大值和最小值，再对其差值求最大</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxAncestorDiff</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">return</span> dfs(root, root.val, root.val);
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode node, <span class="hljs-keyword">int</span> min, <span class="hljs-keyword">int</span> max)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (node == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> max - min;
+        max = Math.max(max, node.val);
+        min = Math.min(min, node.val);
+        <span class="hljs-keyword">int</span> lf = dfs(node.left, min, max);
+        <span class="hljs-keyword">int</span> rt = dfs(node.right, min, max);
+        <span class="hljs-keyword">return</span> Math.max(lf ,rt);
+    &#125;
+    
+    
+&#125;</code></pre>
+<h5 id="1110-删除二叉树的若干节点，返回森林"><a href="#1110-删除二叉树的若干节点，返回森林" class="headerlink" title="1110.删除二叉树的若干节点，返回森林"></a>1110.删除二叉树的若干节点，返回森林</h5><h6 id="题解-36"><a href="#题解-36" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.HashSet;
+<span class="hljs-keyword">import</span> java.util.List;
+<span class="hljs-keyword">import</span> java.util.ArrayList;
+
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for a binary tree node.</span>
+<span class="hljs-comment"> * public class TreeNode &#123;</span>
+<span class="hljs-comment"> *     int val;</span>
+<span class="hljs-comment"> *     TreeNode left;</span>
+<span class="hljs-comment"> *     TreeNode right;</span>
+<span class="hljs-comment"> *     TreeNode() &#123;&#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span>
+<span class="hljs-comment"> *         this.val = val;</span>
+<span class="hljs-comment"> *         this.left = left;</span>
+<span class="hljs-comment"> *         this.right = right;</span>
+<span class="hljs-comment"> *     &#125;</span>
+<span class="hljs-comment"> * &#125;</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    HashSet&lt;Integer&gt; set = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+    ArrayList&lt;TreeNode&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;TreeNode&gt; <span class="hljs-title">delNodes</span><span class="hljs-params">(TreeNode root, <span class="hljs-keyword">int</span>[] to_delete)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span> || to_delete.length == <span class="hljs-number">0</span>)&#123;
+            <span class="hljs-keyword">return</span> res;
+        &#125;
+        <span class="hljs-comment">//HashSet记录要删除的节点</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> val : to_delete)&#123;
+            set.add(val);
+        &#125;
+        <span class="hljs-comment">//根节点若不在删除范围内，则也是返回内容之一</span>
+        <span class="hljs-keyword">if</span> (!set.contains(root.val))&#123;
+            res.add(root);
+        &#125;
+        dfs(root, set);
+        <span class="hljs-keyword">return</span> res;
+        
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode node, HashSet&lt;Integer&gt; delSet)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (node == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+        <span class="hljs-comment">//重新构建树</span>
+        node.left = dfs(node.left, delSet);
+        node.right = dfs(node.right, delSet);
+
+        <span class="hljs-keyword">if</span> (delSet.contains(node.val))&#123;
+            <span class="hljs-keyword">if</span> (node.left != <span class="hljs-keyword">null</span>)&#123;
+                res.add(node.left);
+            &#125;
+            <span class="hljs-keyword">if</span> (node.right != <span class="hljs-keyword">null</span>)&#123;
+                res.add(node.right);
+            &#125;
+            <span class="hljs-comment">//删除节点</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+        &#125;
+        <span class="hljs-comment">//保留节点</span>
+        <span class="hljs-keyword">return</span> node;
+    &#125;
+&#125;</code></pre>
+<h5 id="889-根据先序遍历和后序遍历序列构建二叉树-不唯一"><a href="#889-根据先序遍历和后序遍历序列构建二叉树-不唯一" class="headerlink" title="889.根据先序遍历和后序遍历序列构建二叉树(不唯一)"></a>889.根据先序遍历和后序遍历序列构建二叉树(不唯一)</h5><h6 id="题解-37"><a href="#题解-37" class="headerlink" title="题解"></a>题解</h6><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37767455/article/details/96190238">解题思路</a></p>
+<pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.Arrays;
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for a binary tree node.</span>
+<span class="hljs-comment"> * public class TreeNode &#123;</span>
+<span class="hljs-comment"> *     int val;</span>
+<span class="hljs-comment"> *     TreeNode left;</span>
+<span class="hljs-comment"> *     TreeNode right;</span>
+<span class="hljs-comment"> *     TreeNode() &#123;&#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span>
+<span class="hljs-comment"> *         this.val = val;</span>
+<span class="hljs-comment"> *         this.left = left;</span>
+<span class="hljs-comment"> *         this.right = right;</span>
+<span class="hljs-comment"> *     &#125;</span>
+<span class="hljs-comment"> * &#125;</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">constructFromPrePost</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] pre, <span class="hljs-keyword">int</span>[] post)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> n = pre.length;
+        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+        TreeNode root = <span class="hljs-keyword">new</span> TreeNode(pre[<span class="hljs-number">0</span>]);
+        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> root;
+        
+        <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)&#123;
+            <span class="hljs-keyword">if</span> (post[i] == pre[<span class="hljs-number">1</span>])&#123;
+                left = i + <span class="hljs-number">1</span>;
+            &#125;
+        &#125;
+        root.left = constructFromPrePost(Arrays.copyOfRange(pre, <span class="hljs-number">1</span>, left + <span class="hljs-number">1</span>), Arrays.copyOfRange(post, <span class="hljs-number">0</span>, left));
+        root.right = constructFromPrePost(Arrays.copyOfRange(pre, left + <span class="hljs-number">1</span>, n), Arrays.copyOfRange(post, left, n - <span class="hljs-number">1</span>));
+        <span class="hljs-keyword">return</span> root;
+    &#125;
+&#125;</code></pre>
+<h5 id="1130-固定叶子节点的最小代价-非叶子节点值和-树"><a href="#1130-固定叶子节点的最小代价-非叶子节点值和-树" class="headerlink" title="1130.固定叶子节点的最小代价(非叶子节点值和)树"></a>1130.固定叶子节点的最小代价(非叶子节点值和)树</h5><ul>
+<li>arr给出的叶子节点的顺序为构建出的二叉树中序遍历的顺序</li>
+<li>每个非叶节点的值分别等于其左子树和右子树中最大叶值的乘积</li>
+<li>每个节点有0或2个孩子</li>
+</ul>
+<h6 id="题解-38"><a href="#题解-38" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"></code></pre>
+<h5 id="429-N叉树的层序遍历"><a href="#429-N叉树的层序遍历" class="headerlink" title="429.N叉树的层序遍历"></a>429.N叉树的层序遍历</h5><h6 id="题解-39"><a href="#题解-39" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-comment">/*</span>
+<span class="hljs-comment">// Definition for a Node.</span>
+<span class="hljs-comment">class Node &#123;</span>
+<span class="hljs-comment">    public int val;</span>
+<span class="hljs-comment">    public List&lt;Node&gt; children;</span>
+<span class="hljs-comment"></span>
+<span class="hljs-comment">    public Node() &#123;&#125;</span>
+<span class="hljs-comment"></span>
+<span class="hljs-comment">    public Node(int _val) &#123;</span>
+<span class="hljs-comment">        val = _val;</span>
+<span class="hljs-comment">    &#125;</span>
+<span class="hljs-comment"></span>
+<span class="hljs-comment">    public Node(int _val, List&lt;Node&gt; _children) &#123;</span>
+<span class="hljs-comment">        val = _val;</span>
+<span class="hljs-comment">        children = _children;</span>
+<span class="hljs-comment">    &#125;</span>
+<span class="hljs-comment">&#125;;</span>
+<span class="hljs-comment">*/</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    List&lt;List&lt;Integer&gt;&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; levelOrder(Node root) &#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> res;
+        Deque&lt;Node&gt; q = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();
+        q.addLast(root);
+        <span class="hljs-keyword">while</span> (!q.isEmpty())&#123;
+            <span class="hljs-keyword">int</span> size = q.size();
+            List&lt;Integer&gt; tmp = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++)&#123;
+                Node cur = q.pollFirst();
+                tmp.add(cur.val);
+                <span class="hljs-keyword">if</span> (cur.children != <span class="hljs-keyword">null</span>)&#123;
+                    <span class="hljs-keyword">for</span> (Node d : cur.children)&#123;
+                        q.addLast(d);
+                    &#125;
+                &#125;
+            &#125;
+            res.add(tmp);
+        &#125;
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+&#125;</code></pre>
+<h5 id="94-二叉树的中序遍历"><a href="#94-二叉树的中序遍历" class="headerlink" title="94.二叉树的中序遍历"></a>94.二叉树的中序遍历</h5><h6 id="题解-40"><a href="#题解-40" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for a binary tree node.</span>
+<span class="hljs-comment"> * public class TreeNode &#123;</span>
+<span class="hljs-comment"> *     int val;</span>
+<span class="hljs-comment"> *     TreeNode left;</span>
+<span class="hljs-comment"> *     TreeNode right;</span>
+<span class="hljs-comment"> *     TreeNode() &#123;&#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span>
+<span class="hljs-comment"> *         this.val = val;</span>
+<span class="hljs-comment"> *         this.left = left;</span>
+<span class="hljs-comment"> *         this.right = right;</span>
+<span class="hljs-comment"> *     &#125;</span>
+<span class="hljs-comment"> * &#125;</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title">inorderTraversal</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        helper(root);
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">helper</span><span class="hljs-params">(TreeNode node)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (node != <span class="hljs-keyword">null</span>)&#123;
+            <span class="hljs-keyword">if</span> (node.left != <span class="hljs-keyword">null</span>)&#123;
+                helper(node.left);
+            &#125;
+            res.add(node.val);
+            <span class="hljs-keyword">if</span> (node.right != <span class="hljs-keyword">null</span>)&#123;
+                helper(node.right);
+            &#125;
+        &#125;
+        
+    &#125;
+&#125;</code></pre>
+<h5 id="951-翻转等效二叉树"><a href="#951-翻转等效二叉树" class="headerlink" title="951.翻转等效二叉树"></a>951.翻转等效二叉树</h5><p>定义翻转操作为：选择任意节点，并交换左右子树</p>
+<p>等效的定义：当且仅当在一定数量的翻转操作之后我们可以使X等于Y时，二叉树X才等效于二叉树Y。</p>
+<h6 id="题解-41"><a href="#题解-41" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for a binary tree node.</span>
+<span class="hljs-comment"> * public class TreeNode &#123;</span>
+<span class="hljs-comment"> *     int val;</span>
+<span class="hljs-comment"> *     TreeNode left;</span>
+<span class="hljs-comment"> *     TreeNode right;</span>
+<span class="hljs-comment"> *     TreeNode() &#123;&#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span>
+<span class="hljs-comment"> *         this.val = val;</span>
+<span class="hljs-comment"> *         this.left = left;</span>
+<span class="hljs-comment"> *         this.right = right;</span>
+<span class="hljs-comment"> *     &#125;</span>
+<span class="hljs-comment"> * &#125;</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">flipEquiv</span><span class="hljs-params">(TreeNode root1, TreeNode root2)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> dfs(root1, root2);
+    &#125;
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode p, TreeNode q)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (p == <span class="hljs-keyword">null</span> &amp;&amp; q == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        <span class="hljs-keyword">if</span> (p == <span class="hljs-keyword">null</span> || q == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        <span class="hljs-keyword">if</span> (p.val == q.val)&#123;
+            <span class="hljs-keyword">return</span> dfs(p.left, q.left) &amp;&amp; dfs(p.right, q.right) || dfs(p.left, q.right) &amp;&amp; dfs(p.right, q.left);
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    &#125;
+&#125;</code></pre>
+<h5 id="669-根据范围修剪二叉搜索树"><a href="#669-根据范围修剪二叉搜索树" class="headerlink" title="669.根据范围修剪二叉搜索树"></a>669.根据范围修剪二叉搜索树</h5><h6 id="题解-42"><a href="#题解-42" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for a binary tree node.</span>
+<span class="hljs-comment"> * public class TreeNode &#123;</span>
+<span class="hljs-comment"> *     int val;</span>
+<span class="hljs-comment"> *     TreeNode left;</span>
+<span class="hljs-comment"> *     TreeNode right;</span>
+<span class="hljs-comment"> *     TreeNode() &#123;&#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span>
+<span class="hljs-comment"> *         this.val = val;</span>
+<span class="hljs-comment"> *         this.left = left;</span>
+<span class="hljs-comment"> *         this.right = right;</span>
+<span class="hljs-comment"> *     &#125;</span>
+<span class="hljs-comment"> * &#125;</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">trimBST</span><span class="hljs-params">(TreeNode root, <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> root;
+        <span class="hljs-comment">//修剪全部发生在左子树</span>
+        <span class="hljs-keyword">if</span> (root.val &gt; high)&#123;
+            <span class="hljs-keyword">return</span> trimBST(root.left, low, high);
+        &#125;        
+		<span class="hljs-comment">//修剪全部发生在右子树</span>
+        <span class="hljs-keyword">if</span> (root.val &lt; low)&#123;
+            <span class="hljs-keyword">return</span> trimBST(root.right, low, high);
+        &#125;
+        <span class="hljs-comment">//左右子树都要修剪</span>
+        root.left = trimBST(root.left, low, high);
+        root.right = trimBST(root.right, low, high);
+
+        <span class="hljs-keyword">return</span> root;
+    &#125;
+&#125;</code></pre>
+<h5 id="513-获取最后一层最左的叶子节点"><a href="#513-获取最后一层最左的叶子节点" class="headerlink" title="513.获取最后一层最左的叶子节点"></a>513.获取最后一层最左的叶子节点</h5><h6 id="题解-43"><a href="#题解-43" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for a binary tree node.</span>
+<span class="hljs-comment"> * public class TreeNode &#123;</span>
+<span class="hljs-comment"> *     int val;</span>
+<span class="hljs-comment"> *     TreeNode left;</span>
+<span class="hljs-comment"> *     TreeNode right;</span>
+<span class="hljs-comment"> *     TreeNode() &#123;&#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span>
+<span class="hljs-comment"> *         this.val = val;</span>
+<span class="hljs-comment"> *         this.left = left;</span>
+<span class="hljs-comment"> *         this.right = right;</span>
+<span class="hljs-comment"> *     &#125;</span>
+<span class="hljs-comment"> * &#125;</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+<span class="hljs-comment">//     //层次遍历，复杂度过高</span>
+<span class="hljs-comment">//     int depth = 0;</span>
+<span class="hljs-comment">//     List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();</span>
+<span class="hljs-comment">//     public int findBottomLeftValue(TreeNode root) &#123;</span>
+<span class="hljs-comment">//         HashMap&lt;TreeNode, Integer&gt; map = new HashMap&lt;&gt;();</span>
+<span class="hljs-comment">//         Deque&lt;TreeNode&gt; q = new ArrayDeque&lt;&gt;();</span>
+<span class="hljs-comment">//         q.addLast(root);</span>
+<span class="hljs-comment">//         while(!q.isEmpty())&#123;</span>
+<span class="hljs-comment">//             int size = q.size();</span>
+<span class="hljs-comment">//             List&lt;Integer&gt; tmp = new ArrayList&lt;&gt;();</span>
+<span class="hljs-comment">//             for (int i = 0; i &lt; size; i++)&#123;</span>
+<span class="hljs-comment">//                 TreeNode cur = q.pollFirst();</span>
+<span class="hljs-comment">//                 tmp.add(cur.val);</span>
+<span class="hljs-comment">//                 if (cur.left != null) q.addLast(cur.left);</span>
+<span class="hljs-comment">//                 if (cur.right != null) q.addLast(cur.right);</span>
+<span class="hljs-comment">//             &#125;</span>
+<span class="hljs-comment">//             res.add(tmp);</span>
+<span class="hljs-comment">//             depth++;</span>
+<span class="hljs-comment">//         &#125;</span>
+<span class="hljs-comment">//         return res.get(res.size() - 1).get(0);</span>
+        
+<span class="hljs-comment">//     &#125;</span>
+    
+    <span class="hljs-comment">//DFS</span>
+    <span class="hljs-keyword">int</span> prevlevel = Integer.MIN_VALUE;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findBottomLeftValue</span><span class="hljs-params">(TreeNode root)</span></span>&#123;
+        <span class="hljs-comment">//只有一个根节点，直接返回根结点的值</span>
+        <span class="hljs-keyword">if</span>(root.left == <span class="hljs-keyword">null</span> &amp;&amp; root.right == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> root.val; 
+        <span class="hljs-comment">//left记录当前层最左节点的值</span>
+        <span class="hljs-keyword">int</span> left = root.val;
+        <span class="hljs-comment">//记录层数</span>
+        <span class="hljs-keyword">int</span> level = <span class="hljs-number">0</span>;;
+        <span class="hljs-keyword">return</span> helper(root, left, level);
+    &#125;
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">helper</span><span class="hljs-params">(TreeNode root, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> level)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> left;
+        left = helper(root.left, left, level + <span class="hljs-number">1</span>);
+        
+        <span class="hljs-keyword">if</span> (level &gt; prevlevel)&#123;
+            prevlevel = level;
+            left = root.val;
+        &#125;
+        
+        left = helper(root.right, left, level + <span class="hljs-number">1</span>);
+        
+        <span class="hljs-keyword">return</span> left;
+    &#125;
+&#125;</code></pre>
+<h5 id="515-找到二叉树每层值最大的节点"><a href="#515-找到二叉树每层值最大的节点" class="headerlink" title="515.找到二叉树每层值最大的节点"></a>515.找到二叉树每层值最大的节点</h5><h6 id="题解-44"><a href="#题解-44" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for a binary tree node.</span>
+<span class="hljs-comment"> * public class TreeNode &#123;</span>
+<span class="hljs-comment"> *     int val;</span>
+<span class="hljs-comment"> *     TreeNode left;</span>
+<span class="hljs-comment"> *     TreeNode right;</span>
+<span class="hljs-comment"> *     TreeNode() &#123;&#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span>
+<span class="hljs-comment"> *         this.val = val;</span>
+<span class="hljs-comment"> *         this.left = left;</span>
+<span class="hljs-comment"> *         this.right = right;</span>
+<span class="hljs-comment"> *     &#125;</span>
+<span class="hljs-comment"> * &#125;</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title">largestValues</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> res;
+        Deque&lt;TreeNode&gt; q = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();
+        q.offerLast(root);
+        <span class="hljs-keyword">while</span>(!q.isEmpty())&#123;
+            <span class="hljs-keyword">int</span> size = q.size();
+            <span class="hljs-keyword">int</span> maxVal = Integer.MIN_VALUE;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++)&#123;
+                TreeNode cur = q.pollFirst();
+                maxVal = Math.max(maxVal, cur.val);
+                <span class="hljs-keyword">if</span> (cur.left != <span class="hljs-keyword">null</span>) q.offerLast(cur.left);
+                <span class="hljs-keyword">if</span> (cur.right != <span class="hljs-keyword">null</span>) q.offerLast(cur.right);
+            &#125;
+            res.add(maxVal);
+        &#125;
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+&#125;</code></pre>
+<h5 id="173-为二叉搜索树构建迭代器"><a href="#173-为二叉搜索树构建迭代器" class="headerlink" title="173.为二叉搜索树构建迭代器"></a>173.为二叉搜索树构建迭代器</h5><p>用栈实现中序遍历</p>
+<h6 id="题解-45"><a href="#题解-45" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for a binary tree node.</span>
+<span class="hljs-comment"> * public class TreeNode &#123;</span>
+<span class="hljs-comment"> *     int val;</span>
+<span class="hljs-comment"> *     TreeNode left;</span>
+<span class="hljs-comment"> *     TreeNode right;</span>
+<span class="hljs-comment"> *     TreeNode() &#123;&#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span>
+<span class="hljs-comment"> *         this.val = val;</span>
+<span class="hljs-comment"> *         this.left = left;</span>
+<span class="hljs-comment"> *         this.right = right;</span>
+<span class="hljs-comment"> *     &#125;</span>
+<span class="hljs-comment"> * &#125;</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BSTIterator</span> </span>&#123;
+
+    Deque&lt;TreeNode&gt; q = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">BSTIterator</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        leftTraverse(root);
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">leftTraverse</span><span class="hljs-params">(TreeNode node)</span></span>&#123;
+        <span class="hljs-keyword">while</span>(node != <span class="hljs-keyword">null</span>)&#123;
+            q.offerFirst(node);
+            node = node.left;
+        &#125;
+    &#125;
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">next</span><span class="hljs-params">()</span> </span>&#123;
+        TreeNode cur = q.pollFirst();
+        <span class="hljs-keyword">if</span> (cur.right != <span class="hljs-keyword">null</span>)&#123;
+            leftTraverse(cur.right);
+        &#125;
+        <span class="hljs-keyword">return</span> cur.val;
+    &#125;
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">hasNext</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> q.size() &gt; <span class="hljs-number">0</span>;
+    &#125;
+&#125;
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Your BSTIterator object will be instantiated and called as such:</span>
+<span class="hljs-comment"> * BSTIterator obj = new BSTIterator(root);</span>
+<span class="hljs-comment"> * int param_1 = obj.next();</span>
+<span class="hljs-comment"> * boolean param_2 = obj.hasNext();</span>
+<span class="hljs-comment"> */</span></code></pre>
+<h5 id="538-将二叉搜索树转化为Greater树"><a href="#538-将二叉搜索树转化为Greater树" class="headerlink" title="538.将二叉搜索树转化为Greater树"></a>538.将二叉搜索树转化为Greater树</h5><h6 id="题解-46"><a href="#题解-46" class="headerlink" title="题解"></a>题解</h6><p>Greater树特性：原始BST的每个键都变成原始键加上BST中所有大于原始键的键的和</p>
+<pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for a binary tree node.</span>
+<span class="hljs-comment"> * public class TreeNode &#123;</span>
+<span class="hljs-comment"> *     int val;</span>
+<span class="hljs-comment"> *     TreeNode left;</span>
+<span class="hljs-comment"> *     TreeNode right;</span>
+<span class="hljs-comment"> *     TreeNode() &#123;&#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span>
+<span class="hljs-comment"> *         this.val = val;</span>
+<span class="hljs-comment"> *         this.left = left;</span>
+<span class="hljs-comment"> *         this.right = right;</span>
+<span class="hljs-comment"> *     &#125;</span>
+<span class="hljs-comment"> * &#125;</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">convertBST</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
+        traverse(root);
+        <span class="hljs-keyword">return</span> root;
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">traverse</span><span class="hljs-params">(TreeNode node)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (node == <span class="hljs-keyword">null</span>)&#123;
+            <span class="hljs-keyword">return</span>;
+        &#125;
+        traverse(node.right);
+        sum += node.val;
+        node.val = sum;
+        traverse(node.left);
+    &#125;
+&#125;</code></pre>
+<h5 id="508-最频繁出现的子树和"><a href="#508-最频繁出现的子树和" class="headerlink" title="508.最频繁出现的子树和"></a>508.最频繁出现的子树和</h5><h6 id="题解-47"><a href="#题解-47" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for a binary tree node.</span>
+<span class="hljs-comment"> * public class TreeNode &#123;</span>
+<span class="hljs-comment"> *     int val;</span>
+<span class="hljs-comment"> *     TreeNode left;</span>
+<span class="hljs-comment"> *     TreeNode right;</span>
+<span class="hljs-comment"> *     TreeNode() &#123;&#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span>
+<span class="hljs-comment"> *         this.val = val;</span>
+<span class="hljs-comment"> *         this.left = left;</span>
+<span class="hljs-comment"> *         this.right = right;</span>
+<span class="hljs-comment"> *     &#125;</span>
+<span class="hljs-comment"> * &#125;</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">int</span> max = Integer.MIN_VALUE;
+    List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    Map&lt;Integer, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] findFrequentTreeSum(TreeNode root) &#123;
+        helper(root);
+        <span class="hljs-keyword">int</span>[] arr = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[res.size()];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; res.size(); i++)&#123;
+            arr[i] = res.get(i);
+        &#125;
+        <span class="hljs-keyword">return</span> arr;
+    &#125;
+    
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">helper</span><span class="hljs-params">(TreeNode root)</span></span>&#123;
+        <span class="hljs-keyword">if</span>(root != <span class="hljs-keyword">null</span>)&#123;
+            <span class="hljs-keyword">int</span> leftSum = helper(root.left);
+            <span class="hljs-keyword">int</span> rightSum = helper(root.right);
+            
+            <span class="hljs-keyword">int</span> curSum = leftSum + rightSum + root.val;
+            <span class="hljs-keyword">int</span> freq =  map.getOrDefault(curSum, <span class="hljs-number">0</span>);
+            map.put(curSum, freq + <span class="hljs-number">1</span>);
+            <span class="hljs-keyword">if</span>(freq + <span class="hljs-number">1</span> &gt; max) &#123;
+                 res.clear();
+                 res.add(curSum);
+                 max = freq + <span class="hljs-number">1</span>;
+            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(freq + <span class="hljs-number">1</span> == max) &#123;
+                res.add(curSum);
+            &#125;
+            <span class="hljs-keyword">return</span> curSum;
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    &#125;
+&#125;</code></pre>
+<h5 id="863-二叉树中与目标节点距离为K的所有节点"><a href="#863-二叉树中与目标节点距离为K的所有节点" class="headerlink" title="863.二叉树中与目标节点距离为K的所有节点"></a>863.二叉树中与目标节点距离为K的所有节点</h5><h6 id="题解-48"><a href="#题解-48" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for a binary tree node.</span>
+<span class="hljs-comment"> * public class TreeNode &#123;</span>
+<span class="hljs-comment"> *     int val;</span>
+<span class="hljs-comment"> *     TreeNode left;</span>
+<span class="hljs-comment"> *     TreeNode right;</span>
+<span class="hljs-comment"> *     TreeNode(int x) &#123; val = x; &#125;</span>
+<span class="hljs-comment"> * &#125;</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    
+    List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    Map&lt;TreeNode, TreeNode&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+    Set&lt;TreeNode&gt; visited = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title">distanceK</span><span class="hljs-params">(TreeNode root, TreeNode target, <span class="hljs-keyword">int</span> K)</span> </span>&#123;
+        map.put(root, <span class="hljs-keyword">null</span>);
+        getParent(root.left, root);
+        getParent(root.right, root);
+        dfs(target, visited, <span class="hljs-number">0</span>, K);
+        <span class="hljs-keyword">return</span> res;
+
+    &#125;
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode target, Set&lt;TreeNode&gt; visited, <span class="hljs-keyword">int</span> curDist, <span class="hljs-keyword">int</span> targetDist)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (target == <span class="hljs-keyword">null</span> || visited.contains(target) || curDist &gt; targetDist)&#123;
+            <span class="hljs-keyword">return</span>;
+        &#125;
+        visited.add(target);
+        <span class="hljs-keyword">if</span> (curDist == targetDist)&#123;
+            res.add(target.val);
+        &#125;
+        <span class="hljs-comment">//parent</span>
+        dfs(map.get(target), visited, curDist + <span class="hljs-number">1</span>, targetDist);
+        <span class="hljs-comment">//left</span>
+        dfs(target.left, visited, curDist + <span class="hljs-number">1</span>, targetDist);
+        <span class="hljs-comment">//right</span>
+        dfs(target.right, visited, curDist + <span class="hljs-number">1</span>, targetDist);
+    &#125;
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">getParent</span><span class="hljs-params">(TreeNode child, TreeNode parent)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (child == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span>;
+        map.put(child, parent);
+        <span class="hljs-keyword">if</span> (child.left != <span class="hljs-keyword">null</span>) &#123;
+            getParent(child.left, child);
+        &#125;
+        <span class="hljs-keyword">if</span> (child.right != <span class="hljs-keyword">null</span>)&#123;
+            getParent(child.right, child);
+        &#125;
+    &#125;
+    
+&#125;</code></pre>
+<h5 id="199-二叉树的右视图"><a href="#199-二叉树的右视图" class="headerlink" title="199.二叉树的右视图"></a>199.二叉树的右视图</h5><h6 id="题解-49"><a href="#题解-49" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for a binary tree node.</span>
+<span class="hljs-comment"> * public class TreeNode &#123;</span>
+<span class="hljs-comment"> *     int val;</span>
+<span class="hljs-comment"> *     TreeNode left;</span>
+<span class="hljs-comment"> *     TreeNode right;</span>
+<span class="hljs-comment"> *     TreeNode() &#123;&#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span>
+<span class="hljs-comment"> *         this.val = val;</span>
+<span class="hljs-comment"> *         this.left = left;</span>
+<span class="hljs-comment"> *         this.right = right;</span>
+<span class="hljs-comment"> *     &#125;</span>
+<span class="hljs-comment"> * &#125;</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-comment">// public List&lt;Integer&gt; rightSideView(TreeNode root) &#123;</span>
+    <span class="hljs-comment">//     if (root == null) return res;</span>
+    <span class="hljs-comment">//     Deque&lt;TreeNode&gt; q = new ArrayDeque&lt;&gt;();</span>
+    <span class="hljs-comment">//     q.offerLast(root);</span>
+    <span class="hljs-comment">//     while (!q.isEmpty())&#123;</span>
+    <span class="hljs-comment">//         int size = q.size();</span>
+    <span class="hljs-comment">//         List&lt;Integer&gt; tmp = new ArrayList&lt;&gt;();</span>
+    <span class="hljs-comment">//         for (int i = 0; i &lt; size; i++)&#123;</span>
+    <span class="hljs-comment">//             TreeNode cur = q.pollFirst();</span>
+    <span class="hljs-comment">//             tmp.add(cur.val);</span>
+    <span class="hljs-comment">//             if (cur.left != null) q.offerLast(cur.left);</span>
+    <span class="hljs-comment">//             if (cur.right != null) q.offerLast(cur.right);</span>
+    <span class="hljs-comment">//         &#125;</span>
+    <span class="hljs-comment">//         res.add(tmp.get(tmp.size() - 1));</span>
+    <span class="hljs-comment">//     &#125;</span>
+    <span class="hljs-comment">//     return res;</span>
+    <span class="hljs-comment">// &#125;</span>
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title">rightSideView</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> res;
+        helper(root, <span class="hljs-number">0</span>);
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">helper</span><span class="hljs-params">(TreeNode node, <span class="hljs-keyword">int</span> level)</span></span>&#123;
+        <span class="hljs-keyword">if</span> (node == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span>;
+        <span class="hljs-keyword">if</span> (level == res.size())&#123;
+            res.add(node.val);
+        &#125;
+        helper(node.right, level + <span class="hljs-number">1</span>);
+        helper(node.left, level + <span class="hljs-number">1</span>);
+    &#125;
+&#125;</code></pre>
+<h5 id="1530-距离小于等于K的叶子节点对数"><a href="#1530-距离小于等于K的叶子节点对数" class="headerlink" title="1530.距离小于等于K的叶子节点对数"></a>1530.距离小于等于K的叶子节点对数</h5><h6 id="题解-50"><a href="#题解-50" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"></code></pre>
+<h5 id="1372-二叉树中最长的ZigZag路径"><a href="#1372-二叉树中最长的ZigZag路径" class="headerlink" title="1372.二叉树中最长的ZigZag路径"></a>1372.二叉树中最长的ZigZag路径</h5><h6 id="题解-51"><a href="#题解-51" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for a binary tree node.</span>
+<span class="hljs-comment"> * public class TreeNode &#123;</span>
+<span class="hljs-comment"> *     int val;</span>
+<span class="hljs-comment"> *     TreeNode left;</span>
+<span class="hljs-comment"> *     TreeNode right;</span>
+<span class="hljs-comment"> *     TreeNode() &#123;&#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span>
+<span class="hljs-comment"> *         this.val = val;</span>
+<span class="hljs-comment"> *         this.left = left;</span>
+<span class="hljs-comment"> *         this.right = right;</span>
+<span class="hljs-comment"> *     &#125;</span>
+<span class="hljs-comment"> * &#125;</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">longestZigZag</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
+        <span class="hljs-keyword">if</span>(root.left != <span class="hljs-keyword">null</span>) &#123;
+            dfs(root.left, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+        &#125;
+        <span class="hljs-keyword">if</span>(root.right != <span class="hljs-keyword">null</span>) &#123;
+            dfs(root.right, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+        &#125;
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+    
+    <span class="hljs-comment">// 0 for left, 1 for right, direction for the last one</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode cur, <span class="hljs-keyword">int</span> direction, <span class="hljs-keyword">int</span> cnt)</span></span>&#123;
+        res = Math.max(res, cnt);
+        <span class="hljs-keyword">if</span> (cur.left != <span class="hljs-keyword">null</span>)&#123;
+            dfs(cur.left, <span class="hljs-number">0</span>, (direction == <span class="hljs-number">0</span>) ? <span class="hljs-number">1</span>: (cnt + <span class="hljs-number">1</span>));
+        &#125;
+        <span class="hljs-keyword">if</span> (cur.right != <span class="hljs-keyword">null</span>)&#123;
+            dfs(cur.right, <span class="hljs-number">1</span>, (direction == <span class="hljs-number">1</span>) ? <span class="hljs-number">1</span>: (cnt + <span class="hljs-number">1</span>));
+        &#125;
+    &#125;
+        
+&#125;</code></pre>
+<h5 id="1443-收集所有苹果的最短时间"><a href="#1443-收集所有苹果的最短时间" class="headerlink" title="1443.收集所有苹果的最短时间"></a>1443.收集所有苹果的最短时间</h5><h6 id="题解-52"><a href="#题解-52" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"></code></pre>
+<h5 id="96-结构唯一的二叉搜索树的个数"><a href="#96-结构唯一的二叉搜索树的个数" class="headerlink" title="96.结构唯一的二叉搜索树的个数"></a><code>96.结构唯一的二叉搜索树的个数</code></h5><p>要找出所有二叉搜索树，可用动态规划的思想</p>
+<ul>
+<li>以1 … n 为节点组成的二叉搜索树，不同的树在于根结点的不同和左右子树的不同<ul>
+<li>根结点不同，可能有n种情况，以1为根结点，以2为根结点…类推到以n为根结点，共有n种情况.</li>
+<li>区分了根节点不同后，剩下的就是左右子树不同了，而左右子树的不同二叉树则是一个相同的问题，比如收当前有n个结点，以第k个元素作为根结点，那么左子树有k-1个元素，它是一个规模为k-1的子问题，而右子树有n-k个结点，它也是一个规模为n-k的子问题</li>
+</ul>
+</li>
+</ul>
+<h6 id="题解-53"><a href="#题解-53" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">numTrees</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (n &lt;= <span class="hljs-number">2</span>) <span class="hljs-keyword">return</span> n;
+        <span class="hljs-comment">//dp[i]为给定整数i，结构唯一的二叉搜索树的个数</span>
+        <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n + <span class="hljs-number">1</span>];
+        dp[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;
+        dp[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;
+        dp[<span class="hljs-number">2</span>] = <span class="hljs-number">2</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">3</span>; i &lt; n + <span class="hljs-number">1</span>; i++)&#123;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= i; j++)&#123;
+                dp[i] += dp [j - <span class="hljs-number">1</span>] * dp[i - j];
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> dp[n];
+    &#125;
+&#125;</code></pre>
+<h5 id="437-路径和Ⅲ"><a href="#437-路径和Ⅲ" class="headerlink" title="437.路径和Ⅲ"></a>437.路径和Ⅲ</h5><h6 id="题解-54"><a href="#题解-54" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for a binary tree node.</span>
+<span class="hljs-comment"> * public class TreeNode &#123;</span>
+<span class="hljs-comment"> *     int val;</span>
+<span class="hljs-comment"> *     TreeNode left;</span>
+<span class="hljs-comment"> *     TreeNode right;</span>
+<span class="hljs-comment"> *     TreeNode() &#123;&#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span>
+<span class="hljs-comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span>
+<span class="hljs-comment"> *         this.val = val;</span>
+<span class="hljs-comment"> *         this.left = left;</span>
+<span class="hljs-comment"> *         this.right = right;</span>
+<span class="hljs-comment"> *     &#125;</span>
+<span class="hljs-comment"> * &#125;</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">pathSum</span><span class="hljs-params">(TreeNode root, <span class="hljs-keyword">int</span> sum)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-comment">//每个节点做根节点的子树</span>
+        <span class="hljs-keyword">return</span> dfs(root, sum) + pathSum(root.left, sum) + pathSum(root.right, sum);
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode cur, <span class="hljs-keyword">int</span> rest)</span></span>&#123;
+        <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">if</span> (cur == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-comment">//路径和满足</span>
+        <span class="hljs-keyword">if</span> (rest == cur.val) &#123;
+            res++;
+        &#125;
+        
+        res += dfs(cur.left, rest - cur.val);
+        res += dfs(cur.right, rest - cur.val);
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+&#125;</code></pre>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/leetcode/">leetcode</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/21/leetcode%E9%A2%98%E8%A7%A3%E4%B9%8B%E9%93%BE%E8%A1%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">leetcode题解之链表</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/15/Redis%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+                        <span class="hidden-mobile">Redis基础知识</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "leetcode题解之二叉树&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

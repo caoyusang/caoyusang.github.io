@@ -1,0 +1,1189 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="caoyusang">
+  <meta name="keywords" content="">
+  <title>leetcode题解之数组 - caoyusang的科研日常</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>caoyusang</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/7.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-25 19:44" pubdate>
+        2021年1月25日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      74
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">leetcode题解之数组</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：3 分钟前
+                
+              </p>
+            
+            <div class="markdown-body" id="post-body">
+              <h5 id="1480-一维数组的运行和"><a href="#1480-一维数组的运行和" class="headerlink" title="1480.一维数组的运行和"></a>1480.一维数组的运行和</h5><h6 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] runningSum(<span class="hljs-keyword">int</span>[] nums) &#123;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++)&#123;
+            sum += nums[i];
+            nums[i] = sum;
+        &#125;
+        <span class="hljs-keyword">return</span> nums;
+    &#125;
+&#125;</code></pre>
+<h5 id="1431-糖果数目最多的孩子"><a href="#1431-糖果数目最多的孩子" class="headerlink" title="1431.糖果数目最多的孩子"></a>1431.糖果数目最多的孩子</h5><h6 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    List&lt;Boolean&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Boolean&gt; <span class="hljs-title">kidsWithCandies</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] candies, <span class="hljs-keyword">int</span> extraCandies)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> n = candies.length;
+        <span class="hljs-keyword">int</span> maxCandies = Integer.MIN_VALUE;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)&#123;
+            maxCandies = Math.max(maxCandies, candies[i]);
+        &#125;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : candies)&#123;
+            res.add(num + extraCandies &gt;= maxCandies);
+        &#125;
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+&#125;</code></pre>
+<h5 id="1470-改变数组排列方式"><a href="#1470-改变数组排列方式" class="headerlink" title="1470.改变数组排列方式"></a>1470.改变数组排列方式</h5><h6 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] shuffle(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> n) &#123;
+        <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">2</span> * n];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">2</span> * n; i++)&#123;
+            <span class="hljs-keyword">if</span> (i % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>)&#123;
+                res[i] = nums[n - <span class="hljs-number">1</span> + (i + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>];
+            &#125; <span class="hljs-keyword">else</span> &#123;
+                res[i] = nums[i / <span class="hljs-number">2</span>];
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+&#125;</code></pre>
+<h5 id="1672-最富有的银行客户的总资产"><a href="#1672-最富有的银行客户的总资产" class="headerlink" title="1672.最富有的银行客户的总资产"></a>1672.最富有的银行客户的总资产</h5><h6 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">int</span> res = Integer.MIN_VALUE;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maximumWealth</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] accounts)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> m = accounts.length, n = accounts[<span class="hljs-number">0</span>].length;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; m; i++)&#123;
+            <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; n; j++)&#123;
+                sum += accounts[i][j];
+            &#125;
+            res = Math.max(res, sum);
+        &#125;
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+&#125;</code></pre>
+<h5 id="1512-“好对儿”的数目"><a href="#1512-“好对儿”的数目" class="headerlink" title="1512.“好对儿”的数目"></a>1512.“好对儿”的数目</h5><h6 id="题解-4"><a href="#题解-4" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    HashMap&lt;Integer, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">numIdenticalPairs</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> n = nums.length;
+        <span class="hljs-keyword">int</span> cnt = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)&#123;
+            map.put(nums[i], map.getOrDefault(nums[i], <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>);
+        &#125;
+        
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : map.keySet())&#123;
+            <span class="hljs-keyword">if</span> (map.containsKey(num))&#123;
+                <span class="hljs-keyword">int</span> val = map.get(num);
+                <span class="hljs-comment">//该数有&quot;好对儿&quot;</span>
+                <span class="hljs-keyword">if</span> (val &gt; <span class="hljs-number">1</span>)&#123;
+                    cnt += (val - <span class="hljs-number">1</span>) * val / <span class="hljs-number">2</span>;
+                &#125;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> cnt;
+        
+    &#125;
+&#125;</code></pre>
+<h5 id="1365-有多少个数比当前数小"><a href="#1365-有多少个数比当前数小" class="headerlink" title="1365.有多少个数比当前数小"></a>1365.有多少个数比当前数小</h5><h6 id="题解-5"><a href="#题解-5" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] smallerNumbersThanCurrent(<span class="hljs-keyword">int</span>[] nums) &#123;
+        <span class="hljs-comment">// int n = nums.length;</span>
+        <span class="hljs-comment">// int[] res = new int[n];</span>
+        <span class="hljs-comment">// for (int i = 0; i &lt; n; i++)&#123;</span>
+        <span class="hljs-comment">//     int cnt = 0;</span>
+        <span class="hljs-comment">//     for (int j = 0; j &lt; n; j++)&#123;</span>
+        <span class="hljs-comment">//         if (i == j) continue;</span>
+        <span class="hljs-comment">//         if (nums[j] &lt; nums[i])&#123;</span>
+        <span class="hljs-comment">//             cnt++;</span>
+        <span class="hljs-comment">//         &#125;</span>
+        <span class="hljs-comment">//     &#125;</span>
+        <span class="hljs-comment">//     res[i] = cnt;</span>
+        <span class="hljs-comment">// &#125;</span>
+        <span class="hljs-comment">// return res;</span>
+        <span class="hljs-keyword">int</span> n = nums.length;
+        <span class="hljs-keyword">int</span>[] t = nums.clone();
+        Map&lt;Integer,Integer&gt; m = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+        Arrays.sort(t);
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)&#123;
+            m.putIfAbsent(t[i], i);
+        &#125;
+        
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)&#123;
+            t[i] = m.get(nums[i]);
+        &#125;
+        <span class="hljs-keyword">return</span> t;
+    &#125;
+&#125;</code></pre>
+<h5 id="1486-数组中的异或操作"><a href="#1486-数组中的异或操作" class="headerlink" title="1486.数组中的异或操作"></a>1486.数组中的异或操作</h5><h6 id="题解-6"><a href="#题解-6" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">xorOperation</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> start)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> n1 = start;
+        <span class="hljs-keyword">int</span> n2 = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++)&#123;
+            n2 = start + <span class="hljs-number">2</span> * i;
+            n1 ^= n2;
+        &#125;
+        <span class="hljs-keyword">return</span> n1;
+    &#125;
+&#125;</code></pre>
+<h5 id="1588-所有奇数长度连续子数组的和"><a href="#1588-所有奇数长度连续子数组的和" class="headerlink" title="1588.所有奇数长度连续子数组的和"></a>1588.所有奇数长度连续子数组的和</h5><h6 id="题解-7"><a href="#题解-7" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">sumOddLengthSubarrays</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] arr)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> n = arr.length;
+        <span class="hljs-comment">//k表示子数组的长度，为奇数</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">1</span>; k &lt;= n; k += <span class="hljs-number">2</span>)&#123;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i + k  &lt;= n; i++)&#123;
+                <span class="hljs-keyword">int</span> tmp = arr[i];
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; k; j++)&#123;
+                     tmp += arr[i + j];
+                &#125;
+                sum += tmp;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> sum;
+    &#125;
+&#125;</code></pre>
+<h5 id="1732-找到最高海拔"><a href="#1732-找到最高海拔" class="headerlink" title="1732.找到最高海拔"></a>1732.找到最高海拔</h5><h6 id="题解-8"><a href="#题解-8" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">largestAltitude</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] gain)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> maxH = Integer.MIN_VALUE;
+        <span class="hljs-keyword">int</span> curH = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; gain.length; i++)&#123;
+            maxH = Math.max(maxH, curH);
+            curH += gain[i];
+        &#125;
+        <span class="hljs-comment">//记得最后再求一次最大，因为curH最后一次赋值后未被比较</span>
+        maxH = Math.max(maxH, curH);
+        <span class="hljs-keyword">return</span> maxH;
+    &#125;
+&#125;</code></pre>
+<h5 id="1295-统计数组中具有偶数位数的数字个数"><a href="#1295-统计数组中具有偶数位数的数字个数" class="headerlink" title="1295.统计数组中具有偶数位数的数字个数"></a>1295.统计数组中具有偶数位数的数字个数</h5><h6 id="题解-9"><a href="#题解-9" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findNumbers</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> cnt = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums)&#123;
+            <span class="hljs-keyword">if</span> (getDigits(num) % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)&#123;
+                cnt++;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> cnt;
+    &#125;
+    <span class="hljs-comment">//获取数字的位数</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getDigits</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span></span>&#123;
+        <span class="hljs-keyword">int</span> digits = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">while</span>(num != <span class="hljs-number">0</span>)&#123;
+            num /= <span class="hljs-number">10</span>;
+            digits++;
+        &#125;
+        <span class="hljs-keyword">return</span> digits;
+    &#125;
+&#125;</code></pre>
+<h5 id="832-垂直翻转图像"><a href="#832-垂直翻转图像" class="headerlink" title="832.垂直翻转图像"></a>832.垂直翻转图像</h5><h6 id="题解-10"><a href="#题解-10" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[][] flipAndInvertImage(<span class="hljs-keyword">int</span>[][] A) &#123;
+        <span class="hljs-keyword">int</span> m = A.length, n = A[<span class="hljs-number">0</span>].length;
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span>[] arr : A)&#123;
+            <span class="hljs-comment">//翻转的同时进行异或(0 ^ 1 = 1)</span>
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; (n + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>; i++)&#123;
+                <span class="hljs-keyword">int</span> tmp = arr[n - i - <span class="hljs-number">1</span>] ^ <span class="hljs-number">1</span>;
+                arr[n - i - <span class="hljs-number">1</span>] = arr[i] ^ <span class="hljs-number">1</span>;
+                arr[i] = tmp;
+            &#125;
+        &#125;
+        
+        <span class="hljs-keyword">return</span> A;
+    &#125;
+&#125;</code></pre>
+<h5 id="1572-矩阵的对角线之和"><a href="#1572-矩阵的对角线之和" class="headerlink" title="1572.矩阵的对角线之和"></a>1572.矩阵的对角线之和</h5><h6 id="题解-11"><a href="#题解-11" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">diagonalSum</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] mat)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> n = mat.length;
+        <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)&#123;
+            sum += mat[i][i];
+        &#125;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = n - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--)&#123;
+            sum += mat[i][n - i - <span class="hljs-number">1</span>];
+        &#125;
+        <span class="hljs-comment">//偶阶方阵不会有主副对角线元素重复，奇阶方阵需要减去重复的</span>
+        <span class="hljs-keyword">return</span> sum = n % <span class="hljs-number">2</span> == <span class="hljs-number">0</span> ? sum : sum - mat[n / <span class="hljs-number">2</span>][n / <span class="hljs-number">2</span>];
+    &#125;
+&#125;</code></pre>
+<h5 id="1450-正在做作业的学生数目"><a href="#1450-正在做作业的学生数目" class="headerlink" title="1450.正在做作业的学生数目"></a>1450.正在做作业的学生数目</h5><h6 id="题解-12"><a href="#题解-12" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">busyStudent</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] startTime, <span class="hljs-keyword">int</span>[] endTime, <span class="hljs-keyword">int</span> queryTime)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> cnt = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> n = endTime.length;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)&#123;
+            <span class="hljs-keyword">if</span> (queryTime &gt;= startTime[i] &amp;&amp; queryTime &lt;= endTime[i])&#123;
+                cnt++;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> cnt;
+    &#125;
+        
+&#125;</code></pre>
+<h5 id="1464-数组中两个元素的最大乘积"><a href="#1464-数组中两个元素的最大乘积" class="headerlink" title="1464.数组中两个元素的最大乘积"></a>1464.数组中两个元素的最大乘积</h5><h6 id="题解-13"><a href="#题解-13" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-comment">//库函数排序即可</span>
+    <span class="hljs-comment">// public int maxProduct(int[] nums) &#123;</span>
+    <span class="hljs-comment">//     Arrays.sort(nums);</span>
+    <span class="hljs-comment">//     int n = nums.length;</span>
+    <span class="hljs-comment">//     return (nums[n - 1] - 1) * (nums[n - 2] - 1);</span>
+    <span class="hljs-comment">// &#125;</span>
+    <span class="hljs-comment">//堆排序</span>
+    <span class="hljs-comment">// public int maxProduct(int[] nums) &#123;</span>
+    <span class="hljs-comment">//     PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;&gt;(Collections.reverseOrder());</span>
+    <span class="hljs-comment">//     for(int i = 0; i&lt;nums.length; i++)&#123;</span>
+    <span class="hljs-comment">//         pq.add(nums[i]);</span>
+    <span class="hljs-comment">//     &#125;</span>
+    <span class="hljs-comment">//     int num1 = pq.poll();</span>
+    <span class="hljs-comment">//     int num2 = pq.poll();</span>
+    <span class="hljs-comment">//     return (num1-1)*(num2-1);</span>
+    <span class="hljs-comment">// &#125;</span>
+    <span class="hljs-comment">//遍历找出最大的两个数</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProduct</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> max1 = nums[<span class="hljs-number">0</span>], max2 = nums[<span class="hljs-number">1</span>];
+        <span class="hljs-keyword">if</span>(max1 &lt; max2)&#123;
+            <span class="hljs-keyword">int</span> t = max1;
+            max1 = max2;
+            max2 = t;
+        &#125;
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt; nums.length; i++)&#123;
+            <span class="hljs-keyword">if</span>(nums[i] &gt; max1)&#123;
+                max2 = max1;
+                max1 = nums[i];
+            &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(nums[i] &gt; max2)&#123;
+                max2 = nums[i];
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> (max1-<span class="hljs-number">1</span>)*(max2-<span class="hljs-number">1</span>);
+    &#125;
+&#125;</code></pre>
+<h5 id="1748-所有不重复元素的和"><a href="#1748-所有不重复元素的和" class="headerlink" title="1748.所有不重复元素的和"></a>1748.所有不重复元素的和</h5><h6 id="题解-14"><a href="#题解-14" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">sumOfUnique</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+        <span class="hljs-comment">//HashMap</span>
+        Map&lt;Integer, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums)&#123;
+            map.put(num, map.getOrDefault(num, <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>);
+        &#125;
+        <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> key : map.keySet())&#123;
+            <span class="hljs-keyword">if</span> (map.get(key) == <span class="hljs-number">1</span>)&#123;
+                sum += key;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> sum;
+    &#125;
+&#125;</code></pre>
+<h5 id="1351-在有序矩阵中统计负数的总个数"><a href="#1351-在有序矩阵中统计负数的总个数" class="headerlink" title="1351.在有序矩阵中统计负数的总个数"></a>1351.在有序矩阵中统计负数的总个数</h5><p>矩阵的行列都为降序</p>
+<h6 id="题解-15"><a href="#题解-15" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">countNegatives</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] grid)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> m = grid.length, n = grid[<span class="hljs-number">0</span>].length;
+        <span class="hljs-keyword">int</span> firstNegativeIdx = n;
+        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; m; i++)&#123;
+            firstNegativeIdx = findFirstNegativeIdx(grid[i], firstNegativeIdx);
+            count += grid[i].length - firstNegativeIdx;
+        &#125;
+        <span class="hljs-keyword">return</span> count;
+    &#125;
+    
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findFirstNegativeIdx</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] arr, <span class="hljs-keyword">int</span> limit)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> res = limit;
+        <span class="hljs-keyword">int</span> lo = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> hi = limit;
+        <span class="hljs-keyword">while</span> (lo &lt; hi) &#123;
+            <span class="hljs-keyword">int</span> mid = lo + (hi - lo) / <span class="hljs-number">2</span>;
+            <span class="hljs-keyword">if</span> (arr[mid] &lt; <span class="hljs-number">0</span>) &#123;
+                res = mid;
+                hi = mid;
+            &#125; <span class="hljs-keyword">else</span> &#123;
+                lo = mid + <span class="hljs-number">1</span>;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+&#125;</code></pre>
+<h5 id="905-按奇偶校验对数组排序"><a href="#905-按奇偶校验对数组排序" class="headerlink" title="905.按奇偶校验对数组排序"></a>905.按奇偶校验对数组排序</h5><h6 id="题解-16"><a href="#题解-16" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] sortArrayByParity(<span class="hljs-keyword">int</span>[] A) &#123;
+<span class="hljs-comment">//         //空间复杂度太大</span>
+<span class="hljs-comment">//         int n = A.length;</span>
+<span class="hljs-comment">//         int[] res = new int[n];</span>
+<span class="hljs-comment">//         int evenIdx = 0, oddIdx = n - 1;</span>
+<span class="hljs-comment">//         for (int i = 0; i &lt; n; i++)&#123;</span>
+<span class="hljs-comment">//             res[A[i] % 2 == 0 ? evenIdx++ : oddIdx--] = A[i];</span>
+<span class="hljs-comment">//         &#125;</span>
+        
+<span class="hljs-comment">//         return res;</span>
+        
+        <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = A.length - <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">while</span>(left != right)&#123;
+            <span class="hljs-keyword">if</span> (A[left] % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)&#123;
+                left++;
+            &#125; <span class="hljs-keyword">else</span> &#123;
+                <span class="hljs-keyword">if</span> (A[right] % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)&#123;
+                    <span class="hljs-keyword">int</span> tmp = A[left];
+                    A[left] = A[right];
+                    A[right] = tmp;
+                    left++;
+                &#125; <span class="hljs-keyword">else</span> &#123;
+                    right--;
+                &#125;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> A;
+    &#125;
+&#125;</code></pre>
+<h5 id="48-顺时针90°旋转矩阵"><a href="#48-顺时针90°旋转矩阵" class="headerlink" title="48.顺时针90°旋转矩阵"></a>48.顺时针90°旋转矩阵</h5><p>要求就地修改，即<code>O(1)</code></p>
+<h6 id="题解-17"><a href="#题解-17" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">rotate</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] matrix)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> n = matrix.length;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; (n + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>; i++) &#123;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; n / <span class="hljs-number">2</span>; j++) &#123;
+                <span class="hljs-comment">//顺时针交换值</span>
+                <span class="hljs-keyword">int</span> temp = matrix[n - <span class="hljs-number">1</span> - j][i];
+                matrix[n - <span class="hljs-number">1</span> - j][i] = matrix[n - <span class="hljs-number">1</span> - i][n - j - <span class="hljs-number">1</span>];
+                matrix[n - <span class="hljs-number">1</span> - i][n - j - <span class="hljs-number">1</span>] = matrix[j][n - <span class="hljs-number">1</span> - i];
+                matrix[j][n - <span class="hljs-number">1</span> - i] = matrix[i][j];
+                matrix[i][j] = temp;
+            &#125;
+        &#125;
+    &#125;
+&#125;</code></pre>
+<h5 id="169-众数"><a href="#169-众数" class="headerlink" title="169.众数"></a>169.众数</h5><h6 id="题解-18"><a href="#题解-18" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">majorityElement</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+        <span class="hljs-comment">// //HashMap</span>
+        <span class="hljs-comment">// HashMap&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();</span>
+        <span class="hljs-comment">// for (int num : nums)&#123;</span>
+        <span class="hljs-comment">//     map.put(num, map.getOrDefault(num, 0) + 1);</span>
+        <span class="hljs-comment">//     if (map.get(num) &gt;= nums.length / 2 + 1)&#123;</span>
+        <span class="hljs-comment">//         return num;</span>
+        <span class="hljs-comment">//     &#125;</span>
+        <span class="hljs-comment">// &#125;</span>
+        <span class="hljs-comment">// return 0;</span>
+        
+        <span class="hljs-comment">//候选人方法</span>
+        <span class="hljs-keyword">int</span> cnt = <span class="hljs-number">0</span>;
+        Integer candidate = <span class="hljs-keyword">null</span>;
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;
+            <span class="hljs-keyword">if</span> (cnt == <span class="hljs-number">0</span>) &#123;
+                candidate = num;
+            &#125;
+            cnt += (num == candidate) ? <span class="hljs-number">1</span> : -<span class="hljs-number">1</span>;
+        &#125;
+
+        <span class="hljs-keyword">return</span> candidate;
+        
+        
+    &#125;
+&#125;</code></pre>
+<h5 id="283-将数组中的0元素移至末尾"><a href="#283-将数组中的0元素移至末尾" class="headerlink" title="283.将数组中的0元素移至末尾"></a>283.将数组中的0元素移至末尾</h5><h6 id="题解-19"><a href="#题解-19" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">moveZeroes</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> n = nums.length;
+        <span class="hljs-comment">//用两个计数器分别计数非零元素和赋值下标</span>
+        <span class="hljs-keyword">int</span> zeroCnt = <span class="hljs-number">0</span>, nonZeroCnt = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt; n; k++)&#123;
+            <span class="hljs-keyword">if</span> (nums[k] == <span class="hljs-number">0</span>)&#123;
+                zeroCnt++;
+            &#125; <span class="hljs-keyword">else</span> &#123;
+                nums[nonZeroCnt++] = nums[k]; 
+            &#125;
+        &#125;
+        Arrays.fill(nums, nonZeroCnt, n, <span class="hljs-number">0</span>);
+    &#125;
+&#125;</code></pre>
+<h5 id="78-数组的子集"><a href="#78-数组的子集" class="headerlink" title="78.数组的子集"></a>78.数组的子集</h5><h6 id="题解-20"><a href="#题解-20" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    List&lt;List&lt;Integer&gt;&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-keyword">int</span> n, k;
+    <span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; subsets(<span class="hljs-keyword">int</span>[] nums) &#123;
+        n = nums.length;
+        <span class="hljs-comment">//k为子数组长度，每次都从0开始，增长到k就停止</span>
+        <span class="hljs-keyword">for</span> (k = <span class="hljs-number">0</span>; k &lt; n + <span class="hljs-number">1</span>; k++)&#123;
+            backTrack(<span class="hljs-keyword">new</span> ArrayList&lt;Integer&gt;(), nums, <span class="hljs-number">0</span>);
+        &#125;
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">backTrack</span><span class="hljs-params">(ArrayList&lt;Integer&gt; cur, <span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> size)</span></span>&#123;
+        <span class="hljs-comment">//子数组长度增长到k，结束</span>
+        <span class="hljs-keyword">if</span> (cur.size() == k)&#123;
+            res.add(<span class="hljs-keyword">new</span> ArrayList(cur));
+            <span class="hljs-keyword">return</span>;
+        &#125;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = size; i &lt; n; i++)&#123;
+            cur.add(nums[i]);
+            <span class="hljs-comment">//继续组合</span>
+            backTrack(cur, nums, i + <span class="hljs-number">1</span>);
+            <span class="hljs-comment">//回溯</span>
+            cur.remove(cur.size() - <span class="hljs-number">1</span>);
+        &#125;
+    &#125;
+&#125;</code></pre>
+<h5 id="238-构建乘积数组"><a href="#238-构建乘积数组" class="headerlink" title="238.构建乘积数组"></a>238.构建乘积数组</h5><h6 id="题解-21"><a href="#题解-21" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] productExceptSelf(<span class="hljs-keyword">int</span>[] nums) &#123;
+        <span class="hljs-keyword">int</span> n = nums.length;
+        <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n];
+        Arrays.fill(res, <span class="hljs-number">1</span>);
+        <span class="hljs-comment">//左半部分元素累乘(第一个元素没有左半部分)</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++)&#123;
+            res[i] = res[i - <span class="hljs-number">1</span>] * nums[i - <span class="hljs-number">1</span>];
+        &#125;
+        <span class="hljs-keyword">int</span> tmp = <span class="hljs-number">1</span>;
+        <span class="hljs-comment">//右半部分元素(最后一个元素没有右半部分)</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = n - <span class="hljs-number">2</span>; j &gt;= <span class="hljs-number">0</span>; j--)&#123;
+            tmp *= nums[j + <span class="hljs-number">1</span>];
+            <span class="hljs-comment">//乘上右半部分的累乘</span>
+            res[j] *= tmp;
+        &#125;
+        <span class="hljs-keyword">return</span> res;
+        
+        
+    &#125;
+&#125;</code></pre>
+<h5 id="287-找出数组中唯一重复的数字"><a href="#287-找出数组中唯一重复的数字" class="headerlink" title="287.找出数组中唯一重复的数字"></a>287.找出数组中唯一重复的数字</h5><h6 id="题解-22"><a href="#题解-22" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findDuplicate</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+        HashSet&lt;Integer&gt; set = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums)&#123;
+            <span class="hljs-keyword">if</span> (set.contains(num))&#123;
+                <span class="hljs-keyword">return</span> num;
+            &#125; <span class="hljs-keyword">else</span> &#123;
+                set.add(num);
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+    &#125;
+&#125;</code></pre>
+<h5 id="64-矩阵中的最小路径和"><a href="#64-矩阵中的最小路径和" class="headerlink" title="64.矩阵中的最小路径和"></a>64.矩阵中的最小路径和</h5><h6 id="题解-23"><a href="#题解-23" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minPathSum</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] grid)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> m = grid.length, n = grid[<span class="hljs-number">0</span>].length;
+        <span class="hljs-comment">//dp[i][j]代表(0,0)到(i,j)的最短路径</span>
+        <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[m][n];
+        dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = grid[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; m; i++)&#123;
+            dp[i][<span class="hljs-number">0</span>] = dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>] + grid[i][<span class="hljs-number">0</span>];
+        &#125;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++)&#123;
+            dp[<span class="hljs-number">0</span>][i] = dp[<span class="hljs-number">0</span>][i - <span class="hljs-number">1</span>] + grid[<span class="hljs-number">0</span>][i];
+        &#125;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; m; i++)&#123;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; n; j++)&#123;
+                dp[i][j] = Math.min(dp[i - <span class="hljs-number">1</span>][j], dp[i][j - <span class="hljs-number">1</span>]) + grid[i][j];
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> dp[m - <span class="hljs-number">1</span>][n - <span class="hljs-number">1</span>];
+    &#125;
+&#125;</code></pre>
+<h5 id="75-颜色排序"><a href="#75-颜色排序" class="headerlink" title="75.颜色排序"></a>75.颜色排序</h5><h6 id="题解-24"><a href="#题解-24" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sortColors</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> cnt0 = <span class="hljs-number">0</span>, cnt1 = <span class="hljs-number">0</span>, cnt2 = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums)&#123;
+            <span class="hljs-keyword">if</span> (num == <span class="hljs-number">0</span>)&#123;
+                cnt0++;
+            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (num == <span class="hljs-number">1</span>)&#123;
+                cnt1++;
+            &#125; <span class="hljs-keyword">else</span> &#123;
+                cnt2++;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">while</span> (cnt0-- != <span class="hljs-number">0</span>)&#123;
+            nums[i++] = <span class="hljs-number">0</span>;
+        &#125;
+        <span class="hljs-keyword">while</span> (cnt1-- != <span class="hljs-number">0</span>)&#123;
+            nums[i++] = <span class="hljs-number">1</span>;
+        &#125;
+        <span class="hljs-keyword">while</span> (cnt2-- != <span class="hljs-number">0</span>)&#123;
+            nums[i++] = <span class="hljs-number">2</span>;
+        &#125;
+        
+    &#125;
+&#125;</code></pre>
+<h5 id="200-岛屿数目"><a href="#200-岛屿数目" class="headerlink" title="200.岛屿数目"></a>200.岛屿数目</h5><h6 id="题解-25"><a href="#题解-25" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">numIslands</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] grid)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> m = grid.length, n = grid[<span class="hljs-number">0</span>].length;
+        <span class="hljs-keyword">int</span> islands = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; m; i++)&#123;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; n; j++)&#123;
+                <span class="hljs-comment">//遍历到&#x27;1&#x27;，说明是岛屿</span>
+                <span class="hljs-keyword">if</span> (grid[i][j] == <span class="hljs-string">&#x27;1&#x27;</span>)&#123;
+                    islands++;
+                    <span class="hljs-comment">//深度优先，将与这个岛相连的陆地都变成&#x27;0&#x27;，那么下次再碰到一个&#x27;1&#x27;时就是找到一个新的岛</span>
+                    dfs(grid, i, j);
+                &#125;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> islands;
+    &#125;
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] arr, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> j)</span></span>&#123;
+        <span class="hljs-comment">//已经到岛屿的边缘，则停止搜索</span>
+        <span class="hljs-keyword">if</span> (arr[i][j] == <span class="hljs-string">&#x27;0&#x27;</span>) <span class="hljs-keyword">return</span>;
+        arr[i][j] = <span class="hljs-string">&#x27;0&#x27;</span>;
+        <span class="hljs-keyword">if</span> (i - <span class="hljs-number">1</span> &gt;= <span class="hljs-number">0</span>) dfs(arr, i - <span class="hljs-number">1</span>, j);
+        <span class="hljs-keyword">if</span> (i + <span class="hljs-number">1</span> &lt;= arr.length - <span class="hljs-number">1</span>) dfs(arr, i + <span class="hljs-number">1</span>, j);
+        <span class="hljs-keyword">if</span> (j - <span class="hljs-number">1</span> &gt;= <span class="hljs-number">0</span>) dfs(arr, i, j - <span class="hljs-number">1</span>);
+        <span class="hljs-keyword">if</span> (j + <span class="hljs-number">1</span> &lt;= arr[<span class="hljs-number">0</span>].length - <span class="hljs-number">1</span>) dfs(arr, i, j + <span class="hljs-number">1</span>);
+    &#125;
+&#125;</code></pre>
+<h5 id="118-帕斯卡三角形"><a href="#118-帕斯卡三角形" class="headerlink" title="118.帕斯卡三角形"></a>118.帕斯卡三角形</h5><h6 id="题解-26"><a href="#题解-26" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    List&lt;List&lt;Integer&gt;&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; generate(<span class="hljs-keyword">int</span> numRows) &#123;
+        <span class="hljs-keyword">if</span> (numRows == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> res;
+        <span class="hljs-comment">//第一行</span>
+        res.add(<span class="hljs-keyword">new</span> ArrayList&lt;Integer&gt;());
+        res.get(<span class="hljs-number">0</span>).add(<span class="hljs-number">1</span>);
+        <span class="hljs-comment">//第二行往后</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; numRows; i++)&#123;
+            List&lt;Integer&gt; tmp = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+            <span class="hljs-comment">//前一行</span>
+            List&lt;Integer&gt; pre = res.get(i - <span class="hljs-number">1</span>);
+            <span class="hljs-comment">//List第一个元素</span>
+            tmp.add(<span class="hljs-number">1</span>);
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; i; j++)&#123;
+                tmp.add(pre.get(j - <span class="hljs-number">1</span>) + pre.get(j));
+            &#125;
+            <span class="hljs-comment">//List最后一个元素</span>
+            tmp.add(<span class="hljs-number">1</span>);
+            res.add(tmp);
+        &#125;
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+&#125;</code></pre>
+<h5 id="350-两个数组的交集Ⅱ"><a href="#350-两个数组的交集Ⅱ" class="headerlink" title="350.两个数组的交集Ⅱ"></a>350.两个数组的交集Ⅱ</h5><h6 id="题解-27"><a href="#题解-27" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] intersect(<span class="hljs-keyword">int</span>[] nums1, <span class="hljs-keyword">int</span>[] nums2) &#123;
+        List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+
+        <span class="hljs-keyword">int</span> p = <span class="hljs-number">0</span>, q = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">while</span> (p &lt; nums1.length &amp;&amp; q &lt; nums2.length)&#123;
+            <span class="hljs-keyword">if</span> (nums1[p] == nums2[q])&#123;
+                res.add(nums1[p]);
+                p++;
+                q++;
+            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums1[p] &lt; nums2[q])&#123;
+                p++;
+            &#125; <span class="hljs-keyword">else</span> &#123;
+                q++;
+            &#125;
+        &#125;
+        
+        <span class="hljs-keyword">int</span> n = res.size();
+        <span class="hljs-keyword">int</span>[] arr = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)&#123;
+            arr[i] = res.get(i);
+        &#125;
+        <span class="hljs-keyword">return</span> arr;
+    &#125;
+&#125;</code></pre>
+<h5 id="39-组合和"><a href="#39-组合和" class="headerlink" title="39.组合和"></a>39.组合和</h5><h6 id="题解-28"><a href="#题解-28" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    List&lt;List&lt;Integer&gt;&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; combinationSum(<span class="hljs-keyword">int</span>[] candidates, <span class="hljs-keyword">int</span> target) &#123;
+        <span class="hljs-keyword">if</span>(candidates==<span class="hljs-keyword">null</span> || candidates.length==<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> res;
+        <span class="hljs-comment">// Arrays.sort(candidates);</span>
+        backTrack(candidates, <span class="hljs-keyword">new</span> ArrayList&lt;Integer&gt;(), <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, target);
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">backTrack</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, ArrayList&lt;Integer&gt; lst, <span class="hljs-keyword">int</span> index, <span class="hljs-keyword">int</span> cur, <span class="hljs-keyword">int</span> k)</span></span>&#123;
+        <span class="hljs-comment">//组合和大于等于target时，终止</span>
+        <span class="hljs-keyword">if</span> (cur &gt;= k)&#123;
+            <span class="hljs-comment">//等于时相当于找到一个组合和</span>
+            <span class="hljs-keyword">if</span> (cur == k)&#123;
+                res.add(<span class="hljs-keyword">new</span> ArrayList&lt;&gt;(lst));
+            &#125;
+            <span class="hljs-keyword">return</span>;
+        &#125;
+        <span class="hljs-comment">//index防止出现重复情况</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = index; i &lt; nums.length; i++)&#123;
+            <span class="hljs-keyword">if</span> (cur &lt;= k - nums[i])&#123;
+                lst.add(nums[i]);
+                backTrack(nums, lst, i, cur, k - nums[i]);
+                lst.remove(lst.size() - <span class="hljs-number">1</span>);
+            &#125;
+        &#125;
+    &#125;
+&#125;</code></pre>
+<h5 id="560-和为K的连续子数组的个数"><a href="#560-和为K的连续子数组的个数" class="headerlink" title="560.和为K的连续子数组的个数"></a>560.和为K的连续子数组的个数</h5><h6 id="题解-29"><a href="#题解-29" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">subarraySum</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;
+        <span class="hljs-comment">// int res = 0;</span>
+        <span class="hljs-comment">// for (int i = 0; i &lt; nums.length; i++)&#123;</span>
+        <span class="hljs-comment">//     int sum = 0;</span>
+        <span class="hljs-comment">//     for (int j = i; j &lt; nums.length; j++)&#123;</span>
+        <span class="hljs-comment">//         sum += nums[j];</span>
+        <span class="hljs-comment">//         if (sum == k)&#123;</span>
+        <span class="hljs-comment">//             res++;</span>
+        <span class="hljs-comment">//         &#125;</span>
+        <span class="hljs-comment">//     &#125;</span>
+        <span class="hljs-comment">// &#125;</span>
+        <span class="hljs-comment">// return res;</span>
+
+        <span class="hljs-comment">//前缀和 + HashMap</span>
+        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>, sum = <span class="hljs-number">0</span>;
+        HashMap&lt;Integer, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+        map.put(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;
+            sum += nums[i];
+            <span class="hljs-keyword">if</span> (map.containsKey(sum - k))&#123;
+                count += map.get(sum - k);
+            &#125;
+            map.put(sum, map.getOrDefault(sum, <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>);
+        &#125;
+        <span class="hljs-keyword">return</span> count;
+    &#125;
+&#125;</code></pre>
+<h5 id="55-跳跃游戏"><a href="#55-跳跃游戏" class="headerlink" title="55.跳跃游戏"></a>55.跳跃游戏</h5><h6 id="题解-30"><a href="#题解-30" class="headerlink" title="题解"></a>题解</h6><p><code>贪心</code></p>
+<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">canJump</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> n = nums.length;
+        <span class="hljs-keyword">int</span> farthest = <span class="hljs-number">0</span>;
+        <span class="hljs-comment">//当所遍历的位置还没超出可farthest范围时，根据跳力更新可reach范围</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt;= farthest; i++)&#123;
+            <span class="hljs-comment">//通过每一步能跳到的最远位置，更新全局能跳到的最远位置</span>
+            farthest = Math.max(farthest, i + nums[i]);
+            <span class="hljs-keyword">if</span> (farthest &gt;= n - <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    &#125;
+&#125;</code></pre>
+<h5 id="45-跳跃游戏Ⅱ"><a href="#45-跳跃游戏Ⅱ" class="headerlink" title="45.跳跃游戏Ⅱ"></a>45.跳跃游戏Ⅱ</h5><p>保证能跳到最后一个位置，那么至少需要跳几次？</p>
+<h6 id="题解-31"><a href="#题解-31" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">jump</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> n = nums.length;
+        <span class="hljs-keyword">int</span> reach = <span class="hljs-number">0</span>, nextReach = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> jumps = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n - <span class="hljs-number">1</span>; i++)&#123;
+            nextReach = Math.max(nextReach, i + nums[i]);
+            <span class="hljs-keyword">if</span> (reach == i)&#123;
+                jumps++;
+                reach = nextReach;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> jumps;
+    &#125;
+&#125;</code></pre>
+<h5 id="581-最短的无序连续子序列的长度"><a href="#581-最短的无序连续子序列的长度" class="headerlink" title="581.最短的无序连续子序列的长度"></a>581.最短的无序连续子序列的长度</h5><p>给定一个整数数组nums，你需要找到一个连续的子数组，如果你只排序这个子数组升序，那么整个数组将升序排序。</p>
+<p>返回最短的子数组并输出其长度。</p>
+<h6 id="题解-32"><a href="#题解-32" class="headerlink" title="题解"></a>题解</h6><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findUnsortedSubarray</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> n = nums.length;
+        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-comment">//克隆一个nums</span>
+        <span class="hljs-keyword">int</span>[] cnums = nums.clone();
+        <span class="hljs-keyword">int</span> left = Integer.MAX_VALUE, right = Integer.MIN_VALUE;
+        <span class="hljs-comment">//对nums排序</span>
+        Arrays.sort(nums);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)&#123;
+            <span class="hljs-keyword">if</span> (cnums[i] != nums[i])&#123;
+                left = Math.min(left, i);
+                right = Math.max(right, i);
+            &#125;
+        &#125;
+        
+        <span class="hljs-keyword">return</span> right &gt; left ? right - left + <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;
+    &#125;
+&#125;</code></pre>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/leetcode/">leetcode</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/21/leetcode%E9%A2%98%E8%A7%A3%E4%B9%8B%E9%93%BE%E8%A1%A8/">
+                        <span class="hidden-mobile">leetcode题解之链表</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "leetcode题解之数组&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
