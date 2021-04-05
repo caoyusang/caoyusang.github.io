@@ -1,0 +1,944 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="caoyusang">
+  <meta name="keywords" content="">
+  <title>Zookeeper入门学习 - caoyusang的科研日常</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>caoyusang</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/7.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-04-05 16:00" pubdate>
+        2021年4月5日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      55
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Zookeeper入门学习</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：几秒前
+                
+              </p>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="Apache-ZooKeeper"><a href="#Apache-ZooKeeper" class="headerlink" title="Apache ZooKeeper"></a>Apache ZooKeeper</h1><h2 id="ZK简介"><a href="#ZK简介" class="headerlink" title="ZK简介"></a>ZK简介</h2><p>一个分布式的，开源的分布式应用程序协调服务，是Google的分布式锁服务Chubby的一个开源实现，是Hadoop和Hbase的重要组件。ZK由Java编写，但是支持Java和C两种编程语言。</p>
+<ul>
+<li>在Dubbo、SpringCloud中，担任<code>服务注册中心</code>的角色</li>
+<li>在Hadoop、Hbase等大数据的组件中，担任<code>集群管理</code>者的角色</li>
+<li>在Redis分布式开发中，担任<code>实现分布式锁</code>的角色。</li>
+</ul>
+<h2 id="ZK数据模型"><a href="#ZK数据模型" class="headerlink" title="ZK数据模型"></a>ZK数据模型</h2><h3 id="ZK模型结构"><a href="#ZK模型结构" class="headerlink" title="ZK模型结构"></a>ZK模型结构</h3><p>模型结构为树状结构，类似Linux文件目录结构</p>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405093910510.png" srcset="/img/loading.gif" class="">
+<ul>
+<li>每个子目录如/app1都被成为一个<code>znode节点</code>，每个znode节点<code>被其所在的路径唯一标识</code></li>
+<li>znode节点可以有子节点目录，并且每个znode<code>可以存储数据</code></li>
+<li>znode中存储的<code>数据是有版本</code>的，每次对节点数据的修改都会导致版本号的增加；同时每个znode节点可以存储数据的多个版本，即一个访问路径中可以存储多份数据</li>
+<li>znode节点<code>可以被监控</code>，包括这个目录节点中存储数据的修改、子节点目录的变化等，一旦变化可以通知设置监控的客户端</li>
+</ul>
+<h3 id="节点分类"><a href="#节点分类" class="headerlink" title="节点分类"></a>节点分类</h3><p>根据ZK模型结构中的znode节点的<code>生命周期</code>和<code>额外的节点特性</code>(父节点为其第一级子节点维护一份时序)，可以将节点划分成四类：持久节点、持久顺序节点、临时节点、临时顺序节点。</p>
+<h4 id="持久节点-P"><a href="#持久节点-P" class="headerlink" title="持久节点(P)"></a>持久节点(P)</h4><p>在节点创建后，就会存盘并一直存在，直到被要求删除，值得注意的是，它不会因为创建该节点的客户端会话的失效而被删除。</p>
+<h4 id="持久顺序节点-PS"><a href="#持久顺序节点-PS" class="headerlink" title="持久顺序节点(PS)"></a>持久顺序节点(PS)</h4><p>在生命周期等基本特性上和持久节点相同。额外的特性是，在ZK中，每个父节点会为其第一级子节点维护一份时序，即记录每个子节点创建的先后顺序。基于这一特性，在创建子节点时，可以设置该属性，这样在创建节点的过程中，ZK会自动地为给定地节点名增加一个数字后缀(范围是1~整型的最大值)作为新的节点名，例如节点/app1/p_1这样的节点就是持久顺序节点。</p>
+<h4 id="临时节点-E"><a href="#临时节点-E" class="headerlink" title="临时节点(E)"></a>临时节点(E)</h4><p>与持久节点截然相反，临时节点的生命周期和客户端会话绑定，即如果客户端会话失效(会话失效!=会话连接断开)，那么绑定的临时节点将自动被清除。除此之外，临时节点下不能创建子节点。</p>
+<h4 id="临时顺序节点-ES"><a href="#临时顺序节点-ES" class="headerlink" title="临时顺序节点(ES)"></a>临时顺序节点(ES)</h4><p>具有临时节点的特点，额外特性和持久顺序节点的额外特性相同。</p>
+<h2 id="ZK安装"><a href="#ZK安装" class="headerlink" title="ZK安装"></a>ZK安装</h2><h3 id="Linux系统中安装ZK"><a href="#Linux系统中安装ZK" class="headerlink" title="Linux系统中安装ZK"></a>Linux系统中安装ZK</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/expiator/p/9853378.html">linux安装zookeeper及使用</a></p>
+<h3 id="Docker安装ZK"><a href="#Docker安装ZK" class="headerlink" title="Docker安装ZK"></a>Docker安装ZK</h3><h4 id="拉取ZK镜像"><a href="#拉取ZK镜像" class="headerlink" title="拉取ZK镜像"></a>拉取ZK镜像</h4><pre><code class="hljs powershell">docker pull zookeeper:<span class="hljs-number">3.4</span>.<span class="hljs-number">14</span></code></pre>
+<h4 id="启动ZK容器"><a href="#启动ZK容器" class="headerlink" title="启动ZK容器"></a>启动ZK容器</h4><pre><code class="hljs powershell">docker run -<span class="hljs-literal">-name</span> zk <span class="hljs-literal">-p</span> <span class="hljs-number">2181</span>:<span class="hljs-number">2181</span> <span class="hljs-literal">-d</span> zookeeper:<span class="hljs-number">3.4</span>.<span class="hljs-number">14</span></code></pre>
+<h4 id="查看容器zk的启动日志"><a href="#查看容器zk的启动日志" class="headerlink" title="查看容器zk的启动日志"></a>查看容器zk的启动日志</h4><pre><code class="hljs po">docker logs zk</code></pre>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405102306772.png" srcset="/img/loading.gif" class="">
+<p>成功绑定宿主机的2181端口。</p>
+<h4 id="进入zk容器-交互式方式"><a href="#进入zk容器-交互式方式" class="headerlink" title="进入zk容器(交互式方式)"></a>进入zk容器(交互式方式)</h4><pre><code class="hljs powershell">docker exec <span class="hljs-literal">-it</span> zk bash</code></pre>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405102559629.png" srcset="/img/loading.gif" class="">
+<h4 id="连接容器内的ZK服务"><a href="#连接容器内的ZK服务" class="headerlink" title="连接容器内的ZK服务"></a>连接容器内的ZK服务</h4><pre><code class="hljs powershell">./bin/zkCli.sh</code></pre>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405102934185.png" srcset="/img/loading.gif" class="">
+<h2 id="ZK配置文件详解"><a href="#ZK配置文件详解" class="headerlink" title="ZK配置文件详解"></a>ZK配置文件详解</h2><pre><code class="hljs cfg">#tickTime：Client-Server通信维持心跳的时间间隔,以毫秒为单位
+tickTime&#x3D;2000
+
+#initLimit：初始化集群时，集群节点同步超时时间（tickTime的数量）
+initLimit&#x3D;10
+
+#syncLimit：Leader-Follower节点之间请求和应答即同步数据的超时时间（tickTime的数量）
+syncLimit&#x3D;5
+
+#dataDir：数据文件目录，默认情况下，Zookeeper将写数据的日志文件也保存在这个目录里
+dataDir&#x3D;&#x2F;tmp&#x2F;zookeeper
+
+#clientPort：zk服务的监听端口号
+clientPort&#x3D;2181
+
+#maxClientCnxns：服务器能处理的最大客户端并发数，也即服务线程池的最大线程数，默认为60
+maxClientCnxns&#x3D;60
+
+#维护配置：客户端在与zookeeper交互过程中会产生非常多的日志，而且zookeeper也会将内存中的数据作为snapshot保存下来，这些数据是不会被自动删除的，这样磁盘中这样的数据就会越来越多。autopurge.snapRetainCount是设置保留snapshot的个数，而autopurge.purgeInterval则代表了合并快照的时间间隔(防止快照越来越多)
+#autopurge.snapRetainCount&#x3D;3
+#autopurge.purgeInterval&#x3D;1</code></pre>
+<h2 id="ZK客户端基本指令"><a href="#ZK客户端基本指令" class="headerlink" title="ZK客户端基本指令"></a>ZK客户端基本指令</h2><img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405105626880.png" srcset="/img/loading.gif" class="">
+<h3 id="单体命令"><a href="#单体命令" class="headerlink" title="单体命令"></a>单体命令</h3><h4 id="ls-path"><a href="#ls-path" class="headerlink" title="ls path"></a>ls path</h4><p>查看当前节点路径下的下一级子节点</p>
+<pre><code class="hljs powershell"><span class="hljs-built_in">ls</span> /
+<span class="hljs-built_in">ls</span> /zookeeper
+<span class="hljs-built_in">ls</span> /zookeeper/quota</code></pre>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405112738805.png" srcset="/img/loading.gif" class="">
+<h4 id="create-s-e-path-data-acl"><a href="#create-s-e-path-data-acl" class="headerlink" title="create [-s] [-e] path data acl"></a>create [-s] [-e] path data acl</h4><p>创建节点(四大类)，默认创建持久化节点，加上<code>-s</code>代表创建顺序节点，加上<code>-e</code>代表创建临时节点。</p>
+<pre><code class="hljs powershell"><span class="hljs-comment">#创建p节点</span>
+create /testCreate person
+
+<span class="hljs-comment">#创建ps节点</span>
+create <span class="hljs-literal">-s</span> /testCreate/person zhangsan1
+create <span class="hljs-literal">-s</span> /testCreate/person zhangsan2
+create <span class="hljs-literal">-s</span> /testCreate/person zhangsan3
+
+<span class="hljs-comment">#创建e节点</span>
+create <span class="hljs-literal">-e</span> /testCreate/session session1
+
+<span class="hljs-comment">#创建es节点</span>
+create <span class="hljs-literal">-s</span> <span class="hljs-literal">-e</span> /testCreate/session session1</code></pre>
+<p><code>查看创建的持久化节点</code></p>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405112654307.png" srcset="/img/loading.gif" class="">
+<p><code>查看创建的临时节点</code></p>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405112804150.png" srcset="/img/loading.gif" class="">
+<p>quit退出客户端，自动关闭会话，此时查看之前创建的节点的状态。</p>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405112520961.png" srcset="/img/loading.gif" class="">
+<p>临时节点在会话失效后会自动删除，同时，临时节点下不能创建任何子节点。</p>
+<h4 id="stat-path"><a href="#stat-path" class="headerlink" title="stat path"></a>stat path</h4><p>查看节点的信息</p>
+<pre><code class="hljs powershell">stat /testCreate</code></pre>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405121454718.png" srcset="/img/loading.gif" class="">
+<h4 id="get-path"><a href="#get-path" class="headerlink" title="get path"></a>get path</h4><p>获取节点存储的数据及节点信息</p>
+<pre><code class="hljs powershell">get /testCreate</code></pre>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405121703253.png" srcset="/img/loading.gif" class="">
+<h4 id="set-path-data"><a href="#set-path-data" class="headerlink" title="set path data"></a>set path data</h4><p>修改节点的数据并查看</p>
+<pre><code class="hljs powershell"><span class="hljs-built_in">set</span> /testcreate people
+
+get /testCreate</code></pre>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405122048136.png" srcset="/img/loading.gif" class="">
+<h4 id="delete-path"><a href="#delete-path" class="headerlink" title="delete path"></a>delete path</h4><p>删除节点（该节点必须没有子节点）</p>
+<pre><code class="hljs powershell"><span class="hljs-built_in">ls</span> /testCreate
+
+delete /testCreate
+
+delete /testCreate/person0000000002
+
+<span class="hljs-built_in">ls</span> /testCreate</code></pre>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405123113775.png" srcset="/img/loading.gif" class="">
+<h4 id="rmr-path"><a href="#rmr-path" class="headerlink" title="rmr path"></a>rmr path</h4><p>递归删除节点，可以删除含子节点的节点</p>
+<pre><code class="hljs powershell">create /testDelete person
+
+create <span class="hljs-literal">-s</span> /testDelete xiaoming
+create <span class="hljs-literal">-s</span> /testDelete xiaohong
+create <span class="hljs-literal">-s</span> /testDelete xiaoma
+
+rmr /testCreate</code></pre>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405123637490.png" srcset="/img/loading.gif" class="">
+<h4 id="history"><a href="#history" class="headerlink" title="history"></a>history</h4><p>查看操作历史</p>
+<pre><code class="hljs powershell"><span class="hljs-built_in">history</span></code></pre>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405122527807.png" srcset="/img/loading.gif" class="">
+<h4 id="quit"><a href="#quit" class="headerlink" title="quit"></a>quit</h4><p>退出当前会话（会话失效）</p>
+<pre><code class="hljs powershell">quit</code></pre>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405123837578.png" srcset="/img/loading.gif" class="">
+<h3 id="组合命令"><a href="#组合命令" class="headerlink" title="组合命令"></a>组合命令</h3><h4 id="ls2-path"><a href="#ls2-path" class="headerlink" title="ls2 path"></a>ls2 path</h4><p><code>ls path</code> 和 <code>stat path</code> 的组合</p>
+<pre><code class="hljs powershell">ls2 /testCreate</code></pre>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405122316016.png" srcset="/img/loading.gif" class="">
+<h2 id="节点监听机制-Watch"><a href="#节点监听机制-Watch" class="headerlink" title="节点监听机制(Watch)"></a>节点监听机制(Watch)</h2><p>客户端可以监听znode节点的变化，主要包括<code>节点路径</code>和<code>节点数据</code>两种变化。znode节点的变化会触发响应的时间，然后清除对该节点的监测，当监测一个znode节点时，zk会发送通知给监测节点。<code>一个Watch时间是一个一次性的触发器</code>，当被设置了Watch的数据和节点路径发生了变化时，则服务器将会把这个改变发送给设置Watch的客户端进行通知。</p>
+<h3 id="节点路径监听"><a href="#节点路径监听" class="headerlink" title="节点路径监听"></a>节点路径监听</h3><p><code>监听客户端设置节点路径监听</code>—— 该节点路径下的所有路径变化都会通知到设置该监听的客户端</p>
+<pre><code class="hljs powershell"><span class="hljs-built_in">ls</span> path true</code></pre>
+<h3 id="节点数据监听"><a href="#节点数据监听" class="headerlink" title="节点数据监听"></a>节点数据监听</h3><p><code>监听客户端设置节点数据监听</code> —— 该节点路径下的所有数据变化都会通知到设置该监听的客户端</p>
+<pre><code class="hljs powershell">get path true</code></pre>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>微服务框架下作为服务的注册中心</p>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405125717905.png" srcset="/img/loading.gif" class="">
+<h2 id="Java操作ZK"><a href="#Java操作ZK" class="headerlink" title="Java操作ZK"></a>Java操作ZK</h2><h3 id="依赖导入"><a href="#依赖导入" class="headerlink" title="依赖导入"></a>依赖导入</h3><p>导入zkclient依赖包</p>
+<pre><code class="hljs xml"><span class="hljs-comment">&lt;!--引入zookeeper依赖--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.101tec<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>zkclient<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>0.10<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span></code></pre>
+<p>导入测试时要用到的两个依赖：junit 和 lombok</p>
+<pre><code class="hljs xml"><span class="hljs-comment">&lt;!--junit--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>junit<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>junit<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>4.11<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>provided<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!--lombok依赖--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.projectlombok<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>lombok<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.18.18<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code></pre>
+<h3 id="测试案例"><a href="#测试案例" class="headerlink" title="测试案例"></a>测试案例</h3><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.client;
+
+<span class="hljs-keyword">import</span> com.youzikeji.pojo.User;
+<span class="hljs-keyword">import</span> org.I0Itec.zkclient.IZkChildListener;
+<span class="hljs-keyword">import</span> org.I0Itec.zkclient.IZkDataListener;
+<span class="hljs-keyword">import</span> org.I0Itec.zkclient.ZkClient;
+<span class="hljs-keyword">import</span> org.I0Itec.zkclient.serialize.SerializableSerializer;
+<span class="hljs-keyword">import</span> org.I0Itec.zkclient.serialize.ZkSerializer;
+<span class="hljs-keyword">import</span> org.apache.zookeeper.CreateMode;
+<span class="hljs-keyword">import</span> org.apache.zookeeper.data.Stat;
+<span class="hljs-keyword">import</span> org.junit.After;
+<span class="hljs-keyword">import</span> org.junit.Before;
+<span class="hljs-keyword">import</span> org.junit.Test;
+
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.util.Date;
+<span class="hljs-keyword">import</span> java.util.List;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestZKClient</span> </span>&#123;
+    <span class="hljs-keyword">private</span> ZkClient zkClient;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@description</span>: 创建节点测试</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@params</span>: []</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span>: void</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@author</span>: caoyusang</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@dateTime</span>: 2021/4/5 13:27</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testCreateNode</span><span class="hljs-params">()</span></span>&#123;
+        <span class="hljs-comment">//参数1: 节点路径</span>
+        <span class="hljs-comment">//参数2: 节点数据</span>
+        <span class="hljs-comment">//参数3: 指定创建节点的类型</span>
+
+        <span class="hljs-comment">//1.创建P节点</span>
+        zkClient.create(<span class="hljs-string">&quot;/testCreateNode&quot;</span>,<span class="hljs-string">&quot;root&quot;</span>, CreateMode.PERSISTENT);
+        zkClient.create(<span class="hljs-string">&quot;/testCreateNode/pNode&quot;</span>, <span class="hljs-string">&quot;p-node&quot;</span>, CreateMode.PERSISTENT);
+
+        <span class="hljs-comment">//2.创建PS节点</span>
+        zkClient.create(<span class="hljs-string">&quot;/testCreateNode/PSNode&quot;</span>, <span class="hljs-string">&quot;ps-node&quot;</span>, CreateMode.PERSISTENT_SEQUENTIAL);
+
+        <span class="hljs-comment">//3.创建E节点</span>
+        zkClient.create(<span class="hljs-string">&quot;/testCreateNode/ENode&quot;</span>, <span class="hljs-string">&quot;e-node&quot;</span>, CreateMode.EPHEMERAL);
+
+        <span class="hljs-comment">//4.创建ES节点</span>
+        zkClient.create(<span class="hljs-string">&quot;/testCreateNode/ESNode&quot;</span>, <span class="hljs-string">&quot;es-node&quot;</span>, CreateMode.EPHEMERAL_SEQUENTIAL);
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@description</span>: 删除节点测试</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@params</span>: []</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span>: void</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@author</span>: caoyusang</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@dateTime</span>: 2021/4/5 13:56</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testDeleteNode</span><span class="hljs-params">()</span></span>&#123;
+        <span class="hljs-comment">/*//1.只能删除不含子节点的节点</span>
+<span class="hljs-comment">        boolean deleteStatus = zkClient.delete(&quot;/testCreateNode&quot;);</span>
+<span class="hljs-comment">        System.out.println(&quot;节点删除状态: &quot; + deleteStatus);*/</span>
+
+        <span class="hljs-comment">//2.递归删除节点</span>
+        <span class="hljs-keyword">boolean</span> deleteRecursiveStatus = zkClient.deleteRecursive(<span class="hljs-string">&quot;/testCreateNode&quot;</span>);
+        System.out.println(<span class="hljs-string">&quot;节点删除状态: &quot;</span> + deleteRecursiveStatus);
+
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@description</span>: 测试查询当前节点路径下的所有子节点</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@params</span>: []</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span>: void</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@author</span>: caoyusang</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@dateTime</span>: 2021/4/5 13:59</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testGetChidrenNodes</span><span class="hljs-params">()</span></span>&#123;
+        List&lt;String&gt; children = zkClient.getChildren(<span class="hljs-string">&quot;/&quot;</span>);
+        <span class="hljs-keyword">for</span> (String child : children)&#123;
+            System.out.println(child);
+        &#125;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@description</span>: 查看某个节点路径存储的数据</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@params</span>: []</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span>: void</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@author</span>: caoyusang</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@dateTime</span>: 2021/4/5 14:00</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testGetNodeData</span><span class="hljs-params">()</span></span>&#123;
+        <span class="hljs-comment">//注意读数据时要保证节点创建时的数据序列化方式和获取时的序列化方式一致</span>
+        Object data = zkClient.readData(<span class="hljs-string">&quot;/testCreateNode&quot;</span>);
+        System.out.println(data);
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@description</span>: 获取节点的状态信息</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@params</span>: []</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span>: void</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@author</span>: caoyusang</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@dateTime</span>: 2021/4/5 14:08</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testGetNodeStatus</span><span class="hljs-params">()</span></span>&#123;
+        Stat stat = <span class="hljs-keyword">new</span> Stat();
+        Object readData = zkClient.readData(<span class="hljs-string">&quot;/testCreateNode&quot;</span>, stat);
+        System.out.println(readData);
+        System.out.println(<span class="hljs-string">&quot;创建版本：&quot;</span> + stat.getCversion());
+        System.out.println(<span class="hljs-string">&quot;创建时间：&quot;</span> + stat.getCtime());
+    &#125;
+
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@description</span>: 更新节点数据</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@params</span>: []</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span>: void</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@author</span>: caoyusang</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@dateTime</span>: 2021/4/5 14:17</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">modifyNodeData</span><span class="hljs-params">()</span></span>&#123;
+        User user = <span class="hljs-keyword">new</span> User();
+        user.setId(<span class="hljs-number">1</span>).setName(<span class="hljs-string">&quot;wandehua&quot;</span>).setAge(<span class="hljs-number">23</span>).setBirth(<span class="hljs-keyword">new</span> Date());
+        zkClient.writeData(<span class="hljs-string">&quot;/testCreateNode&quot;</span>, user);
+        User userInfo = zkClient.readData(<span class="hljs-string">&quot;/testCreateNode&quot;</span>);
+        System.out.println(<span class="hljs-string">&quot;更新后的数据：&quot;</span> + userInfo);
+        System.out.println(<span class="hljs-string">&quot;ID：&quot;</span> + userInfo.getId());
+        System.out.println(<span class="hljs-string">&quot;姓名：&quot;</span> + userInfo.getName());
+        System.out.println(<span class="hljs-string">&quot;年龄：&quot;</span> + userInfo.getAge());
+        System.out.println(<span class="hljs-string">&quot;生日：&quot;</span> + userInfo.getBirth());
+
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@description</span>: 监听节点的数据变化</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@params</span>: []</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span>: void</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@author</span>: caoyusang</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@dateTime</span>: 2021/4/5 15:13</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testWatchDataChange</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        zkClient.subscribeDataChanges(<span class="hljs-string">&quot;/testCreateNode&quot;</span>, <span class="hljs-keyword">new</span> IZkDataListener() &#123;
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handleDataChange</span><span class="hljs-params">(String s, Object o)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+                System.out.println(<span class="hljs-string">&quot;当前路径: &quot;</span> + s);
+                System.out.println(<span class="hljs-string">&quot;当前节点变化后的数据: &quot;</span> + o);
+            &#125;
+
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handleDataDeleted</span><span class="hljs-params">(String s)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+                System.out.println(<span class="hljs-string">&quot;当前路径: &quot;</span> + s);
+            &#125;
+        &#125;);
+
+        <span class="hljs-comment">//阻塞客户端</span>
+        System.in.read();
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@description</span>: 监听当前节点路径下的下一级子节点的变化</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@params</span>: []</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span>: void</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@author</span>: caoyusang</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@dateTime</span>: 2021/4/5 15:20</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testWatchNodesChange</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        zkClient.subscribeChildChanges(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">new</span> IZkChildListener() &#123;
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handleChildChange</span><span class="hljs-params">(String s, List&lt;String&gt; list)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+                System.out.println(<span class="hljs-string">&quot;父节点名称&quot;</span> + s);
+                System.out.println(<span class="hljs-string">&quot;发生改变的子节点名称：&quot;</span>);
+
+                <span class="hljs-keyword">for</span> (String name : list)&#123;
+                    System.out.println(name);
+                &#125;
+            &#125;
+        &#125;);
+
+        <span class="hljs-comment">//阻塞客户端</span>
+        System.in.read();
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@description</span>: 测试之前初始化客户端对象</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@params</span>: []</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span>: void</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@author</span>: caoyusang</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@dateTime</span>: 2021/4/5 13:27</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Before</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">initClient</span><span class="hljs-params">()</span></span>&#123;
+        <span class="hljs-comment">//参数1: 服务器ip:port</span>
+        <span class="hljs-comment">//参数2: 会话超时时间</span>
+        <span class="hljs-comment">//参数3: 连接超时时间</span>
+        <span class="hljs-comment">//参数4: 序列化方式</span>
+        zkClient = <span class="hljs-keyword">new</span> ZkClient(<span class="hljs-string">&quot;127.0.0.1:2181&quot;</span>, <span class="hljs-number">60000</span> * <span class="hljs-number">3</span>, <span class="hljs-number">60000</span>, <span class="hljs-keyword">new</span> SerializableSerializer());
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@description</span>: 测试结束，释放资源</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@params</span>: []</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span>: void</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@author</span>: caoyusang</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@dateTime</span>: 2021/4/5 13:27</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@After</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">releaseClient</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException </span>&#123;
+        <span class="hljs-comment">/*//延迟资源释放，不然临时节点的创建看不到</span>
+<span class="hljs-comment">        Thread.sleep(25000);*/</span>
+        zkClient.close();
+    &#125;
+
+&#125;
+</code></pre>
+<p><code>创建节点的结果</code></p>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405134809157.png" srcset="/img/loading.gif" class="">
+<p><code>不能删除含子节点的节点的情况</code></p>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405135456738.png" srcset="/img/loading.gif" class="">
+<p><code>递归删除成功返回的状态</code></p>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405135544329.png" srcset="/img/loading.gif" class="">
+<p><code>获取当前节点的所有子节点(上面已经把testCreateNodes递归删除了)</code></p>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405135937670.png" srcset="/img/loading.gif" class="">
+<p><code>获取节点信息</code></p>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405141203293.png" srcset="/img/loading.gif" class="">
+<p><code>更新节点</code></p>
+<p>使用User对象更新节点的数据</p>
+<p>先创建一个实体类User——要实现<code>序列化</code>，这里用到了lombok提供构造器和get/set方法以及允许链式编程@Accessors(chain = true)</p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.pojo;
+
+<span class="hljs-keyword">import</span> lombok.AllArgsConstructor;
+<span class="hljs-keyword">import</span> lombok.Data;
+<span class="hljs-keyword">import</span> lombok.NoArgsConstructor;
+<span class="hljs-keyword">import</span> lombok.experimental.Accessors;
+
+<span class="hljs-keyword">import</span> java.io.Serializable;
+<span class="hljs-keyword">import</span> java.util.Date;
+
+<span class="hljs-meta">@Data</span>
+<span class="hljs-meta">@AllArgsConstructor</span>
+<span class="hljs-meta">@NoArgsConstructor</span>
+<span class="hljs-meta">@Accessors(chain = true)</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>&#123;
+    <span class="hljs-keyword">private</span> Integer id;
+    <span class="hljs-keyword">private</span> String name;
+    <span class="hljs-keyword">private</span> Integer age;
+    <span class="hljs-keyword">private</span> Date birth;
+&#125;
+</code></pre>
+<p><code>更新结果</code></p>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405142216629.png" srcset="/img/loading.gif" class="">
+<p><code>监听节点数据变化事件 —— 更新节点数据</code></p>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405150959604.png" srcset="/img/loading.gif" class="">
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405151014276.png" srcset="/img/loading.gif" class="">
+<p><code>监听节点数据变化事件 —— 删除节点</code></p>
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405151153673.png" srcset="/img/loading.gif" class="">
+<img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405151219002.png" srcset="/img/loading.gif" class="">
+<h2 id="ZK的集群"><a href="#ZK的集群" class="headerlink" title="ZK的集群"></a>ZK的集群</h2><h3 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h3><p>集合同一种软件服务的多个节点同时为客户端提供服务，集群的出现就是为了解决以下几个问题：</p>
+<ul>
+<li>单节点的并发访问压力问题</li>
+<li>单节点故障问题（由于硬件老化、自然灾害等原因）</li>
+</ul>
+<h3 id="集群架构"><a href="#集群架构" class="headerlink" title="集群架构"></a>集群架构</h3><img src="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/image-20210405153128249.png" srcset="/img/loading.gif" class="">
+<ul>
+<li>两类节点：leader 和 follower，一个ZK集群中一般只有一个leader节点，follower节点又称仲裁节点，它们的配置完全一样。leader节点由<code>投票选举</code>从所有follower节点中产生。</li>
+<li>搭建集群时，至少需要三台服务器，且强烈建议使用奇数个服务器，如果只有两台服务器，在其中一个节点宕机时，没办法形成多数仲裁。同时，由于存在两个单点故障，所以两台服务器甚至不如一台服务器稳定。</li>
+<li>分布式<code>写数据不一致问题</code>的解决 —— <code>zab原子广播协议</code>，当客户端像任意一个服务节点进行了写操作，此时服务节点并不直接更新，而是先向主节点leader询问是否可以更新，如果得到肯定的回复，那么所有follwer节点之间就会进行广播通信，同步更新写入的数据。如果写入失败，则将失败信息返回给客户端。</li>
+<li>如果某一时刻leader节点宕机，那么就从所有剩下的follower节点中进行多数仲裁，选举出新的leader节点。</li>
+</ul>
+<h3 id="ZK集群的搭建"><a href="#ZK集群的搭建" class="headerlink" title="ZK集群的搭建"></a>ZK集群的搭建</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ysocean/p/9860529.html">zookeeper 集群搭建</a></p>
+<h3 id="通过Java客户端操作ZK集群"><a href="#通过Java客户端操作ZK集群" class="headerlink" title="通过Java客户端操作ZK集群"></a>通过Java客户端操作ZK集群</h3><p>在初始化客户端对象时，把服务端的ip:port换成对应集群中所有节点的ip:port即可。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/expiator/p/9853378.html">linux安装zookeeper及使用</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ysocean/p/9860529.html">zookeeper 集群搭建</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Uy4y1b7ED">2021最新ZooKeeper教程</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Zookeeper/">Zookeeper</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/25/leetcode%E9%A2%98%E8%A7%A3%E4%B9%8B%E6%95%B0%E7%BB%84/">
+                        <span class="hidden-mobile">leetcode题解之数组</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Zookeeper入门学习&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
