@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="caoyusang">
   <meta name="keywords" content="">
-  <title>基于多知识库迭代检索的常识问答系统 - caoyusang的科研日常</title>
+  <title>ThreadLocal详解 - caoyusang的科研日常</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -165,8 +165,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-11-25 13:19" pubdate>
-        2020年11月25日 下午
+      <time datetime="2021-04-06 20:19" pubdate>
+        2021年4月6日 晚上
       </time>
     </span>
   
@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.1k 字
+      179 字
     </span>
   
 
@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      28
+      2
        分钟
     </span>
   
@@ -225,87 +225,203 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">基于多知识库迭代检索的常识问答系统</h1>
+            <h1 style="display: none">ThreadLocal详解</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：19 分钟前
+                  本文最后更新于：9 分钟前
                 
               </p>
             
             <div class="markdown-body" id="post-body">
-              <h2 id="多知识库常识知识迭代检索"><a href="#多知识库常识知识迭代检索" class="headerlink" title="多知识库常识知识迭代检索"></a>多知识库常识知识迭代检索</h2><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2011.02705v1.pdf">论文地址</a></p>
-<img src="/2020/11/25/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%9F%A5%E8%AF%86%E5%BA%93%E8%BF%AD%E4%BB%A3%E6%A3%80%E7%B4%A2%E7%9A%84%E5%B8%B8%E8%AF%86%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/GIR-1.png" srcset="/img/loading.gif" class="">
-<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>常识问答任务需要引入外部知识来帮助模型更好地理解自然语言问题，现有的解决方案大都采用两阶段框架：</p>
+              <h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><p>ThreadLocal 主要用来提供线程局部变量，将参数储存在线程中，然后在该线程运行的任何阶段都能从线程中获取。多线程环境下，每个线程都可以通过<code>set()</code>和<code>get()</code>来对本线程局部变量进行操作，不会和其他线程的局部变量发生冲突，<strong>实现了线程间的数据隔离</strong>。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><img src="/2021/04/06/ThreadLocal%E8%AF%A6%E8%A7%A3/image-20210324150915632.png" srcset="/img/loading.gif" class="">
 <ul>
-<li>第一阶段 —— 从广泛的知识来源中找到与给定问题相关的知识事实或者用预训练模型生成相关的知识</li>
-<li>第二阶段 —— 将找到的或者生成的知识与问题融合以预测答案。</li>
-</ul>
-<p>实验结果证明，外部知识融合到问答系统的做法是十分有效的，但这仍然存在一个关键的问题：就从<strong>单一</strong>外部知识库找寻相关知识而言，<strong>抽取到的部分知识可能对解决问题基本毫无作用，甚至还可能损害模型的性能</strong>。例如，以下面一个QA为例，对于问题实体<script type="math/tex">farmland</script>和三个选项实体<script type="math/tex">midwest \space countryside \space illinois</script>，从<strong>ConceptNet</strong>中抽取到的知识显示，<script type="math/tex">farmland</script>和三个选项实体都直接相关<script type="math/tex">(AtLocation)</script>。</p>
-<img src="/2020/11/25/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%9F%A5%E8%AF%86%E5%BA%93%E8%BF%AD%E4%BB%A3%E6%A3%80%E7%B4%A2%E7%9A%84%E5%B8%B8%E8%AF%86%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/GIR-2.jpg" srcset="/img/loading.gif" class="">
-<p>虽然外部知识给到了模型，但模型仍然很难做出正确的选择，因为这三个选项看上去似乎都是正确的。这样的问题在论文中被称为知识的多价值属性，这种问题在问答系统中十分常见，实体关系的多值属性会损害现有模型的性能。</p>
-<h3 id="贡献"><a href="#贡献" class="headerlink" title="贡献"></a>贡献</h3><p>提出一种新的多知识源问答方法，通过利用多种知识来源，在所需的背景知识和原始问题以及选择之间建立精确的联系，以解决多值属性带来的挑战。</p>
-<p>三个创新：</p>
-<ul>
-<li><strong>提出基于图的迭代检索模块</strong> —— 通过问题中实体之间的隐藏关系来缩小和细化潜在的有用知识事实</li>
-<li><strong>引入词典为实体或者概念提供解释</strong> —— 综合实体或概念解释和迭代检索的知识事实可以帮助模型精确区分欺骗性的答案选择</li>
-<li><strong>提出答案选择感知注意力机制</strong> —— 在将隐层状态向量输入最终预测的线性分类器之前，引入答案选择感知注意机制来计算给定问题、检索的知识和候选选择的各自的隐层向量之间的注意力分数</li>
-</ul>
-<h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><img src="/2020/11/25/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%9F%A5%E8%AF%86%E5%BA%93%E8%BF%AD%E4%BB%A3%E6%A3%80%E7%B4%A2%E7%9A%84%E5%B8%B8%E8%AF%86%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/GIR-3.png" srcset="/img/loading.gif" class="">
-<p>仍然采用两阶段的框架(默认已经进行了对QA对的实体识别)：</p>
-<ul>
-<li><p>第一阶段 —— 从多个外部知识库中抽取与QA对相关的知识，这部分大多是在检索知识</p>
-<img src="/2020/11/25/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%9F%A5%E8%AF%86%E5%BA%93%E8%BF%AD%E4%BB%A3%E6%A3%80%E7%B4%A2%E7%9A%84%E5%B8%B8%E8%AF%86%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/GIR-4.png" srcset="/img/loading.gif" class="">
-<ul>
-<li><strong>结构化证据</strong> —— 从ConceptNet中找到问题概念和识别的关键实体(包含选项实体)，并把它们作为初始节点。根据问题的类型，使用<strong>基于规则</strong>的方法推断可能的关系，并使用这些关系来缩小知识提取的范围。基于初始节点和潜在关系，迭代地检索与问题相关的知识事实。</li>
-<li><strong>非结构化证据</strong> —— 将维基百科文档拆分成句子，使用ElasticSearch构建索引。根据原问题检索相关句子，使用<strong>标题</strong>和段落缩小文档的范围。然后使用段落级候选词和它们的句子来建立索引，并检索前10个相关的句子</li>
-<li><strong>实体或概念解释</strong> —— 从字典中提取答案选择和问题概念的含义，帮助模型区分分散注意力的实体</li>
-</ul>
+<li><p>每一个Thread对象都包含一个ThreadLocalMap类型的<code>成员变量threadLocals</code>，它存储了本线程中所有的ThreadLocal对象及其对应的值，即一个ThreadLocalMap对象。</p>
+<pre><code class="hljs java"><span class="hljs-comment">/* ThreadLocal values pertaining to this thread. This map is maintained</span>
+<span class="hljs-comment">* by the ThreadLocal class. */</span>
+ThreadLocal.ThreadLocalMap threadLocals = <span class="hljs-keyword">null</span></code></pre>
 </li>
-<li><p>第二阶段 —— 用预训练模型对构造的输入进行编码，将编码后的三个隐层向量通过一个答案选择感知注意力计算注意力得分，最终输入到分类器中得到QA对的得分。</p>
-<ul>
-<li><strong>输入构造</strong> —— <script type="math/tex">[CLS] \space Question \space [SEP] \space Extracted \space Knowledge \space [SEP] \space Choices</script></li>
-<li><strong>答案选择感知注意力机制</strong> —— 主要是计算QA对各自隐层向量的注意力系数以及证据和选项各自隐层向量的注意力系数，最后串接加权后的问题隐层向量<script type="math/tex">O_{qa}h_{q}</script>和加权后的证据隐层向量<script type="math/tex">O_{ca}h_{c}</script>以及选项隐层向量<script type="math/tex">h_{a}</script></li>
-</ul>
+<li><p>ThreadLocalMap由一个个的Entry对象构成，Entry继承自weakReference<ThreadLocal<?>&gt;，一个Entry由ThreadLocal对象以及线程局部变量Object组成，其中ThreadLocal作为key，对应的线程变量Object作为value。</p>
+<img src="/2021/04/06/ThreadLocal%E8%AF%A6%E8%A7%A3/20180920212201150.png" srcset="/img/loading.gif" class="">
+<pre><code class="hljs java"><span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ThreadLocalMap</span> </span>&#123;
+
+        <span class="hljs-comment">/**</span>
+<span class="hljs-comment">         * The entries in this hash map extend WeakReference, using</span>
+<span class="hljs-comment">         * its main ref field as the key (which is always a</span>
+<span class="hljs-comment">         * ThreadLocal object).  Note that null keys (i.e. entry.get()</span>
+<span class="hljs-comment">         * == null) mean that the key is no longer referenced, so the</span>
+<span class="hljs-comment">         * entry can be expunged from table.  Such entries are referred to</span>
+<span class="hljs-comment">         * as &quot;stale entries&quot; in the code that follows.</span>
+<span class="hljs-comment">         */</span>
+        <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Entry</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">WeakReference</span>&lt;<span class="hljs-title">ThreadLocal</span>&lt;?&gt;&gt; </span>&#123;
+            <span class="hljs-comment">/** The value associated with this ThreadLocal. */</span>
+            Object value;
+
+            Entry(ThreadLocal&lt;?&gt; k, Object v) &#123;
+                <span class="hljs-keyword">super</span>(k);
+                value = v;
+            &#125;
+        &#125;
+        <span class="hljs-comment">//....很长</span>
+&#125;</code></pre>
 </li>
 </ul>
-<h3 id="多源知识库"><a href="#多源知识库" class="headerlink" title="多源知识库"></a>多源知识库</h3><p>结构化的ConceptNet、非结构化的Wikipedia以及剑桥词典(Cambridge Dictionary)。</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>ThreadLocal提供<code>set()</code>方法和<code>get()</code>方法操作线程局部变量。</p>
+<p>每一个线程的ThreadLocalMap容器各自私有，这些容器相互独立互不影响，不会存在线程安全性的问题。</p>
 <ul>
-<li><strong>ConceptNet</strong> —— 最大的结构化知识库之一，知识主要来自其他众包资源、专家创造的资源</li>
-<li><strong>Wikipedia</strong> —— 一个免费的在线百科全书，由世界各地的志愿者创建和编辑，论文中选用最新的Wikipedia 22-May-2020版本</li>
-<li><strong>Cambridge Dictionary</strong> —— 1995年出版，囊括超140k单词、短语及解释。</li>
+<li><p>set()</p>
+<ul>
+<li>ThreadLocal获取当前线程对象</li>
+<li>获取当前线程的ThreadLocalMap对象</li>
+<li>以当前的ThreadLocal为key，将线程局部变量值存进ThreadLocalMap对象中</li>
 </ul>
-<h3 id="文本编码"><a href="#文本编码" class="headerlink" title="文本编码"></a>文本编码</h3><p>在从多个知识源中检索与问题相关的知识事实后，使用<script type="math/tex">[SEP]</script>来分割证据知识、原始问题和候选答案。</p>
-<p>具体做法：</p>
-<ol>
-<li>将原始答案选择与来自剑桥词典的答案解释连接起来作为<script type="math/tex">A= \left\{ a_{1},a_{2},\dots,a_{n} \right\}</script></li>
-<li>将来自维基百科和概念网的证据连接起来作为上下文<script type="math/tex">C=\left\{c_{1}, c_{2}, \ldots, c_{k}\right\}</script>。</li>
-<li>将来自剑桥词典的概念解释与问题词干连接起来作为<script type="math/tex">Q=\left\{q_{1}, q_{2}, \ldots, q_{m}\right\}</script>。</li>
-</ol>
-<p>从形式上来看，预先训练的语言模型的输入是问题Q、相关证据C和答案选择A的连接：</p>
-<script type="math/tex; mode=display">
-h_{q}=\operatorname{Encoder}(Q), h_{a}=\operatorname{Encoder}(A), h_{c}=\operatorname{Encoder}(C)</script><h3 id="答案选择感知注意力机制"><a href="#答案选择感知注意力机制" class="headerlink" title="答案选择感知注意力机制"></a>答案选择感知注意力机制</h3><p>通常在从RoBERTa模型中获得最后的隐藏状态向量后，对于下游任务中的问题回答，以往的模型方案是通常直接使用线性分类器来预测答案。</p>
-<p>然而，在论文的实验过程中，观察到线性分类器在检索到的证据或背景知识上表现不佳。因此，论文引入了一种答案选择感知的注意机制来计算问题<script type="math/tex">h_{q}</script>和选择之间的注意分数，并且通过标准的注意计算来计算检索到的证据<script type="math/tex">h_{c}</script>和答案选择<script type="math/tex">h_{a}</script>之间的注意分数。</p>
-<script type="math/tex; mode=display">
-O_{q a}=A T T\left(h_{q}, h_{a}\right), O_{c a}=A T T\left(h_{c}, h_{a}\right)</script><img src="/2020/11/25/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%9F%A5%E8%AF%86%E5%BA%93%E8%BF%AD%E4%BB%A3%E6%A3%80%E7%B4%A2%E7%9A%84%E5%B8%B8%E8%AF%86%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/GIR-5.png" srcset="/img/loading.gif" class="">
-<p>最后，将注意力重新加权的隐藏状态连接起来，通过线性分类器与ReLU进行传递，以计算最终的双向注意力向量进行预测。公式如下:</p>
-<script type="math/tex; mode=display">
-P(q, a)=\operatorname{Linear}\left(O_{q a} h_{q}, O_{c a} h_{c}, h_{a}\right)</script><h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><ul>
-<li>pretrained model —— RoBERTa-large(24-layers)</li>
-<li>max update step —— 6000</li>
-<li>warmup update step —— 150</li>
-<li>max length —— 512</li>
-<li>dropout —— 0.1</li>
-<li>optimizer —— Adam</li>
-<li>loss function —— cross-entropy loss</li>
-<li>batch size —— 4</li>
-<li>learning rate —— 1e-5</li>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">set</span><span class="hljs-params">(T value)</span> </span>&#123;
+
+    <span class="hljs-comment">// 得到当前线程对象</span>
+    Thread t = Thread.currentThread();
+
+    <span class="hljs-comment">// 这里获取ThreadLocalMap</span>
+    ThreadLocalMap map = getMap(t);
+
+    <span class="hljs-comment">// 如果map存在，则将当前的ThreadLocal对象作为key，要存储的对象作为value存到map里面去</span>
+    <span class="hljs-keyword">if</span> (map != <span class="hljs-keyword">null</span>)&#123;
+        map.set(<span class="hljs-keyword">this</span>, value);
+    &#125; <span class="hljs-keyword">else</span>&#123;		<span class="hljs-comment">//map不存在，调用createMap()方法为当前的线程创建一个ThreadLocalMap</span>
+        createMap(t, value);
+    &#125;
+&#125;</code></pre>
+</li>
+<li><p>createMap() —— 创建并初始化线程的ThreadLocalMap</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">createMap</span><span class="hljs-params">(Thread t, T firstValue)</span> </span>&#123;
+    t.threadLocals = <span class="hljs-keyword">new</span> ThreadLocalMap(<span class="hljs-keyword">this</span>, firstValue);
+&#125;</code></pre>
+</li>
+<li><p>get()</p>
+<ul>
+<li>ThreadLocal获取当前线程对象</li>
+<li>获取当前线程的ThreadLocalMap对象</li>
+<li>以当前的ThreadLocal为key，获取对应的value</li>
 </ul>
-<img src="/2020/11/25/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%9F%A5%E8%AF%86%E5%BA%93%E8%BF%AD%E4%BB%A3%E6%A3%80%E7%B4%A2%E7%9A%84%E5%B8%B8%E8%AF%86%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/GIR-6.png" srcset="/img/loading.gif" class="">
-<h3 id="创新有效性研究"><a href="#创新有效性研究" class="headerlink" title="创新有效性研究"></a>创新有效性研究</h3><p>左图是对使用多元知识库有效性的研究，可以看到证据来源的知识库越多，模型的表现越好。单知识库来源下，模型表现：剑桥字典 &gt; ConceptNet &gt; Wikipedia。</p>
-<p>右图是对图的迭代知识检索以及QA感知注意力机制有效性的研究，实验证明，这两处创新皆能提升模型表现。</p>
-<img src="/2020/11/25/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%9F%A5%E8%AF%86%E5%BA%93%E8%BF%AD%E4%BB%A3%E6%A3%80%E7%B4%A2%E7%9A%84%E5%B8%B8%E8%AF%86%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/GIR-7.png" srcset="/img/loading.gif" class="">
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>处理多项选择题回答任务，需要额外的背景知识或常识。通过有效地整合多种知识资源，提出了一种基于图迭代检索的新的常识问答系统。首先，论文提出一个新的基于图的迭代知识检索模块来迭代检索与给定问题及其选择相关的概念和实体。此外，论文还提出了一种答案选择感知的注意机制，用于融合由预先训练的语言模型编码的所有隐藏层的状态表示。论文作者在CommonsenseQA数据集上进行了实验，实验结果表明，该方法在Commonsenseqa测试集上的准确率上明显优于其他模型。最后，论文进行了对创新的有效性研究，研究结果显示了基于图的迭代知识检索模块和答案选择感知注意模块在从多个知识源检索和合成背景知识方面的有效性。</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> T <span class="hljs-title">get</span><span class="hljs-params">()</span> </span>&#123;
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    <span class="hljs-keyword">if</span> (map != <span class="hljs-keyword">null</span>) &#123;
+        ThreadLocalMap.Entry e = map.getEntry(<span class="hljs-keyword">this</span>);
+        <span class="hljs-keyword">if</span> (e != <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-meta">@SuppressWarnings(&quot;unchecked&quot;)</span>
+            T result = (T)e.value;
+            <span class="hljs-keyword">return</span> result;
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> setInitialValue();
+&#125;</code></pre>
+</li>
+</ul>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li>进行对象跨层传递时，使用ThreadLocal避免参数/对象的多次传递，打破层次间的约束</li>
+<li>线程间数据隔离</li>
+<li>解决Spring中单例Bean的线程安全问题</li>
+<li>进行事务操作，用于存储线程的事务信息<ul>
+<li>spring声明式事务的重要实现基础就是ThreadLocal</li>
+</ul>
+</li>
+<li><code>数据库连接管理</code>、Session会话管理</li>
+</ul>
+<p><code>数据库连接管理</code>：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DBUtil</span> </span>&#123;
+    <span class="hljs-comment">//数据库连接池</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> BasicDataSource source;
+
+    <span class="hljs-comment">//为不同的线程管理连接</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> ThreadLocal&lt;Connection&gt; local;
+
+
+    <span class="hljs-keyword">static</span> &#123;
+        ...
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Connection <span class="hljs-title">getConnection</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> SQLException </span>&#123;
+        <span class="hljs-comment">//获取Connection对象</span>
+        Connection connection = source.getConnection();
+
+        <span class="hljs-comment">//把Connection放进ThreadLocal里面</span>
+        local.set(connection);
+
+        <span class="hljs-comment">//返回Connection对象</span>
+        <span class="hljs-keyword">return</span> connection;
+    &#125;
+
+    <span class="hljs-comment">//关闭数据库连接</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">closeConnection</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-comment">//从线程中拿到Connection对象</span>
+        Connection connection = local.get();
+
+        <span class="hljs-keyword">try</span> &#123;
+            <span class="hljs-keyword">if</span> (connection != <span class="hljs-keyword">null</span>) &#123;
+                <span class="hljs-comment">//恢复连接为自动提交</span>
+                connection.setAutoCommit(<span class="hljs-keyword">true</span>);
+
+                <span class="hljs-comment">//这里不是真的把连接关了,只是将该连接归还给连接池</span>
+                connection.close();
+
+                <span class="hljs-comment">//既然连接已经归还给连接池了,ThreadLocal保存的Connction对象也已经没用了</span>
+                local.remove();
+
+            &#125;
+        &#125; <span class="hljs-keyword">catch</span> (SQLException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+
+
+&#125;</code></pre>
+<h3 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h3><p>不会再被使用的对象或者变量占用的内存不能被回收，就说明发生了内存泄漏。随着内存泄漏次数的累积，无论计算机有多少内存，迟早被耗光，会出抛出OOM(OutOfMemoryError)异常，程序异常终止。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">回收时间</th>
+<th style="text-align:center">应用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">强引用</td>
+<td style="text-align:center">一直存活，除非GC Roots不可达</td>
+<td style="text-align:center">所有程序的场景，基本对象，自定义对象等</td>
+</tr>
+<tr>
+<td style="text-align:center">软引用</td>
+<td style="text-align:center">内存不足时会被回收</td>
+<td style="text-align:center">一般用在对内存非常敏感的资源上，用作缓存的场景比较多</td>
+</tr>
+<tr>
+<td style="text-align:center">弱引用</td>
+<td style="text-align:center">只能存活到下一次GC前</td>
+<td style="text-align:center">生命周期很短的对象，例如ThreadLocal中的Key。</td>
+</tr>
+<tr>
+<td style="text-align:center">虚引用</td>
+<td style="text-align:center">随时会被回收</td>
+<td style="text-align:center">可能被JVM团队内部用来跟踪JVM的垃圾回收活动</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>ThreadLocalMap使用ThreadLocal的弱引用作为key时，如果一个ThreadLocal不存在外部强引用了，那么这个作为key的ThreadLocal必然在下一次GC中被回收。<code>当key成为null后</code>，下一次ThreadLocalMap调用set()、get()、remove()方法时，会清除value的值。</p>
+<p><code>ThreadLocal内存泄漏的根源</code>：</p>
+<p>ThreadLocalMap的<code>生命周期</code>跟Thread一样长，如果没有手动删除对应key就会导致内存泄漏，而不是因为弱引用。</p>
+<p><code>ThreadLocal的正确使用方法</code>：</p>
+<ul>
+<li>每次使用完ThreadLocal后，手动remove()。</li>
+<li>将ThreadLocal变量设置为private static，这样就一直存在ThreadLocal的强引用，也就能保证任何时候都能通过ThreadLocal的弱引用访问到Entry的value值，进而清除掉。</li>
+</ul>
+<h3 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h3><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI4Njg5MDA5NA==&amp;mid=2247484118&amp;idx=1&amp;sn=da3e4c4cfd0642687c5d7bcef543fe5b&amp;chksm=ebd743d7dca0cac19a82c7b29b5b22c4b902e9e53bd785d066b625b4272af2a6598a0cc0f38e&amp;scene=21#wechat_redirect">ThreadLocal就是这么简单 by Java3y</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zzg1229059735/article/details/82715741">ThreadLocal理解及应用 by pony-zi</a></p>
+<h3 id="参考视频"><a href="#参考视频" class="headerlink" title="参考视频"></a>参考视频</h3><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Eb4y1R7zd?p=25">ThreadLocal的原理以及使用场景</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Eb4y1R7zd?p=26">ThreadLocal内存泄漏问题</a></p>
 
             </div>
             <hr>
@@ -315,7 +431,7 @@ P(q, a)=\operatorname{Linear}\left(O_{q a} h_{q}, O_{c a} h_{c}, h_{a}\right)</s
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%B8%B8%E8%AF%86%E6%8E%A8%E7%90%86/">常识推理</a>
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
                     
                   </div>
                 
@@ -323,7 +439,7 @@ P(q, a)=\operatorname{Linear}\left(O_{q a} h_{q}, O_{c a} h_{c}, h_{a}\right)</s
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/NLP/">NLP</a>
+                      <a class="hover-with-bg" href="/tags/JUC/">JUC</a>
                     
                   </div>
                 
@@ -336,9 +452,9 @@ P(q, a)=\operatorname{Linear}\left(O_{q a} h_{q}, O_{c a} h_{c}, h_{a}\right)</s
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/12/14/MyBatis%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+                      <a href="/2021/04/06/MySQL%E7%B4%A2%E5%BC%95%E8%AF%A6%E8%A7%A3/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">MyBatis基础知识</span>
+                        <span class="hidden-mobile">MySQL索引详解</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -346,8 +462,8 @@ P(q, a)=\operatorname{Linear}\left(O_{q a} h_{q}, O_{c a} h_{c}, h_{a}\right)</s
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/11/17/%E5%B8%B8%E8%AF%86%E9%97%AE%E7%AD%94%E5%A4%A7%E6%AF%94%E6%8B%BC/">
-                        <span class="hidden-mobile">常识问答大比拼</span>
+                      <a href="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="hidden-mobile">Zookeeper入门学习</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -485,7 +601,7 @@ P(q, a)=\operatorname{Linear}\left(O_{q a} h_{q}, O_{c a} h_{c}, h_{a}\right)</s
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "基于多知识库迭代检索的常识问答系统&nbsp;",
+        "ThreadLocal详解&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
