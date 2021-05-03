@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="caoyusang">
   <meta name="keywords" content="">
-  <title>分类 - Java - caoyusang的科研日常</title>
+  <title>caoyusang的科研日常</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -43,7 +43,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 100vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -137,7 +137,7 @@
 </nav>
 
     <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/5.jpeg') no-repeat center center;
+         style="background: url('/img/1.jpeg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -150,6 +150,10 @@
           </div>
 
           
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
         </div>
       </div>
     </div>
@@ -159,45 +163,87 @@
     
       <div class="container nopadding-md">
         <div class="py-5" id="board"
-          >
+          style=margin-top:0>
           
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="list-group">
-  <p class="h4">共计 4 篇文章</p>
-  <hr>
-  
+
+  <div class="row mx-auto index-card">
     
-      
-      <p class="h5">2021</p>
     
-    <a href="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Netty基础学习</span>
-      <time style="float: right;">05-03</time>
-    </a>
-  
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/11/04/docker%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2neo4j/" target="_self">
+          <img src="/img/Docker-NEO4J.png" srcset="/img/loading.gif" alt="docker安装部署neo4j">
+        </a>
+      </div>
     
-    <a href="/2021/05/03/JUC%E5%B9%B6%E5%8F%91%E9%94%81/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">JUC并发锁</span>
-      <time style="float: right;">05-03</time>
-    </a>
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/11/04/docker%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2neo4j/">docker安装部署neo4j</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/11/04/docker%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2neo4j/">
+          
+          
+            
+          
+          docker部署neo4j环境：ubuntu16.04LTS
+docker安装详见：菜鸟教程(docker安装)
+docker国内镜像源配置第一步，进入阿里云，登陆后点击左侧的镜像加速，生成自己的镜像加速地址。
+
+第二步，选择ubuntu，执行阿里云推荐的终端命令，即可更新docker的镜像源为阿里云镜像。
+docker部署neo4j拉取neo4j镜像第一步，从镜像源中找合适的镜像
+docker 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-11-04 15:37" pubdate>
+              2020-11-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/docker/">docker</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/page/2/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    </span>
+  </nav>
   
-    
-    <a href="/2021/04/06/ThreadLocal%E8%AF%A6%E8%A7%A3/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">ThreadLocal详解</span>
-      <time style="float: right;">04-06</time>
-    </a>
-  
-    
-    <a href="/2021/01/05/Spring%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Spring基础知识</span>
-      <time style="float: right;">01-05</time>
-    </a>
-  
-</div>
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 
@@ -289,7 +335,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "分类 - Java&nbsp;",
+        "Just be yourself.&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

@@ -1,0 +1,1412 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="caoyusang">
+  <meta name="keywords" content="">
+  <title>Netty基础学习 - caoyusang的科研日常</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>caoyusang</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/7.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-03 15:32" pubdate>
+        2021年5月3日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      104
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Netty基础学习</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：1 分钟前
+                
+              </p>
+            
+            <div class="markdown-body" id="post-body">
+              <h2 id="Netty是什么？"><a href="#Netty是什么？" class="headerlink" title="Netty是什么？"></a>Netty是什么？</h2><p><code>概述</code>——JBOSS提供的一个开源的Java网络应用框架</p>
+<p><code>特点</code>——异步，基于事件驱动。提供了TCP/IP、HTTP协议栈，方便定制开发私有协议栈</p>
+<p><code>本质</code>——NIO框架</p>
+<p><code>应用</code>——开发高性能高可靠的网络IO程序，例如在分布式系统中作为RPC的基础通信组件。另外在大数据领域也被广泛应用，Akka，Flink，Spark等项目都用到了Netty</p>
+<p><code>数据传输的基础</code>——TCP协议</p>
+<p>下图可以帮助了解Netty在Java网络编程所处的位置</p>
+<img src="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20210315141613432.png" srcset="/img/loading.gif" class="">
+<h2 id="三种经典的I-O模型"><a href="#三种经典的I-O模型" class="headerlink" title="三种经典的I/O模型"></a>三种经典的I/O模型</h2><h3 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p><code>同步并阻塞</code>，客户端每来一个连接请求，服务器就要启动一个对应的线程进行处理，高并发(同一时间出现大量请求)场景下，服务器资源消耗严重，压力很大。同时，如果连接什么也不做，服务器仍然会让线程维持，造成<code>不必要的线程开销</code>。最重要的是，这种模式下，数据的读取写入必须<code>阻塞</code>在一个线程内<code>等待</code>其完成。</p>
+<p><code>工作机制</code>：</p>
+<p>1）服务器启动一个ServerSocket监听连接请求</p>
+<p>2）客户端启动Socket对服务器发起连接请求，服务端默认情况下为每个客户建立一个线程与之进行通讯</p>
+<p>3）客户端发出请求后，咨询服务端是否有线程响应。有响应，客户端线程在请求结束后继续执行；无响应，进入等待，等待超时后连接请求被拒绝。</p>
+<img src="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20210315144516566.png" srcset="/img/loading.gif" class="">
+<p><code>改进措施</code>：使用线程池，实现并发，但并不能减少线程的使用个数。</p>
+<p><code>应用场景</code>：连接数目比较小且固定，对服务器资源要求比较高。</p>
+<h4 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h4><p>服务端借助线程池实现，客户端用Telnet模拟</p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.bio;
+
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.io.InputStream;
+<span class="hljs-keyword">import</span> java.net.ServerSocket;
+<span class="hljs-keyword">import</span> java.net.Socket;
+<span class="hljs-keyword">import</span> java.util.concurrent.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BioServer</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        <span class="hljs-comment">//利用线程池实现BIO的server端</span>
+        <span class="hljs-comment">//创建一个线程池，通过七大参数</span>
+        ExecutorService threadPool = <span class="hljs-keyword">new</span> ThreadPoolExecutor(
+                <span class="hljs-number">5</span>,
+                <span class="hljs-number">10</span>,
+                <span class="hljs-number">3</span>,
+                TimeUnit.SECONDS,
+                <span class="hljs-keyword">new</span> LinkedBlockingDeque&lt;&gt;(<span class="hljs-number">5</span>),
+                Executors.defaultThreadFactory(),
+                <span class="hljs-keyword">new</span> ThreadPoolExecutor.AbortPolicy()
+        );
+
+        <span class="hljs-comment">//1.创建ServerSocket</span>
+        ServerSocket serverSocket = <span class="hljs-keyword">new</span> ServerSocket(<span class="hljs-number">6666</span>);
+        System.out.println(<span class="hljs-string">&quot;服务器启动了&quot;</span>);
+        <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>)&#123;
+            <span class="hljs-comment">//监听，等待客户端连接</span>
+            <span class="hljs-keyword">final</span> Socket socket = serverSocket.accept();
+            System.out.println(<span class="hljs-string">&quot;连接到一个客户端&quot;</span>);
+
+            <span class="hljs-comment">//2.创建一个线程与之通讯</span>
+            threadPool.execute(<span class="hljs-keyword">new</span> Runnable() &#123;
+                <span class="hljs-meta">@Override</span>
+                <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
+                    handler(socket);
+                &#125;
+            &#125;);
+        &#125;
+    &#125;
+
+    <span class="hljs-comment">//线程和客户端通信的方法</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handler</span><span class="hljs-params">(Socket socket)</span></span>&#123;
+        System.out.println(<span class="hljs-string">&quot;线程id : &quot;</span> + Thread.currentThread().getId());
+        InputStream is = <span class="hljs-keyword">null</span>;
+        <span class="hljs-keyword">try</span> &#123;
+            <span class="hljs-comment">//接收数据的缓冲区</span>
+            <span class="hljs-keyword">byte</span>[] bytes = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[<span class="hljs-number">1024</span>];
+            <span class="hljs-comment">//通过socket获取输入流</span>
+            is = socket.getInputStream();
+
+            <span class="hljs-comment">//3.循环读取客户端发送的数据</span>
+            <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>)&#123;
+                System.out.println(<span class="hljs-string">&quot;线程id : &quot;</span> + Thread.currentThread().getId());
+                <span class="hljs-keyword">int</span> read = is.read(bytes);
+                <span class="hljs-keyword">if</span> (read != -<span class="hljs-number">1</span>)&#123;
+                    System.out.println(<span class="hljs-keyword">new</span> String(bytes, <span class="hljs-number">0</span>, read));
+                &#125; <span class="hljs-keyword">else</span> &#123;
+                    <span class="hljs-comment">//读完break</span>
+                    <span class="hljs-keyword">break</span>;
+                &#125;
+            &#125;
+        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;
+            e.printStackTrace();
+        &#125; <span class="hljs-keyword">finally</span> &#123;
+            <span class="hljs-comment">//释放资源</span>
+            <span class="hljs-keyword">if</span> (is != <span class="hljs-keyword">null</span>)&#123;
+                <span class="hljs-keyword">try</span> &#123;
+                    is.close();
+                &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;
+                    e.printStackTrace();
+                &#125;
+            &#125;
+            <span class="hljs-keyword">if</span> (socket != <span class="hljs-keyword">null</span>)&#123;
+                <span class="hljs-keyword">try</span> &#123;
+                    socket.close();
+                    System.out.println(<span class="hljs-string">&quot;关闭与客户端的连接&quot;</span>);
+                &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;
+                    e.printStackTrace();
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;</code></pre>
+<h3 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h3><h4 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h4><p><code>同步非阻塞</code>，客户端发送的请求会注册到多路复用器(选择器)上，<code>多路复用器轮询</code>到连接有I/O请求才进行处理。对于高负载、高并发的（网络）应用，应使用 NIO 的非阻塞模式来开发。</p>
+<p><code>特点</code>：支持面向缓冲的，基于通道的 I/O 操作方法。</p>
+<p><code>应用场景</code>：连接数目多且连接时间比较短，适用于聊天服务器，弹幕系统，服务器通信等场景。</p>
+<img src="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20210315165226877.png" srcset="/img/loading.gif" class="">
+<h4 id="三大核心"><a href="#三大核心" class="headerlink" title="三大核心"></a>三大核心</h4><h5 id="Channel"><a href="#Channel" class="headerlink" title="Channel"></a><code>Channel</code></h5><ul>
+<li><p>每个Channel都会对应一个Buffer</p>
+</li>
+<li><p>Channel是<code>双向</code>的，可以返回底层操作系统的情况</p>
+</li>
+<li>Channel的切换是基于事件驱动的</li>
+</ul>
+<p><code>FileChannel + ByteBuffer</code>——将字符串写入文本文件案例</p>
+<img src="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20210315195058080.png" srcset="/img/loading.gif" class="">
+<p>NioFileChannelDemo01.java</p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.nio;
+
+<span class="hljs-keyword">import</span> java.io.FileOutputStream;
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.nio.ByteBuffer;
+<span class="hljs-keyword">import</span> java.nio.channels.FileChannel;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NioFileChannelDemo01</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        String str = <span class="hljs-string">&quot;hello, caoyusang&quot;</span>;
+
+        FileOutputStream os = <span class="hljs-keyword">new</span> FileOutputStream(<span class="hljs-string">&quot;d:\\file1.txt&quot;</span>);
+
+        <span class="hljs-comment">//通过输出流获取对应的Channel，输出流把Channel包裹起来了</span>
+        FileChannel channel = os.getChannel();
+
+        <span class="hljs-comment">//为Channel创建一个对应的缓冲区</span>
+        ByteBuffer byteBuffer = ByteBuffer.allocate(<span class="hljs-number">1024</span>);
+
+        <span class="hljs-comment">//str放入缓冲区</span>
+        byteBuffer.put(str.getBytes());
+
+        <span class="hljs-comment">//对缓冲区进行flip，即position置0</span>
+        byteBuffer.flip();
+
+        <span class="hljs-comment">//将缓冲区数据写入到Channel</span>
+        channel.write(byteBuffer);
+
+        <span class="hljs-comment">//输出流关闭</span>
+        os.close();
+
+    &#125;
+&#125;
+</code></pre>
+<p><code>FileChannel + ByteBuffer</code>——从文本文件读取文本，打印到控制台</p>
+<p>NioFileChannelDemo02.java</p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.nio;
+
+<span class="hljs-keyword">import</span> java.io.File;
+<span class="hljs-keyword">import</span> java.io.FileInputStream;
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.nio.ByteBuffer;
+<span class="hljs-keyword">import</span> java.nio.channels.FileChannel;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NioFileChannelDemo02</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        <span class="hljs-comment">//创建文件的输入流</span>
+        File file = <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;d:\\file1.txt&quot;</span>);
+        FileInputStream is = <span class="hljs-keyword">new</span> FileInputStream(file);
+
+        <span class="hljs-comment">//通过输入流获取通道</span>
+        FileChannel channel = is.getChannel();
+
+        <span class="hljs-comment">//创建合适大小的缓冲区——根据文件大小</span>
+        ByteBuffer byteBuffer = ByteBuffer.allocate((<span class="hljs-keyword">int</span>) file.length());
+
+        <span class="hljs-comment">//将Channel中的数据读到bytebuffer</span>
+        channel.read(byteBuffer);
+
+        <span class="hljs-comment">//将字节转成字符串，array方法return hb;</span>
+        System.out.println(<span class="hljs-keyword">new</span> String(byteBuffer.array()));
+
+    &#125;
+&#125;
+</code></pre>
+<p><code>FileChannel+一个ByteBuffer</code>实现文件的拷贝（需要读写）</p>
+<p>NioFileChannelDemo03.java</p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.nio;
+
+<span class="hljs-keyword">import</span> java.io.File;
+<span class="hljs-keyword">import</span> java.io.FileInputStream;
+<span class="hljs-keyword">import</span> java.io.FileOutputStream;
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.nio.ByteBuffer;
+<span class="hljs-keyword">import</span> java.nio.channels.FileChannel;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NioFileChannelDemo03</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        <span class="hljs-comment">//获取被拷贝的文件的输入流</span>
+        File file = <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;d:\\file1.txt&quot;</span>);
+        FileInputStream is = <span class="hljs-keyword">new</span> FileInputStream(file);
+
+        <span class="hljs-comment">//获取输入流对应的channel</span>
+        FileChannel isChannel = is.getChannel();
+
+        <span class="hljs-comment">//获取输出流</span>
+        FileOutputStream os = <span class="hljs-keyword">new</span> FileOutputStream(<span class="hljs-string">&quot;d:\\file2.txt&quot;</span>);
+
+        <span class="hljs-comment">//获取输出流对应的channel</span>
+        FileChannel osChannel = os.getChannel();
+
+        <span class="hljs-comment">//构建512大小的缓冲区</span>
+        ByteBuffer byteBuffer = ByteBuffer.allocate(<span class="hljs-number">512</span>);
+
+        <span class="hljs-comment">//循环读取，防止读不完</span>
+        <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>)&#123;
+            <span class="hljs-comment">//清空buffer，复位操作，防止position==limit出现read一直为0的情况</span>
+            <span class="hljs-comment">/*</span>
+<span class="hljs-comment">            public Buffer clear() &#123;</span>
+<span class="hljs-comment">                position = 0;</span>
+<span class="hljs-comment">                limit = capacity;</span>
+<span class="hljs-comment">                mark = -1;</span>
+<span class="hljs-comment">                return this;</span>
+<span class="hljs-comment">            &#125;</span>
+<span class="hljs-comment">            */</span>
+            byteBuffer.clear();
+
+            <span class="hljs-keyword">int</span> read = isChannel.read(byteBuffer);
+            <span class="hljs-comment">//读到末尾</span>
+            <span class="hljs-keyword">if</span> (read == -<span class="hljs-number">1</span>)&#123;
+                <span class="hljs-keyword">break</span>;
+            &#125;
+            <span class="hljs-comment">//读的同时，写，注意要先读写反转</span>
+            byteBuffer.flip();
+            osChannel.write(byteBuffer);
+        &#125;
+        <span class="hljs-comment">//关闭输入流和输出流</span>
+        is.close();
+        os.close();
+
+
+
+
+    &#125;
+&#125;
+</code></pre>
+<p><code>FileChannel.transferFrom()</code>实现文件的拷贝</p>
+<p>NioFileChannelDemo04.java</p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.nio;
+
+<span class="hljs-keyword">import</span> java.io.*;
+<span class="hljs-keyword">import</span> java.nio.channels.FileChannel;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NioFileChannelDemo04</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        <span class="hljs-comment">//获取被拷贝的文件的输入流</span>
+        File file = <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;d:\\file1.txt&quot;</span>);
+        FileInputStream is = <span class="hljs-keyword">new</span> FileInputStream(file);
+
+        <span class="hljs-comment">//获取输入流对应的channel</span>
+        FileChannel isChannel = is.getChannel();
+
+        <span class="hljs-comment">//获取输出流</span>
+        FileOutputStream os = <span class="hljs-keyword">new</span> FileOutputStream(<span class="hljs-string">&quot;d:\\file3.txt&quot;</span>);
+
+        <span class="hljs-comment">//获取输出流对应的channel</span>
+        FileChannel osChannel = os.getChannel();
+
+        <span class="hljs-comment">//使用transferFrom(src, begin, end)实现通道内数据的拷贝</span>
+        osChannel.transferFrom(isChannel, <span class="hljs-number">0</span> , isChannel.size());
+
+        <span class="hljs-comment">//流的关闭</span>
+        is.close();
+        os.close();
+    &#125;
+&#125;
+</code></pre>
+<h5 id="Buffer"><a href="#Buffer" class="headerlink" title="Buffer"></a><code>Buffer</code></h5><ul>
+<li><code>内存块</code>，可读可写，底层是一个<code>数组</code></li>
+<li>普通buffer可以转换成<code>只读buffer</code></li>
+</ul>
+<p>顶层父类Buffer抽象类的参数</p>
+<pre><code class="hljs java"><span class="hljs-comment">// Invariants: mark &lt;= position &lt;= limit &lt;= capacity</span>
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> mark = -<span class="hljs-number">1</span>;	
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> position = <span class="hljs-number">0</span>;	 <span class="hljs-comment">//下一个要被读或者写的数组元素的索引，每次读写完后都会更新</span>
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> limit;			<span class="hljs-comment">//缓存区的当前终点，不能对缓冲区超过极限的位置进行读写操作，可修改</span>
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> capacity;		<span class="hljs-comment">//缓冲区的容量，不可改变</span></code></pre>
+<p>Buffer的一个子类<code>ByteBuffer</code></p>
+<p>真正存放数据的是hb数组</p>
+<img src="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20210315172258183.png" srcset="/img/loading.gif" class="">
+<p>基本的buffer使用</p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.nio;
+
+<span class="hljs-keyword">import</span> java.nio.IntBuffer;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BasicBuffer</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+        <span class="hljs-comment">//创建buffer</span>
+        IntBuffer intBuffer = IntBuffer.allocate(<span class="hljs-number">5</span>);
+
+        <span class="hljs-comment">//put向buffer中放数据</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; intBuffer.capacity(); i++) &#123;
+            intBuffer.put(i * <span class="hljs-number">2</span>);
+        &#125;
+
+        <span class="hljs-comment">//从buffer中取数据</span>
+        <span class="hljs-comment">//先将buffer转换，进行读写切换</span>
+        intBuffer.flip();
+
+        <span class="hljs-keyword">while</span> (intBuffer.hasRemaining())&#123;
+            System.out.println(intBuffer.get());
+        &#125;
+
+    &#125;
+&#125;
+</code></pre>
+<p><code>MappedByteBuffer</code>类——允许文件直接在内存中修改，操作系统不需要再拷贝一次</p>
+<p>MappedByteBufferTest.java</p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.nio;
+
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.io.RandomAccessFile;
+<span class="hljs-keyword">import</span> java.nio.MappedByteBuffer;
+<span class="hljs-keyword">import</span> java.nio.channels.FileChannel;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MappedByteBufferTest</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        <span class="hljs-comment">//创建一个随机访问的文件流，读写模式</span>
+        RandomAccessFile randomAccessFile = <span class="hljs-keyword">new</span> RandomAccessFile(<span class="hljs-string">&quot;d:\\file1.txt&quot;</span>, <span class="hljs-string">&quot;rw&quot;</span>);
+
+        <span class="hljs-comment">//获取通道</span>
+        FileChannel channel = randomAccessFile.getChannel();
+
+        <span class="hljs-comment">/**</span>
+<span class="hljs-comment">         * 参数1： 读写模式</span>
+<span class="hljs-comment">         * 参数2：可以直接修改的起始位置</span>
+<span class="hljs-comment">         * 参数3： 映射到内存的大小，即可以修改的字节数</span>
+<span class="hljs-comment">         */</span>
+        MappedByteBuffer mappedByteBuffer = channel.map(FileChannel.MapMode.READ_WRITE, <span class="hljs-number">0</span>, <span class="hljs-number">5</span>);
+        mappedByteBuffer.put(<span class="hljs-number">0</span>, (<span class="hljs-keyword">byte</span>) <span class="hljs-string">&#x27;H&#x27;</span>);
+        mappedByteBuffer.put(<span class="hljs-number">3</span>, (<span class="hljs-keyword">byte</span>) <span class="hljs-string">&#x27;9&#x27;</span>);
+
+        randomAccessFile.close();
+
+
+    &#125;
+&#125;</code></pre>
+<h6 id="Buffer分散与聚集"><a href="#Buffer分散与聚集" class="headerlink" title="Buffer分散与聚集"></a>Buffer分散与聚集</h6><p><code>分散</code>：将数据写入buffer时，可以采用buffer数组，依次写入</p>
+<p><code>聚集</code>：从buffer读取数据时，可以采用buffer，依次读</p>
+<h5 id="Selector"><a href="#Selector" class="headerlink" title="Selector"></a><code>Selector</code></h5><ul>
+<li>一个Selector对应一个线程，同时可以对应多个不同的Channel</li>
+<li>能够检测多个注册的通道上是否有事件发生，有则获取事件并针对其进行处理</li>
+<li>Selector可以在各个通道上进行切换，即<code>单线程多路复用</code></li>
+</ul>
+<h4 id="NIO-vs-BIO"><a href="#NIO-vs-BIO" class="headerlink" title="NIO vs BIO"></a><code>NIO vs BIO</code></h4><p>1）BIO以流的方式处理数据，NIO以块的方式处理数据，块IO的效率要高很多。</p>
+<p>2）BIO是阻塞的即数据的读写必须阻塞在一个线程内完成，NIO是非阻塞的，面向缓冲区。</p>
+<p>3）BIO基于字节流和字符流进行操作，NIP基于管道和缓冲区进行操作，数据总是从通道读取到缓冲区，或者从缓冲区写入通道，单个Selector线程负责轮询监听多个管道中的事件。</p>
+<h3 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h3><p><code>异步非阻塞</code>，基于事件和回调机制实现的，也就是应用操作之后会直接返回，不会堵塞在那里，当后台处理完成，操作系统会通知相应的线程进行后续的操作。AIO尚未得到广泛应用。</p>
+<p><code>应用场景</code>：连接数目多且连接时间较长。</p>
+<h2 id="Netty概述"><a href="#Netty概述" class="headerlink" title="Netty概述"></a>Netty概述</h2><h3 id="NIO存在的一些问题"><a href="#NIO存在的一些问题" class="headerlink" title="NIO存在的一些问题"></a>NIO存在的一些问题</h3><ul>
+<li>NIO的类库和API繁杂，使用麻烦，需要熟练掌握Select、ServerSocketChannel、SocketChannel、ByteBuffer等</li>
+<li>NIO编程涉及Reactor模式，必须对多线程和网络编程相当熟悉</li>
+<li>开发工作量和难度比较大，客户端面临断连重连、网络闪断、半包读写、失败缓存和网络拥塞等问题</li>
+<li>JDK NIO的Epoll bug，会导致Selector空轮询，最终导致CPU100%直到JDK1.7还未解决</li>
+</ul>
+<h3 id="Netty的优点"><a href="#Netty的优点" class="headerlink" title="Netty的优点"></a>Netty的优点</h3><ul>
+<li>对JDK自带的NIO的API进行了封装，解决了上述传统原生NIO网络编程出现的问题</li>
+<li>设计优雅、使用方便、安全、社区活跃、高性能、吞吐更高、延迟更低，减少了资源消耗和不必要的内存复制</li>
+</ul>
+<h3 id="线程模型"><a href="#线程模型" class="headerlink" title="线程模型"></a>线程模型</h3><h4 id="Reactor模式"><a href="#Reactor模式" class="headerlink" title="Reactor模式"></a><code>Reactor模式</code></h4><h5 id="单Reactor单线程"><a href="#单Reactor单线程" class="headerlink" title="单Reactor单线程"></a><code>单Reactor单线程</code></h5><img src="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20210502101356806.png" srcset="/img/loading.gif" class="">
+<p><code>说明</code></p>
+<p>（1）select是I/O复用的标准网络编程API，可以实现应用程序通过一个阻塞对象监听多路连接请求</p>
+<p>（2）Reactor通过select监控客户端的请求事件，收到事件后通过dispatch进行请求的分发处理</p>
+<p>（3）如果是建立连接事件，则由Acceptor通过Accept处理连接请求，然后创建一个Handler对象处理连接完成后的后续业务处理</p>
+<p>（4）如果不是建立连接事件，则Reactor会分发调用连接对应的Handler响应不同类型的请求</p>
+<p>（5）最后由Handler完成read  —&gt; 业务处理 —&gt; send的完整流程</p>
+<p><code>模式的优缺点</code></p>
+<p>（1）优点：模型简单，没有多线程、进程通信、竞争的问题</p>
+<p>（2）缺点：只有一个线程，无法完全发挥多核CPU的性能。因为Reactor和Handler在同一个线程中，即请求监听和请求处理在同一个线程中完成，并发高的情况下，Handler在处理某个业务时，整个线程无法处理其他请求事件。</p>
+<h5 id="单Reactor多线程"><a href="#单Reactor多线程" class="headerlink" title="单Reactor多线程"></a><code>单Reactor多线程</code></h5><img src="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20210502104022933.png" srcset="/img/loading.gif" class="">
+<p><code>说明</code></p>
+<p>（1）Reactor通过select监控客户端的请求事件，收到事件后通过dispatch进行请求的分发处理</p>
+<p>（2）如果是建立连接事件，则由Acceptor通过Accept处理连接请求，然后创建一个Handler对象处理连接完成后的后续业务处理</p>
+<p>（3）如果不是建立连接事件，则Reactor会分发调用连接对应的Handler响应不同类型的请求，该模式下handler只负责事件响应，而不做任何的业务处理，只做read和send，而具体的业务处理交付给worker线程池的某个线程</p>
+<p>（4）worker线程池会分配独立线程完成真正的业务，并把结果返回给handler</p>
+<p><code>模式的优缺点</code></p>
+<p>（1）优点：可以充分利用多核CPU的处理能力</p>
+<p>（2）缺点：多线程数据共享和访问较为复杂；reactor还是负责所有事件的监听和响应，即连接的监听和响应仍然是在单线程中运行，高并发场景下容易出现性能瓶颈。</p>
+<h5 id="主从Reactor多线程"><a href="#主从Reactor多线程" class="headerlink" title="主从Reactor多线程"></a><code>主从Reactor多线程</code></h5><img src="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20210502110433664.png" srcset="/img/loading.gif" class="">
+<p><code>说明</code></p>
+<p>（1）Reactor主线程MainReactor通过select监控客户端的请求事件，收到事件后通过Acceptor处理连接事件</p>
+<p>（2）当Acceptor处理连接事件后，MainReactor将连接分配给下一级的SubReactor</p>
+<p>（3）SubReactor将连接加入到连接队列进行监听，并创建handler进行各种事件处理</p>
+<p>（4）当有新的事件发生时，SubReactor就会调用对应的handler进行处理</p>
+<p>（5）handler通过read读取数据，将业务处理移交worker线程池</p>
+<p>（6）worker线程池分配独立的一个线程进行业务处理，返回结果给对应的handler</p>
+<p>（7）handler收到响应结果后，通过send将结果返回给client</p>
+<p><code>模式优缺点</code></p>
+<p>（1）优点：父线程和子线程数据交互简单职责明确，父线程只需要接受连接请求，子线程完成后续的I/O及业务处理</p>
+<p>（2）编程复杂度较高</p>
+<h5 id="Netty线程模式"><a href="#Netty线程模式" class="headerlink" title="Netty线程模式"></a><code>Netty线程模式</code></h5><p><code>网络图</code></p>
+<img src="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/5249993-a67abc1374958c5d.png" srcset="/img/loading.gif" class="">
+<p><code>我自己画的</code></p>
+<img src="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20210503094734623.png" srcset="/img/loading.gif" class="">
+<p><code>说明</code></p>
+<p>（1）Netty抽象出两组线程池，Boss Group专门负责接收客户端的连接请求，Worker Group专门负责网络的读写</p>
+<p>（2）Boss Group和worker Group的类型都是NioEventLoopGroup，相当于一个事件循环组，组中有多个事件循环，每个事件循环都是一个NioEventLoop</p>
+<p>（3）NioEventLoop表示一个不断循环执行的处理任务的线程，NioEventLoop通过Selector监听绑定在其上的socket的网络通讯</p>
+<p>（4）每个Boss Group中的NioEventLoop循环执行的过程分为三步：</p>
+<p>​        1）轮询accept事件，及连接请求事件</p>
+<p>​        2）处理accept事件，与client建立连接，生成NioSocketChannel，并将其注册到某个worker NioEventLoop中的Selector上</p>
+<p>​        3）处理任务队列中的任务，即runAllTasks</p>
+<p>（5）每个Woker Group中的NioEventLoop的执行逻辑是：</p>
+<p>​        1）轮询处理读写(R/W)事件</p>
+<p>​        2）处理I/O事件，在对应的NioSocketChannel中处理</p>
+<p>​        3）处理任务队列的任务</p>
+<p>（6）每个Worker Group的NioEventLoop处理具体的业务时，会使用管道Pipeline，可以通过Pipeline获取对应的Channel的处理器ChannelHandler，从而进行真正的业务处理</p>
+<h2 id="Netty实战"><a href="#Netty实战" class="headerlink" title="Netty实战"></a>Netty实战</h2><h3 id="Netty实现简单的TCP通信"><a href="#Netty实现简单的TCP通信" class="headerlink" title="Netty实现简单的TCP通信"></a>Netty实现简单的TCP通信</h3><p><code>NettyTcpServer.java</code></p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.netty;
+
+<span class="hljs-keyword">import</span> io.netty.bootstrap.ServerBootstrap;
+<span class="hljs-keyword">import</span> io.netty.channel.ChannelFuture;
+<span class="hljs-keyword">import</span> io.netty.channel.ChannelInitializer;
+<span class="hljs-keyword">import</span> io.netty.channel.ChannelOption;
+<span class="hljs-keyword">import</span> io.netty.channel.EventLoopGroup;
+<span class="hljs-keyword">import</span> io.netty.channel.nio.NioEventLoopGroup;
+<span class="hljs-keyword">import</span> io.netty.channel.socket.SocketChannel;
+<span class="hljs-keyword">import</span> io.netty.channel.socket.nio.NioServerSocketChannel;
+
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NettyTcpServer</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+
+        <span class="hljs-comment">//创建BossGroup(只处理连接请求)和WorkerGroup(处理真正的业务)</span>
+        EventLoopGroup bossGroup = <span class="hljs-keyword">new</span> NioEventLoopGroup();
+        EventLoopGroup workerGroup = <span class="hljs-keyword">new</span> NioEventLoopGroup();
+
+        <span class="hljs-keyword">try</span> &#123;
+            <span class="hljs-comment">//创建服务端的启动对象</span>
+            ServerBootstrap bootstrap = <span class="hljs-keyword">new</span> ServerBootstrap();
+
+            <span class="hljs-comment">//进行参数设置</span>
+            bootstrap.group(bossGroup, workerGroup)     <span class="hljs-comment">//设置两个线程组</span>
+                    .channel(NioServerSocketChannel.class)      <span class="hljs-comment">//使用NioServerSocketChannel作为服务器的通道实现</span>
+                    .option(ChannelOption.SO_BACKLOG, <span class="hljs-number">128</span>)      <span class="hljs-comment">//标识当服务器请求处理线程全满时，用于临时存放已完成三次握手的请求的队列的最大长度</span>
+                    .childOption(ChannelOption.SO_KEEPALIVE, <span class="hljs-keyword">true</span>)      <span class="hljs-comment">//启用心跳保活机制</span>
+                    .childHandler(<span class="hljs-keyword">new</span> ChannelInitializer&lt;SocketChannel&gt;() &#123;
+                        <span class="hljs-meta">@Override</span>
+                        <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">initChannel</span><span class="hljs-params">(SocketChannel ch)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+                            ch.pipeline().addLast(<span class="hljs-keyword">new</span> NettyTcpServerHandler());
+                        &#125;
+                    &#125;);
+            System.out.println(<span class="hljs-string">&quot;服务器准备好了&quot;</span>);
+
+            <span class="hljs-comment">//绑定端口并同步</span>
+            ChannelFuture cf = bootstrap.bind(<span class="hljs-number">7777</span>).sync();
+
+            <span class="hljs-comment">//对关闭通道进行监听</span>
+            cf.channel().closeFuture().sync();
+        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;
+            e.printStackTrace();
+        &#125; <span class="hljs-keyword">finally</span> &#123;
+            bossGroup.shutdownGracefully();
+            workerGroup.shutdownGracefully();
+        &#125;
+
+    &#125;
+&#125;
+</code></pre>
+<p><code>NettyTcpServerHandler.java</code></p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.netty;
+
+<span class="hljs-keyword">import</span> io.netty.buffer.ByteBuf;
+<span class="hljs-keyword">import</span> io.netty.buffer.Unpooled;
+<span class="hljs-keyword">import</span> io.netty.channel.ChannelHandlerContext;
+<span class="hljs-keyword">import</span> io.netty.channel.ChannelInboundHandlerAdapter;
+<span class="hljs-keyword">import</span> io.netty.util.CharsetUtil;
+
+<span class="hljs-comment">//HandlerAdapter是Netty提供的适配器，规范</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NettyTcpServerHandler</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ChannelInboundHandlerAdapter</span> </span>&#123;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     *</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> ctx : 上下文对象，含有pipeline， Channel等</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> msg : 客户端传来的数据</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> Exception</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">channelRead</span><span class="hljs-params">(ChannelHandlerContext ctx, Object msg)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        System.out.println(<span class="hljs-string">&quot;server ctx: &quot;</span> + ctx);
+
+        <span class="hljs-comment">//打印msg看看，先将msg转化成netty提供的ByteBuf</span>
+        ByteBuf buf = (ByteBuf) msg;
+        System.out.println(<span class="hljs-string">&quot;客户端发送消息是：&quot;</span> + buf.toString(CharsetUtil.UTF_8));
+        System.out.println(<span class="hljs-string">&quot;客户端的地址：&quot;</span> + ctx.channel().remoteAddress());
+
+    &#125;
+
+    <span class="hljs-comment">//数据读取完毕</span>
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">channelReadComplete</span><span class="hljs-params">(ChannelHandlerContext ctx)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        ctx.writeAndFlush(Unpooled.copiedBuffer(<span class="hljs-string">&quot;hello, 客户端&quot;</span>, CharsetUtil.UTF_8));
+    &#125;
+
+    <span class="hljs-comment">//异常处理</span>
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">exceptionCaught</span><span class="hljs-params">(ChannelHandlerContext ctx, Throwable cause)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        cause.printStackTrace();
+        ctx.close();
+    &#125;
+&#125;
+</code></pre>
+<p><code>NettyTcpClient.java</code></p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.netty;
+
+<span class="hljs-keyword">import</span> io.netty.bootstrap.Bootstrap;
+<span class="hljs-keyword">import</span> io.netty.channel.ChannelFuture;
+<span class="hljs-keyword">import</span> io.netty.channel.ChannelInitializer;
+<span class="hljs-keyword">import</span> io.netty.channel.EventLoopGroup;
+<span class="hljs-keyword">import</span> io.netty.channel.nio.NioEventLoopGroup;
+<span class="hljs-keyword">import</span> io.netty.channel.socket.SocketChannel;
+<span class="hljs-keyword">import</span> io.netty.channel.socket.nio.NioSocketChannel;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NettyTcpClient</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> InterruptedException </span>&#123;
+        <span class="hljs-comment">//创建group</span>
+        EventLoopGroup group = <span class="hljs-keyword">new</span> NioEventLoopGroup();
+
+        <span class="hljs-keyword">try</span> &#123;
+            <span class="hljs-comment">//创建启动类</span>
+            Bootstrap bootstrap = <span class="hljs-keyword">new</span> Bootstrap();
+            <span class="hljs-comment">//参数设置</span>
+            bootstrap.group(group)
+                    .channel(NioSocketChannel.class)
+                    .handler(<span class="hljs-keyword">new</span> ChannelInitializer&lt;SocketChannel&gt;() &#123;
+                        <span class="hljs-meta">@Override</span>
+                        <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">initChannel</span><span class="hljs-params">(SocketChannel ch)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+                            ch.pipeline().addLast(<span class="hljs-keyword">new</span> NettyTcpClientHandler());
+                        &#125;
+                    &#125;);
+            System.out.println(<span class="hljs-string">&quot;客户端就绪&quot;</span>);
+            <span class="hljs-comment">//连接服务器并同步</span>
+            ChannelFuture channelFuture = bootstrap.connect(<span class="hljs-string">&quot;127.0.0.1&quot;</span>, <span class="hljs-number">7777</span>).sync();
+
+            <span class="hljs-comment">//关闭通道监听</span>
+            channelFuture.channel().closeFuture().sync();
+        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;
+            e.printStackTrace();
+        &#125; <span class="hljs-keyword">finally</span> &#123;
+            group.shutdownGracefully();
+        &#125;
+    &#125;
+
+&#125;
+</code></pre>
+<p><code>NettyTcpClientHandler.java</code></p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.netty;
+
+<span class="hljs-keyword">import</span> io.netty.buffer.ByteBuf;
+<span class="hljs-keyword">import</span> io.netty.buffer.Unpooled;
+<span class="hljs-keyword">import</span> io.netty.channel.ChannelHandlerContext;
+<span class="hljs-keyword">import</span> io.netty.channel.ChannelInboundHandlerAdapter;
+<span class="hljs-keyword">import</span> io.netty.util.CharsetUtil;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NettyTcpClientHandler</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ChannelInboundHandlerAdapter</span> </span>&#123;
+
+    <span class="hljs-comment">//客户端就绪就会触发</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">channelActive</span><span class="hljs-params">(ChannelHandlerContext ctx)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        System.out.println(<span class="hljs-string">&quot;client ctx: &quot;</span> + ctx);
+        ctx.writeAndFlush(Unpooled.copiedBuffer(<span class="hljs-string">&quot;hello, 服务器&quot;</span>, CharsetUtil.UTF_8));
+
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">channelRead</span><span class="hljs-params">(ChannelHandlerContext ctx, Object msg)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        ByteBuf byteBuf = (ByteBuf) msg;
+        System.out.println(<span class="hljs-string">&quot;服务其消息: &quot;</span> + byteBuf.toString(CharsetUtil.UTF_8));
+        System.out.println(<span class="hljs-string">&quot;服务器地址: &quot;</span> + ctx.channel().remoteAddress());
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">exceptionCaught</span><span class="hljs-params">(ChannelHandlerContext ctx, Throwable cause)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        cause.printStackTrace();
+        ctx.close();
+    &#125;
+&#125;
+</code></pre>
+<p><code>服务端</code></p>
+<img src="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20210318102229436.png" srcset="/img/loading.gif" class="">
+<p><code>客户端</code></p>
+<img src="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20210318102238524.png" srcset="/img/loading.gif" class="">
+<h3 id="Netty实现基本的RPC框架"><a href="#Netty实现基本的RPC框架" class="headerlink" title="Netty实现基本的RPC框架"></a>Netty实现基本的RPC框架</h3><h4 id="RPC概述"><a href="#RPC概述" class="headerlink" title="RPC概述"></a>RPC概述</h4><img src="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/37345851.jpg" srcset="/img/loading.gif" class="">
+<p>RPC（Remote Procedure Call）—<code>远程过程调用</code>，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。比如两个不同的服务 A、B 部署在两台不同的机器上，那么服务 A 如果想要调用服务 B 中的某个方法该怎么办呢？使用 HTTP请求当然可以，但是可能会比较慢而且一些优化做的并不好。 RPC 的出现就是为了<code>让计算机调用远程服务就像调用本地服务</code>一样快。</p>
+<p><code>RPC的执行流程</code>：</p>
+<ol>
+<li>服务消费方（client）调用<code>以本地调用方式</code>调用服务；</li>
+<li>client stub接收到调用后负责将<code>方法、参数</code>等组装成能够进行网络传输的消息体；</li>
+<li>client stub找到服务地址，并将<code>消息发送</code>到服务端；</li>
+<li>server stub收到消息后进行<code>解码</code>；</li>
+<li>server stub根据解码结果<code>调用本地的服务</code>；</li>
+<li>本地服务执行并将<code>结果返回</code>给server stub；</li>
+<li>server stub将返回<code>结果打包成消息并发送</code>至消费方；</li>
+<li>client stub接收到消息，并进行<code>解码</code>；</li>
+<li>服务消费方得到<code>最终结果</code>。</li>
+</ol>
+<h4 id="框架设计"><a href="#框架设计" class="headerlink" title="框架设计"></a>框架设计</h4><img src="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20210318104129844.png" srcset="/img/loading.gif" class="">
+<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><h5 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h5><img src="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20210503112605108.png" srcset="/img/loading.gif" class="">
+<h5 id="代码剖析"><a href="#代码剖析" class="headerlink" title="代码剖析"></a>代码剖析</h5><p><code>服务接口HelloService.java</code> —— 定义了服务提供者提供服务的规范</p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.rpc.service;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">HelloService</span> </span>&#123;
+
+    <span class="hljs-function">String <span class="hljs-title">hello</span><span class="hljs-params">(String msg)</span></span>;
+&#125;</code></pre>
+<p><code>服务实现类HelloServiceImpl.java</code> —— 服务的具体实现（业务，返回服务调用结果）</p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.rpc.provider;
+
+<span class="hljs-keyword">import</span> com.youzikeji.rpc.service.HelloService;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HelloServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">HelloService</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">hello</span><span class="hljs-params">(String msg)</span> </span>&#123;
+        System.out.println(<span class="hljs-string">&quot;收到客户端消息：&quot;</span> + msg);
+        <span class="hljs-keyword">if</span> (msg != <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;客户端您好，已收到您的消息[&quot;</span> + msg + <span class="hljs-string">&quot;]&quot;</span>;
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;客户端您好，已收到您的消息&quot;</span>;
+        &#125;
+    &#125;
+&#125;</code></pre>
+<p><code>服务端</code></p>
+<ul>
+<li><p>ServerBootstrap.java —— 服务端启动类</p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.rpc.provider;
+
+<span class="hljs-keyword">import</span> com.youzikeji.rpc.server.NettyServer;
+
+<span class="hljs-comment">//ServerBootStrap会启动一个服务提供者，即NettyServer</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ServerBootstrap</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+        NettyServer.startServer(<span class="hljs-string">&quot;127.0.0.1&quot;</span>, <span class="hljs-number">7000</span>);
+    &#125;
+&#125;</code></pre>
+</li>
+<li><p>NettyServerHandler.java —— 具体的业务处理器</p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.rpc.server;
+
+<span class="hljs-keyword">import</span> com.youzikeji.rpc.provider.HelloServiceImpl;
+<span class="hljs-keyword">import</span> io.netty.channel.ChannelHandlerContext;
+<span class="hljs-keyword">import</span> io.netty.channel.ChannelInboundHandlerAdapter;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NettyServerHandler</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ChannelInboundHandlerAdapter</span> </span>&#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">exceptionCaught</span><span class="hljs-params">(ChannelHandlerContext ctx, Throwable cause)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        ctx.close();
+    &#125;
+	
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">channelRead</span><span class="hljs-params">(ChannelHandlerContext ctx, Object msg)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        <span class="hljs-comment">//获取客户端发送的消息，并根据约定好的的协议调用服务，这里简单地规定消息必须以某个字符串作为开头</span>
+        <span class="hljs-keyword">if</span> (msg.toString().startsWith(<span class="hljs-string">&quot;HelloService#hello#&quot;</span>))&#123;
+            String result = <span class="hljs-keyword">new</span> HelloServiceImpl().hello(msg.toString().substring(msg.toString().lastIndexOf(<span class="hljs-string">&quot;#&quot;</span>) + <span class="hljs-number">1</span>));
+            ctx.writeAndFlush(result);
+        &#125;
+    &#125;
+&#125;</code></pre>
+</li>
+<li><p>NettyServer.java —— Netty构建服务端</p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.rpc.server;
+
+<span class="hljs-keyword">import</span> io.netty.bootstrap.ServerBootstrap;
+<span class="hljs-keyword">import</span> io.netty.channel.ChannelFuture;
+<span class="hljs-keyword">import</span> io.netty.channel.ChannelInitializer;
+<span class="hljs-keyword">import</span> io.netty.channel.ChannelPipeline;
+<span class="hljs-keyword">import</span> io.netty.channel.EventLoopGroup;
+<span class="hljs-keyword">import</span> io.netty.channel.nio.NioEventLoopGroup;
+<span class="hljs-keyword">import</span> io.netty.channel.socket.SocketChannel;
+<span class="hljs-keyword">import</span> io.netty.channel.socket.nio.NioServerSocketChannel;
+<span class="hljs-keyword">import</span> io.netty.handler.codec.string.StringDecoder;
+<span class="hljs-keyword">import</span> io.netty.handler.codec.string.StringEncoder;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NettyServer</span> </span>&#123;
+
+    <span class="hljs-comment">//对外暴露方法</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">startServer</span><span class="hljs-params">(String hostname, <span class="hljs-keyword">int</span> port)</span></span>&#123;
+        startServer0(hostname, port);
+    &#125;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 启动服务</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> hostname 主机名</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> port 端口号</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">startServer0</span><span class="hljs-params">(String hostname, <span class="hljs-keyword">int</span> port)</span> </span>&#123;
+        <span class="hljs-comment">//Boss线程池和Worker线程池</span>
+        EventLoopGroup bossGroup = <span class="hljs-keyword">new</span> NioEventLoopGroup(<span class="hljs-number">1</span>);
+        EventLoopGroup workerGroup = <span class="hljs-keyword">new</span> NioEventLoopGroup();
+
+        <span class="hljs-keyword">try</span> &#123;
+            <span class="hljs-comment">//创建启动类</span>
+            ServerBootstrap serverBootstrap = <span class="hljs-keyword">new</span> ServerBootstrap();
+
+            serverBootstrap.group(bossGroup, workerGroup)
+                    .channel(NioServerSocketChannel.class)
+                    .childHandler(<span class="hljs-keyword">new</span> ChannelInitializer&lt;SocketChannel&gt;() &#123;
+                        <span class="hljs-meta">@Override</span>
+                        <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">initChannel</span><span class="hljs-params">(SocketChannel socketChannel)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+                            ChannelPipeline pipeline = socketChannel.pipeline();
+                            pipeline.addLast(<span class="hljs-keyword">new</span> StringDecoder());
+                            pipeline.addLast(<span class="hljs-keyword">new</span> StringEncoder());
+                            pipeline.addLast(<span class="hljs-keyword">new</span> NettyServerHandler());     <span class="hljs-comment">//业务处理器</span>
+                        &#125;
+                    &#125;);
+            <span class="hljs-comment">//绑定并同步监听主机端口，然后做异步处理</span>
+            ChannelFuture channelFuture = serverBootstrap.bind(hostname, port).sync();
+            System.out.println(<span class="hljs-string">&quot;服务提供方开始提供服务...&quot;</span>);
+            channelFuture.channel().closeFuture().sync();
+        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;
+            e.printStackTrace();
+        &#125; <span class="hljs-keyword">finally</span> &#123;
+            bossGroup.shutdownGracefully();
+            workerGroup.shutdownGracefully();
+        &#125;
+    &#125;
+&#125;</code></pre>
+</li>
+</ul>
+<p><code>客户端</code></p>
+<ul>
+<li><p>ClientBootstrap.java —— 客户端启动类，通过构建远程服务代理对象实现服务调用</p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.rpc.customer;
+
+<span class="hljs-keyword">import</span> com.youzikeji.rpc.client.NettyClient;
+<span class="hljs-keyword">import</span> com.youzikeji.rpc.service.HelloService;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ClientBootstrap</span> </span>&#123;
+
+    <span class="hljs-comment">//定义协议头</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String head = <span class="hljs-string">&quot;HelloService#hello#&quot;</span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+        <span class="hljs-comment">//创建消费者</span>
+        NettyClient cus = <span class="hljs-keyword">new</span> NettyClient();
+
+        <span class="hljs-comment">//创建代理对象</span>
+        HelloService service = (HelloService) cus.getBean(HelloService.class, head);
+
+        <span class="hljs-comment">//通过代理对象调用服务提供者的方法</span>
+        String res = service.hello(<span class="hljs-string">&quot;您好, RPC&quot;</span>);
+
+        System.out.println(<span class="hljs-string">&quot;调用的结果：&quot;</span> + res);
+
+    &#125;
+&#125;</code></pre>
+</li>
+<li><p>NettyClientHandler.java —— 将调用服务的参数等信息发送给服务器，等待服务代理对象返回调用结果</p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.rpc.client;
+
+<span class="hljs-keyword">import</span> io.netty.channel.ChannelHandlerContext;
+<span class="hljs-keyword">import</span> io.netty.channel.ChannelInboundHandlerAdapter;
+
+<span class="hljs-keyword">import</span> java.util.concurrent.Callable;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NettyClientHandler</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ChannelInboundHandlerAdapter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Callable</span> </span>&#123;
+
+    <span class="hljs-keyword">private</span> ChannelHandlerContext context;
+    <span class="hljs-keyword">private</span> String result;  <span class="hljs-comment">//返回的结果</span>
+    <span class="hljs-keyword">private</span> String param;   <span class="hljs-comment">//客户端调用方法时传入的参数</span>
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 被代理对象调用，发送数据给服务器，等待被唤醒，然后返回结果</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 返回结果</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> Exception 异常</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> Object <span class="hljs-title">call</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        context.writeAndFlush(param);
+        <span class="hljs-comment">//等待channelRead获取服务器返回的结果后，唤醒</span>
+        wait();
+        <span class="hljs-keyword">return</span> result;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">exceptionCaught</span><span class="hljs-params">(ChannelHandlerContext ctx, Throwable cause)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        ctx.close();
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 与服务器连接创建后就被调用</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> ctx</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> Exception 异常</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">channelActive</span><span class="hljs-params">(ChannelHandlerContext ctx)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        context = ctx;  <span class="hljs-comment">//其他方法中会使用到ctx</span>
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 收到服务器的数据后，调用方法</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> ctx</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> msg</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> Exception 异常</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title">channelRead</span><span class="hljs-params">(ChannelHandlerContext ctx, Object msg)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        result = msg.toString();
+        <span class="hljs-comment">//唤醒等待的线程</span>
+        notify();
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setParam</span><span class="hljs-params">(String param)</span></span>&#123;
+        <span class="hljs-keyword">this</span>.param = param;
+    &#125;
+&#125;</code></pre>
+</li>
+<li><p>NettyClient.java</p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> com.youzikeji.rpc.client;
+
+<span class="hljs-keyword">import</span> io.netty.bootstrap.Bootstrap;
+<span class="hljs-keyword">import</span> io.netty.channel.ChannelInitializer;
+<span class="hljs-keyword">import</span> io.netty.channel.ChannelOption;
+<span class="hljs-keyword">import</span> io.netty.channel.ChannelPipeline;
+<span class="hljs-keyword">import</span> io.netty.channel.EventLoopGroup;
+<span class="hljs-keyword">import</span> io.netty.channel.nio.NioEventLoopGroup;
+<span class="hljs-keyword">import</span> io.netty.channel.socket.SocketChannel;
+<span class="hljs-keyword">import</span> io.netty.channel.socket.nio.NioSocketChannel;
+<span class="hljs-keyword">import</span> io.netty.handler.codec.string.StringDecoder;
+<span class="hljs-keyword">import</span> io.netty.handler.codec.string.StringEncoder;
+
+<span class="hljs-keyword">import</span> java.lang.reflect.Proxy;
+<span class="hljs-keyword">import</span> java.util.Objects;
+<span class="hljs-keyword">import</span> java.util.concurrent.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NettyClient</span> </span>&#123;
+    <span class="hljs-comment">//创建线程池</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ExecutorService executor = <span class="hljs-keyword">new</span> ThreadPoolExecutor(
+            <span class="hljs-number">3</span>,
+            Runtime.getRuntime().availableProcessors(),
+            <span class="hljs-number">3</span>,
+            TimeUnit.SECONDS,
+            <span class="hljs-keyword">new</span> LinkedBlockingDeque&lt;&gt;(<span class="hljs-number">5</span>),
+            Executors.defaultThreadFactory(),
+            <span class="hljs-keyword">new</span> ThreadPoolExecutor.AbortPolicy()
+    );
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> NettyClientHandler client;
+
+    <span class="hljs-comment">//代理模式，获取代理对象</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">getBean</span><span class="hljs-params">(<span class="hljs-keyword">final</span> Class&lt;?&gt; serviceClass, <span class="hljs-keyword">final</span> String head)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
+                <span class="hljs-keyword">new</span> Class&lt;?&gt;[]&#123;serviceClass&#125;, ((proxy, method, args) -&gt; &#123;
+                    <span class="hljs-keyword">if</span> (client == <span class="hljs-keyword">null</span>) &#123;
+                        initClient();
+                    &#125;
+                    <span class="hljs-comment">//设置要发给服务端的信息</span>
+                    client.setParam(head + args[<span class="hljs-number">0</span>]);
+                    <span class="hljs-keyword">return</span> executor.submit(client).get();
+                &#125;));
+    &#125;
+
+    <span class="hljs-comment">//初始化客户端</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">initClient</span><span class="hljs-params">()</span> </span>&#123;
+        client = <span class="hljs-keyword">new</span> NettyClientHandler();
+
+        EventLoopGroup group = <span class="hljs-keyword">new</span> NioEventLoopGroup();
+        Bootstrap bootstrap = <span class="hljs-keyword">new</span> Bootstrap();
+        bootstrap.group(group)
+                .channel(NioSocketChannel.class)
+                .option(ChannelOption.TCP_NODELAY, <span class="hljs-keyword">true</span>)
+                .handler(
+                        <span class="hljs-keyword">new</span> ChannelInitializer&lt;SocketChannel&gt;() &#123;
+                            <span class="hljs-meta">@Override</span>
+                            <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">initChannel</span><span class="hljs-params">(SocketChannel socketChannel)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+                                ChannelPipeline pipeline = socketChannel.pipeline();
+                                pipeline.addLast(<span class="hljs-keyword">new</span> StringDecoder());
+                                pipeline.addLast(<span class="hljs-keyword">new</span> StringEncoder());
+                                pipeline.addLast(client);
+                            &#125;
+                        &#125;
+                );
+        <span class="hljs-keyword">try</span> &#123;
+            bootstrap.connect(<span class="hljs-string">&quot;127.0.0.1&quot;</span>, <span class="hljs-number">7000</span>).sync();
+        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;
+            e.printStackTrace();
+        &#125;
+
+    &#125;
+
+&#125;</code></pre>
+</li>
+</ul>
+<p><code>结果</code></p>
+<p>先后运行ServerBootstrap.java和ClientBootstrap.java</p>
+<p>服务端结果如下图：</p>
+<img src="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20210503150355519.png" srcset="/img/loading.gif" class="">
+<p>客户端结果如下：</p>
+<img src="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20210503150404678.png" srcset="/img/loading.gif" class="">
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Netty/">Netty</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/03/JUC%E5%B9%B6%E5%8F%91%E9%94%81/">
+                        <span class="hidden-mobile">JUC并发锁</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Netty基础学习&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
