@@ -1,0 +1,965 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="caoyusang">
+  <meta name="keywords" content="">
+  <title>DockerBasicCommands - caoyusang的科研日常</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>caoyusang</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/7.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-28 19:14" pubdate>
+        2021年5月28日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      40
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">DockerBasicCommands</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：21 分钟前
+                
+              </p>
+            
+            <div class="markdown-body" id="post-body">
+              <h2 id="Docker-Basic-Commands"><a href="#Docker-Basic-Commands" class="headerlink" title="Docker Basic Commands"></a>Docker Basic Commands</h2><h3 id="Docker安装测试"><a href="#Docker安装测试" class="headerlink" title="Docker安装测试"></a>Docker安装测试</h3><pre><code class="hljs powershell">docker run debian <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;hello world!&quot;</span></code></pre>
+<ul>
+<li>本地没有debian镜像，先pull</li>
+<li>由debian镜像创建容器</li>
+<li>执行命令行<code>echo &quot;hello world!&quot;</code></li>
+</ul>
+<img src="/2021/05/28/DockerBasicCommands/image-20210525102156216.png" srcset="/img/loading.gif" class="">
+<h3 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h3><h4 id="docker-images"><a href="#docker-images" class="headerlink" title="docker images"></a><code>docker images</code></h4><p><code>查看本地镜像</code></p>
+<pre><code class="hljs powershell">docker images</code></pre>
+<img src="/2021/05/28/DockerBasicCommands/image-20210525103825274.png" srcset="/img/loading.gif" class="">
+<h4 id="docker-search"><a href="#docker-search" class="headerlink" title="docker search"></a><code>docker search</code></h4><p><code>搜索合适的镜像</code></p>
+<pre><code class="hljs powershell">docker search ubuntu</code></pre>
+<img src="/2021/05/28/DockerBasicCommands/image-20210525103949538.png" srcset="/img/loading.gif" class="">
+<h4 id="docker-pull"><a href="#docker-pull" class="headerlink" title="docker pull"></a><code>docker pull</code></h4><p><code>拉取镜像源</code></p>
+<pre><code class="hljs powershell">docker pull ubuntu</code></pre>
+<img src="/2021/05/28/DockerBasicCommands/image-20210525104201817.png" srcset="/img/loading.gif" class="">
+<h4 id="docker-run"><a href="#docker-run" class="headerlink" title="docker run"></a><code>docker run</code></h4><p><code>根据镜像构建容器</code></p>
+<pre><code class="hljs powershell">docker run -<span class="hljs-literal">-name</span> myDebian <span class="hljs-literal">-h</span> Debian <span class="hljs-literal">-it</span> debian /bin/bash</code></pre>
+<img src="/2021/05/28/DockerBasicCommands/image-20210525103244676.png" srcset="/img/loading.gif" class="">
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">-h</td>
+<td style="text-align:center">指定容器的hostname</td>
+</tr>
+<tr>
+<td style="text-align:center">-i</td>
+<td style="text-align:center">以交互模式运行容器，通常与 -t 同时使用</td>
+</tr>
+<tr>
+<td style="text-align:center">-t</td>
+<td style="text-align:center">为容器重新分配一个伪输入终端，通常与 -i 同时使用</td>
+</tr>
+<tr>
+<td style="text-align:center">/bin/bash</td>
+<td style="text-align:center">docker后台必须运行一个进程，否则容器就会退出，所以启动容器后启动bash</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="docker-ps"><a href="#docker-ps" class="headerlink" title="docker ps"></a><code>docker ps</code></h4><p><code>列出容器(默认正在运行的)</code></p>
+<pre><code class="hljs powershell">docker <span class="hljs-built_in">ps</span></code></pre>
+<img src="/2021/05/28/DockerBasicCommands/image-20210525110348609.png" srcset="/img/loading.gif" class="">
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">-a</td>
+<td style="text-align:center">显示所有容器（包括未运行的）</td>
+</tr>
+<tr>
+<td style="text-align:center">-l</td>
+<td style="text-align:center">显示最近创建的容器</td>
+</tr>
+<tr>
+<td style="text-align:center">-n + int</td>
+<td style="text-align:center">列出最近创建的n个容器</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="docker-top"><a href="#docker-top" class="headerlink" title="docker top"></a><code>docker top</code></h4><p><code>查看容器中运行的进程信息</code></p>
+<pre><code class="hljs powershell">docker top myDebian</code></pre>
+<img src="/2021/05/28/DockerBasicCommands/image-20210525110741899.png" srcset="/img/loading.gif" class="">
+<h4 id="docker-logs"><a href="#docker-logs" class="headerlink" title="docker logs"></a><code>docker logs</code></h4><p><code>获取容器日志</code></p>
+<pre><code class="hljs powershell">docker logs -<span class="hljs-literal">-since</span>=<span class="hljs-string">&quot;2021-05-25&quot;</span> -<span class="hljs-literal">-tail</span>=<span class="hljs-number">10</span> myDebian</code></pre>
+<img src="/2021/05/28/DockerBasicCommands/image-20210525111118578.png" srcset="/img/loading.gif" class="">
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">—since</td>
+<td style="text-align:center">显示某个开始时间的所有日志</td>
+</tr>
+<tr>
+<td style="text-align:center">-t</td>
+<td style="text-align:center">显示时间戳</td>
+</tr>
+<tr>
+<td style="text-align:center">—tail</td>
+<td style="text-align:center">仅列出最新N条容器日志</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code>动态跟踪容器日志</code></p>
+<pre><code class="hljs powershell">docker logs <span class="hljs-literal">-tf</span> -<span class="hljs-literal">-tail</span>=<span class="hljs-number">10</span> myDebian</code></pre>
+<img src="/2021/05/28/DockerBasicCommands/image-20210525111341916.png" srcset="/img/loading.gif" class="">
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">-f</td>
+<td style="text-align:center">跟踪日志输出</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="docker-inspect"><a href="#docker-inspect" class="headerlink" title="docker inspect"></a><code>docker inspect</code></h4><p><code>获取镜像的元数据</code></p>
+<pre><code class="hljs powershell">docker inspect debian</code></pre>
+<p>获取的镜像元数据如下：</p>
+<pre><code class="hljs json">[
+    &#123;
+        <span class="hljs-attr">&quot;Id&quot;</span>: <span class="hljs-string">&quot;sha256:4a7a1f4017349067a21bd2de060dcf8b41e49fabf61b0dc3cf86a87e1f6dba9d&quot;</span>,
+        <span class="hljs-attr">&quot;RepoTags&quot;</span>: [
+            <span class="hljs-string">&quot;debian:latest&quot;</span>
+        ],
+        <span class="hljs-attr">&quot;RepoDigests&quot;</span>: [
+            <span class="hljs-string">&quot;debian@sha256:acf7795dc91df17e10effee064bd229580a9c34213b4dba578d64768af5d8c51&quot;</span>
+        ],
+        <span class="hljs-attr">&quot;Parent&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+        <span class="hljs-attr">&quot;Comment&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+        <span class="hljs-attr">&quot;Created&quot;</span>: <span class="hljs-string">&quot;2021-05-12T01:21:03.936921102Z&quot;</span>,
+        <span class="hljs-attr">&quot;Container&quot;</span>: <span class="hljs-string">&quot;efa20d864846ecdacfb84d82cd08335b1db4b2f74e09922d12fe3d8a084616a1&quot;</span>,
+        <span class="hljs-attr">&quot;ContainerConfig&quot;</span>: &#123;
+            <span class="hljs-attr">&quot;Hostname&quot;</span>: <span class="hljs-string">&quot;efa20d864846&quot;</span>,
+            <span class="hljs-attr">&quot;Domainname&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-attr">&quot;User&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-attr">&quot;AttachStdin&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">&quot;AttachStdout&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">&quot;AttachStderr&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">&quot;Tty&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">&quot;OpenStdin&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">&quot;StdinOnce&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">&quot;Env&quot;</span>: [
+                <span class="hljs-string">&quot;PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;</span>
+            ],
+            <span class="hljs-attr">&quot;Cmd&quot;</span>: [
+                <span class="hljs-string">&quot;/bin/sh&quot;</span>,
+                <span class="hljs-string">&quot;-c&quot;</span>,
+                <span class="hljs-string">&quot;#(nop) &quot;</span>,
+                <span class="hljs-string">&quot;CMD [\&quot;bash\&quot;]&quot;</span>
+            ],
+            <span class="hljs-attr">&quot;Image&quot;</span>: <span class="hljs-string">&quot;sha256:a1ab89980b2dbaf5ebaa889d14f26af111dd2726e5f05ebf2515176b3fea4c27&quot;</span>,
+            <span class="hljs-attr">&quot;Volumes&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">&quot;WorkingDir&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-attr">&quot;Entrypoint&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">&quot;OnBuild&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">&quot;Labels&quot;</span>: &#123;&#125;
+        &#125;,
+        <span class="hljs-attr">&quot;DockerVersion&quot;</span>: <span class="hljs-string">&quot;19.03.12&quot;</span>,
+        <span class="hljs-attr">&quot;Author&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+        <span class="hljs-attr">&quot;Config&quot;</span>: &#123;
+            <span class="hljs-attr">&quot;Hostname&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-attr">&quot;Domainname&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-attr">&quot;User&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-attr">&quot;AttachStdin&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">&quot;AttachStdout&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">&quot;AttachStderr&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">&quot;Tty&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">&quot;OpenStdin&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">&quot;StdinOnce&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">&quot;Env&quot;</span>: [
+                <span class="hljs-string">&quot;PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;</span>
+            ],
+            <span class="hljs-attr">&quot;Cmd&quot;</span>: [
+                <span class="hljs-string">&quot;bash&quot;</span>
+            ],
+            <span class="hljs-attr">&quot;Image&quot;</span>: <span class="hljs-string">&quot;sha256:a1ab89980b2dbaf5ebaa889d14f26af111dd2726e5f05ebf2515176b3fea4c27&quot;</span>,
+            <span class="hljs-attr">&quot;Volumes&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">&quot;WorkingDir&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-attr">&quot;Entrypoint&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">&quot;OnBuild&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">&quot;Labels&quot;</span>: <span class="hljs-literal">null</span>
+        &#125;,
+        <span class="hljs-attr">&quot;Architecture&quot;</span>: <span class="hljs-string">&quot;amd64&quot;</span>,
+        <span class="hljs-attr">&quot;Os&quot;</span>: <span class="hljs-string">&quot;linux&quot;</span>,
+        <span class="hljs-attr">&quot;Size&quot;</span>: <span class="hljs-number">114112893</span>,
+        <span class="hljs-attr">&quot;VirtualSize&quot;</span>: <span class="hljs-number">114112893</span>,
+        <span class="hljs-attr">&quot;GraphDriver&quot;</span>: &#123;
+            <span class="hljs-attr">&quot;Data&quot;</span>: &#123;
+                <span class="hljs-attr">&quot;MergedDir&quot;</span>: <span class="hljs-string">&quot;/var/lib/docker/overlay2/9bb7fe0d6c6c6758213a0391aed3660a516e024fed6abc054b7453ee72447f98/merged&quot;</span>,
+                <span class="hljs-attr">&quot;UpperDir&quot;</span>: <span class="hljs-string">&quot;/var/lib/docker/overlay2/9bb7fe0d6c6c6758213a0391aed3660a516e024fed6abc054b7453ee72447f98/diff&quot;</span>,
+                <span class="hljs-attr">&quot;WorkDir&quot;</span>: <span class="hljs-string">&quot;/var/lib/docker/overlay2/9bb7fe0d6c6c6758213a0391aed3660a516e024fed6abc054b7453ee72447f98/work&quot;</span>
+            &#125;,
+            <span class="hljs-attr">&quot;Name&quot;</span>: <span class="hljs-string">&quot;overlay2&quot;</span>
+        &#125;,
+        <span class="hljs-attr">&quot;RootFS&quot;</span>: &#123;
+            <span class="hljs-attr">&quot;Type&quot;</span>: <span class="hljs-string">&quot;layers&quot;</span>,
+            <span class="hljs-attr">&quot;Layers&quot;</span>: [
+                <span class="hljs-string">&quot;sha256:688e187d6c79c46e8261890f0010fd5d178b8faa178959b0b46b2635aa1eeff3&quot;</span>
+            ]
+        &#125;,
+        <span class="hljs-attr">&quot;Metadata&quot;</span>: &#123;
+            <span class="hljs-attr">&quot;LastTagTime&quot;</span>: <span class="hljs-string">&quot;0001-01-01T00:00:00Z&quot;</span>
+        &#125;
+    &#125;
+]</code></pre>
+<p><code>获取容器的元数据</code></p>
+<pre><code class="hljs powershell">docker inspect myDebian</code></pre>
+<p>获取的容器的元数据</p>
+<pre><code class="hljs csharp">C:\Users\wandehua&gt;docker inspect myDebian
+[<span class="hljs-meta"></span>
+<span class="hljs-meta">    &#123;</span>
+<span class="hljs-meta">        <span class="hljs-meta-string">&quot;Id&quot;</span>: <span class="hljs-meta-string">&quot;a73c1cb27f75b92800b558eb859c294155ef0a1143342a0d6122e172d1f61aac&quot;</span>,</span>
+<span class="hljs-meta">        <span class="hljs-meta-string">&quot;Created&quot;</span>: <span class="hljs-meta-string">&quot;2021-05-25T02:32:08.9092537Z&quot;</span>,</span>
+<span class="hljs-meta">        <span class="hljs-meta-string">&quot;Path&quot;</span>: <span class="hljs-meta-string">&quot;/bin/bash&quot;</span>,</span>
+<span class="hljs-meta">        <span class="hljs-meta-string">&quot;Args&quot;</span>: [</span>],
+        <span class="hljs-string">&quot;State&quot;</span>: &#123;
+            <span class="hljs-string">&quot;Status&quot;</span>: <span class="hljs-string">&quot;running&quot;</span>,
+            <span class="hljs-string">&quot;Running&quot;</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-string">&quot;Paused&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-string">&quot;Restarting&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-string">&quot;OOMKilled&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-string">&quot;Dead&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-string">&quot;Pid&quot;</span>: <span class="hljs-number">7297</span>,
+            <span class="hljs-string">&quot;ExitCode&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;Error&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-string">&quot;StartedAt&quot;</span>: <span class="hljs-string">&quot;2021-05-25T02:54:24.9078658Z&quot;</span>,
+            <span class="hljs-string">&quot;FinishedAt&quot;</span>: <span class="hljs-string">&quot;2021-05-25T02:54:06.0940833Z&quot;</span>
+        &#125;,
+        <span class="hljs-string">&quot;Image&quot;</span>: <span class="hljs-string">&quot;sha256:4a7a1f4017349067a21bd2de060dcf8b41e49fabf61b0dc3cf86a87e1f6dba9d&quot;</span>,
+        <span class="hljs-string">&quot;ResolvConfPath&quot;</span>: <span class="hljs-string">&quot;/var/lib/docker/containers/a73c1cb27f75b92800b558eb859c294155ef0a1143342a0d6122e172d1f61aac/resolv.conf&quot;</span>,
+        <span class="hljs-string">&quot;HostnamePath&quot;</span>: <span class="hljs-string">&quot;/var/lib/docker/containers/a73c1cb27f75b92800b558eb859c294155ef0a1143342a0d6122e172d1f61aac/hostname&quot;</span>,
+        <span class="hljs-string">&quot;HostsPath&quot;</span>: <span class="hljs-string">&quot;/var/lib/docker/containers/a73c1cb27f75b92800b558eb859c294155ef0a1143342a0d6122e172d1f61aac/hosts&quot;</span>,
+        <span class="hljs-string">&quot;LogPath&quot;</span>: <span class="hljs-string">&quot;/var/lib/docker/containers/a73c1cb27f75b92800b558eb859c294155ef0a1143342a0d6122e172d1f61aac/a73c1cb27f75b92800b558eb859c294155ef0a1143342a0d6122e172d1f61aac-json.log&quot;</span>,
+        <span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;/myDebian&quot;</span>,
+        <span class="hljs-string">&quot;RestartCount&quot;</span>: <span class="hljs-number">0</span>,
+        <span class="hljs-string">&quot;Driver&quot;</span>: <span class="hljs-string">&quot;overlay2&quot;</span>,
+        <span class="hljs-string">&quot;Platform&quot;</span>: <span class="hljs-string">&quot;linux&quot;</span>,
+        <span class="hljs-string">&quot;MountLabel&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+        <span class="hljs-string">&quot;ProcessLabel&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+        <span class="hljs-string">&quot;AppArmorProfile&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+        <span class="hljs-string">&quot;ExecIDs&quot;</span>: [
+            <span class="hljs-string">&quot;c33fdb3d45c87cbceeb34cdd4ef6bcd326c6f991965341909e5c9e6bc6243df0&quot;</span>
+        ],
+        <span class="hljs-string">&quot;HostConfig&quot;</span>: &#123;
+            <span class="hljs-string">&quot;Binds&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;ContainerIDFile&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-string">&quot;LogConfig&quot;</span>: &#123;
+                <span class="hljs-string">&quot;Type&quot;</span>: <span class="hljs-string">&quot;json-file&quot;</span>,
+                <span class="hljs-string">&quot;Config&quot;</span>: &#123;&#125;
+            &#125;,
+            <span class="hljs-string">&quot;NetworkMode&quot;</span>: <span class="hljs-string">&quot;default&quot;</span>,
+            <span class="hljs-string">&quot;PortBindings&quot;</span>: &#123;&#125;,
+            <span class="hljs-string">&quot;RestartPolicy&quot;</span>: &#123;
+                <span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;no&quot;</span>,
+                <span class="hljs-string">&quot;MaximumRetryCount&quot;</span>: <span class="hljs-number">0</span>
+            &#125;,
+            <span class="hljs-string">&quot;AutoRemove&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-string">&quot;VolumeDriver&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-string">&quot;VolumesFrom&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;CapAdd&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;CapDrop&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;CgroupnsMode&quot;</span>: <span class="hljs-string">&quot;host&quot;</span>,
+            <span class="hljs-string">&quot;Dns&quot;</span>: [],
+            <span class="hljs-string">&quot;DnsOptions&quot;</span>: [],
+            <span class="hljs-string">&quot;DnsSearch&quot;</span>: [],
+            <span class="hljs-string">&quot;ExtraHosts&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;GroupAdd&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;IpcMode&quot;</span>: <span class="hljs-string">&quot;private&quot;</span>,
+            <span class="hljs-string">&quot;Cgroup&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-string">&quot;Links&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;OomScoreAdj&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;PidMode&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-string">&quot;Privileged&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-string">&quot;PublishAllPorts&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-string">&quot;ReadonlyRootfs&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-string">&quot;SecurityOpt&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;UTSMode&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-string">&quot;UsernsMode&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-string">&quot;ShmSize&quot;</span>: <span class="hljs-number">67108864</span>,
+            <span class="hljs-string">&quot;Runtime&quot;</span>: <span class="hljs-string">&quot;runc&quot;</span>,
+            <span class="hljs-string">&quot;ConsoleSize&quot;</span>: [
+                <span class="hljs-number">17</span>,
+                <span class="hljs-number">85</span>
+            ],
+            <span class="hljs-string">&quot;Isolation&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-string">&quot;CpuShares&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;Memory&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;NanoCpus&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;CgroupParent&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-string">&quot;BlkioWeight&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;BlkioWeightDevice&quot;</span>: [],
+            <span class="hljs-string">&quot;BlkioDeviceReadBps&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;BlkioDeviceWriteBps&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;BlkioDeviceReadIOps&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;BlkioDeviceWriteIOps&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;CpuPeriod&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;CpuQuota&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;CpuRealtimePeriod&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;CpuRealtimeRuntime&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;CpusetCpus&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-string">&quot;CpusetMems&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-string">&quot;Devices&quot;</span>: [],
+            <span class="hljs-string">&quot;DeviceCgroupRules&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;DeviceRequests&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;KernelMemory&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;KernelMemoryTCP&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;MemoryReservation&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;MemorySwap&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;MemorySwappiness&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;OomKillDisable&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-string">&quot;PidsLimit&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;Ulimits&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;CpuCount&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;CpuPercent&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;IOMaximumIOps&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;IOMaximumBandwidth&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;MaskedPaths&quot;</span>: [
+                <span class="hljs-string">&quot;/proc/asound&quot;</span>,
+                <span class="hljs-string">&quot;/proc/acpi&quot;</span>,
+                <span class="hljs-string">&quot;/proc/kcore&quot;</span>,
+                <span class="hljs-string">&quot;/proc/keys&quot;</span>,
+                <span class="hljs-string">&quot;/proc/latency_stats&quot;</span>,
+                <span class="hljs-string">&quot;/proc/timer_list&quot;</span>,
+                <span class="hljs-string">&quot;/proc/timer_stats&quot;</span>,
+                <span class="hljs-string">&quot;/proc/sched_debug&quot;</span>,
+                <span class="hljs-string">&quot;/proc/scsi&quot;</span>,
+                <span class="hljs-string">&quot;/sys/firmware&quot;</span>
+            ],
+            <span class="hljs-string">&quot;ReadonlyPaths&quot;</span>: [
+                <span class="hljs-string">&quot;/proc/bus&quot;</span>,
+                <span class="hljs-string">&quot;/proc/fs&quot;</span>,
+                <span class="hljs-string">&quot;/proc/irq&quot;</span>,
+                <span class="hljs-string">&quot;/proc/sys&quot;</span>,
+                <span class="hljs-string">&quot;/proc/sysrq-trigger&quot;</span>
+            ]
+        &#125;,
+        <span class="hljs-string">&quot;GraphDriver&quot;</span>: &#123;
+            <span class="hljs-string">&quot;Data&quot;</span>: &#123;
+                <span class="hljs-string">&quot;LowerDir&quot;</span>: <span class="hljs-string">&quot;/var/lib/docker/overlay2/839ffc25c92ca4697565e3b29bd5d8ba76ad0587da91b6989a14693441b5f952-init/diff:/var/lib/docker/overlay2/9bb7fe0d6c6c6758213a0391aed3660a516e024fed6abc054b7453ee72447f98/diff&quot;</span>,
+                <span class="hljs-string">&quot;MergedDir&quot;</span>: <span class="hljs-string">&quot;/var/lib/docker/overlay2/839ffc25c92ca4697565e3b29bd5d8ba76ad0587da91b6989a14693441b5f952/merged&quot;</span>,
+                <span class="hljs-string">&quot;UpperDir&quot;</span>: <span class="hljs-string">&quot;/var/lib/docker/overlay2/839ffc25c92ca4697565e3b29bd5d8ba76ad0587da91b6989a14693441b5f952/diff&quot;</span>,
+                <span class="hljs-string">&quot;WorkDir&quot;</span>: <span class="hljs-string">&quot;/var/lib/docker/overlay2/839ffc25c92ca4697565e3b29bd5d8ba76ad0587da91b6989a14693441b5f952/work&quot;</span>
+            &#125;,
+            <span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;overlay2&quot;</span>
+        &#125;,
+        <span class="hljs-string">&quot;Mounts&quot;</span>: [],
+        <span class="hljs-string">&quot;Config&quot;</span>: &#123;
+            <span class="hljs-string">&quot;Hostname&quot;</span>: <span class="hljs-string">&quot;Debian&quot;</span>,
+            <span class="hljs-string">&quot;Domainname&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-string">&quot;User&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-string">&quot;AttachStdin&quot;</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-string">&quot;AttachStdout&quot;</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-string">&quot;AttachStderr&quot;</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-string">&quot;Tty&quot;</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-string">&quot;OpenStdin&quot;</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-string">&quot;StdinOnce&quot;</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-string">&quot;Env&quot;</span>: [
+                <span class="hljs-string">&quot;PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;</span>
+            ],
+            <span class="hljs-string">&quot;Cmd&quot;</span>: [
+                <span class="hljs-string">&quot;/bin/bash&quot;</span>
+            ],
+            <span class="hljs-string">&quot;Image&quot;</span>: <span class="hljs-string">&quot;debian&quot;</span>,
+            <span class="hljs-string">&quot;Volumes&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;WorkingDir&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-string">&quot;Entrypoint&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;OnBuild&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;Labels&quot;</span>: &#123;&#125;
+        &#125;,
+        <span class="hljs-string">&quot;NetworkSettings&quot;</span>: &#123;
+            <span class="hljs-string">&quot;Bridge&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-string">&quot;SandboxID&quot;</span>: <span class="hljs-string">&quot;1b53ae13f711f6ebe6752c889b66fe9917d5c2b51e8c9642af2bce3c79369755&quot;</span>,
+            <span class="hljs-string">&quot;HairpinMode&quot;</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-string">&quot;LinkLocalIPv6Address&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-string">&quot;LinkLocalIPv6PrefixLen&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;Ports&quot;</span>: &#123;&#125;,
+            <span class="hljs-string">&quot;SandboxKey&quot;</span>: <span class="hljs-string">&quot;/var/run/docker/netns/1b53ae13f711&quot;</span>,
+            <span class="hljs-string">&quot;SecondaryIPAddresses&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;SecondaryIPv6Addresses&quot;</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-string">&quot;EndpointID&quot;</span>: <span class="hljs-string">&quot;30747fb38cb62326d6c430d4ba0111dad96e2d782b214c064d013746e56c54c2&quot;</span>,
+            <span class="hljs-string">&quot;Gateway&quot;</span>: <span class="hljs-string">&quot;172.17.0.1&quot;</span>,
+            <span class="hljs-string">&quot;GlobalIPv6Address&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-string">&quot;GlobalIPv6PrefixLen&quot;</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">&quot;IPAddress&quot;</span>: <span class="hljs-string">&quot;172.17.0.4&quot;</span>,
+            <span class="hljs-string">&quot;IPPrefixLen&quot;</span>: <span class="hljs-number">16</span>,
+            <span class="hljs-string">&quot;IPv6Gateway&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+            <span class="hljs-string">&quot;MacAddress&quot;</span>: <span class="hljs-string">&quot;02:42:ac:11:00:04&quot;</span>,
+            <span class="hljs-string">&quot;Networks&quot;</span>: &#123;
+                <span class="hljs-string">&quot;bridge&quot;</span>: &#123;
+                    <span class="hljs-string">&quot;IPAMConfig&quot;</span>: <span class="hljs-literal">null</span>,
+                    <span class="hljs-string">&quot;Links&quot;</span>: <span class="hljs-literal">null</span>,
+                    <span class="hljs-string">&quot;Aliases&quot;</span>: <span class="hljs-literal">null</span>,
+                    <span class="hljs-string">&quot;NetworkID&quot;</span>: <span class="hljs-string">&quot;6645ff01f33f334a81b1a2b4ae2a8ba17982be784d39809503e1f4ae50132a5d&quot;</span>,
+                    <span class="hljs-string">&quot;EndpointID&quot;</span>: <span class="hljs-string">&quot;30747fb38cb62326d6c430d4ba0111dad96e2d782b214c064d013746e56c54c2&quot;</span>,
+                    <span class="hljs-string">&quot;Gateway&quot;</span>: <span class="hljs-string">&quot;172.17.0.1&quot;</span>,
+                    <span class="hljs-string">&quot;IPAddress&quot;</span>: <span class="hljs-string">&quot;172.17.0.4&quot;</span>,
+                    <span class="hljs-string">&quot;IPPrefixLen&quot;</span>: <span class="hljs-number">16</span>,
+                    <span class="hljs-string">&quot;IPv6Gateway&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+                    <span class="hljs-string">&quot;GlobalIPv6Address&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+                    <span class="hljs-string">&quot;GlobalIPv6PrefixLen&quot;</span>: <span class="hljs-number">0</span>,
+                    <span class="hljs-string">&quot;MacAddress&quot;</span>: <span class="hljs-string">&quot;02:42:ac:11:00:04&quot;</span>,
+                    <span class="hljs-string">&quot;DriverOpts&quot;</span>: <span class="hljs-literal">null</span>
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+]</code></pre>
+<h4 id="docker-stop"><a href="#docker-stop" class="headerlink" title="docker stop"></a><code>docker stop</code></h4><p><code>关闭容器</code></p>
+<pre><code class="hljs powershell">docker stop myDebian</code></pre>
+<img src="/2021/05/28/DockerBasicCommands/image-20210525105413546.png" srcset="/img/loading.gif" class="">
+<h4 id="docker-start"><a href="#docker-start" class="headerlink" title="docker start"></a><code>docker start</code></h4><p><code>启动容器</code></p>
+<pre><code class="hljs powershell">docker <span class="hljs-built_in">start</span> myDebian</code></pre>
+<img src="/2021/05/28/DockerBasicCommands/image-20210525105342531.png" srcset="/img/loading.gif" class="">
+<h4 id="docker-exec"><a href="#docker-exec" class="headerlink" title="docker exec"></a><code>docker exec</code></h4><p><code>在运行的容器中开启一个交互终端</code></p>
+<pre><code class="hljs powershell">docker exec <span class="hljs-literal">-it</span> myDebian /bin/bash</code></pre>
+<img src="/2021/05/28/DockerBasicCommands/image-20210525105520356.png" srcset="/img/loading.gif" class="">
+<p><code>在运行的容器中执行命令或脚本</code></p>
+<pre><code class="hljs powershell">docker exec <span class="hljs-literal">-it</span> myDebian <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;hello world!!!&quot;</span></code></pre>
+<img src="/2021/05/28/DockerBasicCommands/image-20210525110013855.png" srcset="/img/loading.gif" class="">
+<h4 id="Ctrl-P-Q"><a href="#Ctrl-P-Q" class="headerlink" title="Ctrl + P + Q"></a><code>Ctrl + P + Q</code></h4><p><code>退出交互式终端但是保证容器在后台继续运行</code></p>
+<h4 id="docker-attach"><a href="#docker-attach" class="headerlink" title="docker attach"></a><code>docker attach</code></h4><p><code>进入正在运行的容器</code></p>
+<pre><code class="hljs powershell">docker attach myDebian</code></pre>
+<img src="/2021/05/28/DockerBasicCommands/image-20210525105840025.png" srcset="/img/loading.gif" class="">
+<h4 id="docker-rm"><a href="#docker-rm" class="headerlink" title="docker rm"></a><code>docker rm</code></h4><p><code>删除单个容器</code></p>
+<pre><code class="hljs powershell">docker <span class="hljs-built_in">rm</span> <span class="hljs-operator">-f</span> myDebian</code></pre>
+<p><code>删除所有已停止的容器</code></p>
+<pre><code class="hljs reStructuredText">docker rm $(docker ps -a -q)</code></pre>
+<h4 id="docker-rmi"><a href="#docker-rmi" class="headerlink" title="docker rmi"></a><code>docker rmi</code></h4><p><code>删除单个镜像</code></p>
+<pre><code class="hljs powershell">docker rmi <span class="hljs-operator">-f</span> debian</code></pre>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%91%BD%E4%BB%A4/">命令</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/docker/">docker</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/28/DockerRedisInstallation/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">DockerRedisInstallation</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/28/Docker-Desktop-Installation-On-Windows/">
+                        <span class="hidden-mobile">Docker-Desktop-Installation-On-Windows</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "DockerBasicCommands&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

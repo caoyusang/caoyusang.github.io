@@ -241,6 +241,546 @@ huggingface models
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/05/28/JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" target="_self">
+          <img src="/img/garbage-collect.png" srcset="/img/loading.gif" alt="JVM垃圾回收">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/28/JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">JVM垃圾回收</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/28/JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">
+          
+          
+            
+          
+          垃圾回收(GC)1.哪些是垃圾？堆中存放了几乎所有的对象实例，在垃圾收集器对堆进行垃圾回收时，首先要确定的就是堆中对象是否存活。
+判断对象是否存活有两种方法：引用计数法和可达性分析法。
+引用计数法
+
+
+
+方法描述
+给对象中添加一个引用计数器，每当有一个地方引用它，计数器就加 1；当引用失效，计数器就减 1；任何时候计数器为 0 的对象就是不可能再被使用的
+
+
+
+
+优点
+实现简单，效率高
+
+
+缺点
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-28 19:44" pubdate>
+              2021-05-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Java/">Java</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/JVM/">JVM</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/05/28/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" target="_self">
+          <img src="/img/class-load.png" srcset="/img/loading.gif" alt="类加载机制">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/28/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">类加载机制</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/28/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">
+          
+          
+            
+          
+          类加载机制当需要某个类的时候，Java虚拟机会加载 .class 文件，并创建对应的class对象，将class文件加载到虚拟机的内存，这个过程被称为类的加载。
+类加载的时机
+隐式加载 new 创建类的实例,
+显式加载：loaderClass，forName等
+访问类的静态变量，或者为静态变量赋值
+调用类的静态方法
+使用反射方式创建某个类或者接口对象的Class对象
+初始化某个类的子类
+直接使用j
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-28 19:42" pubdate>
+              2021-05-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Java/">Java</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/JVM/">JVM</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/05/28/Java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/" target="_self">
+          <img src="/img/java-runtime.png" srcset="/img/loading.gif" alt="Java内存区域">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/28/Java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/">Java内存区域</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/28/Java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/">
+          
+          
+            
+          
+          Java内存区域1.Java内存区域划分JVM在执行Java程序的过程中会把它管理的内存区域划分成两类用途不同的数据区：
+
+线程共有（线程共享）区域——堆和方法区
+
+线程私有（线程隔离）区域——程序计数器、虚拟机栈和本地方法栈
+
+
+
+2.线程共享数据区堆
+
+
+
+
+用途
+完成几乎所有Java实例对象的内存分配，进行垃圾回收的主要内存区域
+
+
+
+
+划分
+年轻代8 : 1 : 1(Eden区 : Fro
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-28 19:38" pubdate>
+              2021-05-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Java/">Java</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/JVM/">JVM</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/05/28/%E7%BC%96%E8%AF%91JDK/" target="_self">
+          <img src="/img/compile-jdk.png" srcset="/img/loading.gif" alt="编译JDK">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/28/%E7%BC%96%E8%AF%91JDK/">编译JDK</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/28/%E7%BC%96%E8%AF%91JDK/">
+          
+          
+            
+          
+          JDK编译1.环境准备
+ubuntu 16.04 LTS
+查看本地JDK版本，没有就去安装
+
+如果要编译的JDK版本为N，那么本地已安装的JDK的版本只能大于等于N-1。
+2.下载JDK源码包JDK源码下载地址
+
+3.解压unzip openjdk-11+28_src.zip
+4.重命名为对应的JDK版本mv openjdk&#x2F; openjdk11
+5.配置生成sh configure
+结
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-28 19:33" pubdate>
+              2021-05-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Java/">Java</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/JVM/">JVM</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/05/28/DockerZooKeeperInstallation/" target="_self">
+          <img src="/img/docker-zk-install.png" srcset="/img/loading.gif" alt="DockerZooKeeperInstallation">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/28/DockerZooKeeperInstallation/">DockerZooKeeperInstallation</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/28/DockerZooKeeperInstallation/">
+          
+          
+            
+          
+          Docker安装部署ZooKeeper1.运行ZooKeeper容器docker run -d -e TZ=&quot;Asia/Shanghai&quot; -p 21810:2181 -v /f/docker/zookeeper/data:/data --name myZk zookeeper
+
+
+
+
+参数
+说明
+
+
+
+
+-d
+容器后台运行
+
+
+-e
+设置时区
+
+
+-p
+端口映射
+
+
+—nam
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-28 19:24" pubdate>
+              2021-05-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%AE%89%E8%A3%85/">安装</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/docker/">docker</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/05/28/DockerRedisInstallation/" target="_self">
+          <img src="/img/docker-redis.png" srcset="/img/loading.gif" alt="DockerRedisInstallation">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/28/DockerRedisInstallation/">DockerRedisInstallation</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/28/DockerRedisInstallation/">
+          
+          
+            
+          
+          Docker安装部署Redis方式1——命令行部署(推荐)docker run \
+--restart&#x3D;always \
+-d \
+--privileged&#x3D;true \
+-p 6379:6379 \
+-v &#x2F;f&#x2F;docker&#x2F;redis&#x2F;data:&#x2F;data \
+-v &#x2F;f&#x2F;docker&#x2F;redi
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-28 19:21" pubdate>
+              2021-05-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%AE%89%E8%A3%85/">安装</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/docker/">docker</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/05/28/DockerBasicCommands/" target="_self">
+          <img src="/img/docker-basic-commands.png" srcset="/img/loading.gif" alt="DockerBasicCommands">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/28/DockerBasicCommands/">DockerBasicCommands</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/28/DockerBasicCommands/">
+          
+          
+            
+          
+          Docker Basic CommandsDocker安装测试docker run debian echo &quot;hello world!&quot;
+
+本地没有debian镜像，先pull
+由debian镜像创建容器
+执行命令行echo &quot;hello world!&quot;
+
+
+基本指令docker images查看本地镜像
+docker images
+
+docker sear
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-28 19:14" pubdate>
+              2021-05-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%91%BD%E4%BB%A4/">命令</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/docker/">docker</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/05/28/Docker-Desktop-Installation-On-Windows/" target="_self">
+          <img src="/img/docker-Install.png" srcset="/img/loading.gif" alt="Docker-Desktop-Installation-On-Windows">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/28/Docker-Desktop-Installation-On-Windows/">Docker-Desktop-Installation-On-Windows</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/28/Docker-Desktop-Installation-On-Windows/">
+          
+          
+            
+          
+          Docker Desktop Installation For Windows1.启用Windows的Hyper-V功能控制面板-&gt;程序
+打开Hyper-V功能
+重启电脑
+2.下载Docker Desktop For Windows
+
+2.安装
+3.配置阿里云镜像加速阿里云容器镜像服务ACR
+
+创建个人实例
+
+获取镜像加速地址
+
+在Docker Desktop设置中配置阿里云镜像源
+
+打开设
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-28 19:02" pubdate>
+              2021-05-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%AE%89%E8%A3%85/">安装</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/docker/">docker</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/05/03/TX%E7%AC%94%E8%AF%95/" target="_self">
           <img src="/img/TX.png" srcset="/img/loading.gif" alt="TX笔试">
         </a>
@@ -300,501 +840,11 @@ class Solution &
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/05/03/%E6%89%8B%E6%92%95%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" target="_self">
-          <img src="/img/sort.png" srcset="/img/loading.gif" alt="手撕排序算法">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/03/%E6%89%8B%E6%92%95%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">手撕排序算法</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/03/%E6%89%8B%E6%92%95%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
-          
-          
-            
-          
-          手撕排序算法冒泡排序时间复杂度O(n*n)，空间复杂度O(n)，稳定排序
-
-//冒泡排序——每次把数组无序部分的最大值交换到数组最末尾
-public static void bubbleSort(int[] nums)&#123;
-    int len = nums.length;
-    //记录上一次最后完成交换的位置，因为后面的已经有序了，这样可以避免无意义的比较判断
-    int la
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-03 15:56" pubdate>
-              2021-05-03
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/05/03/JD%E7%AC%94%E8%AF%95/" target="_self">
-          <img src="/img/JD.png" srcset="/img/loading.gif" alt="JD笔试">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/03/JD%E7%AC%94%E8%AF%95/">JD笔试</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/03/JD%E7%AC%94%E8%AF%95/">
-          
-          
-            
-          
-          京东笔试206-反转链表
-/**
- * Definition for singly-linked list.
- * public class ListNode &#123;
- *     int val;
- *     ListNode next;
- *     ListNode() &#123;&#125;
- *     ListNode(int val) &#123; this.val = v
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-03 15:51" pubdate>
-              2021-05-03
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E7%AC%94%E8%AF%95%E9%A2%98/">笔试题</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" target="_self">
-          <img src="/img/Netty.png" srcset="/img/loading.gif" alt="Netty基础学习">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/">Netty基础学习</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/03/Netty%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/">
-          
-          
-            
-          
-          Netty是什么？概述——JBOSS提供的一个开源的Java网络应用框架
-特点——异步，基于事件驱动。提供了TCP/IP、HTTP协议栈，方便定制开发私有协议栈
-本质——NIO框架
-应用——开发高性能高可靠的网络IO程序，例如在分布式系统中作为RPC的基础通信组件。另外在大数据领域也被广泛应用，Akka，Flink，Spark等项目都用到了Netty
-数据传输的基础——TCP协议
-下图可以帮助了解
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-03 15:32" pubdate>
-              2021-05-03
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Java/">Java</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Netty/">Netty</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/05/03/JUC%E5%B9%B6%E5%8F%91%E9%94%81/" target="_self">
-          <img src="/img/unfair-lock.png" srcset="/img/loading.gif" alt="JUC并发锁">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/03/JUC%E5%B9%B6%E5%8F%91%E9%94%81/">JUC并发锁</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/03/JUC%E5%B9%B6%E5%8F%91%E9%94%81/">
-          
-          
-            
-          
-          Java并发锁整理各种锁的概念显示锁 vs 内置锁(隐式锁)
-
-
-
-
-显示锁(JDK1.5之后才有)
-内置锁(隐式锁)
-
-
-
-
-锁的控制对象
-锁的申请和释放都可以由程序所控制
-锁的申请和释放都是由 JVM 所控制
-
-
-实现
-ReentrantLock、ReentrantReadWriteLock
-synchronized
-
-
-优化趋势
-无
-JDK1.6之后对synchronized做了大量优化，性
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-03 15:16" pubdate>
-              2021-05-03
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Java/">Java</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/JUC/">JUC</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/04/06/MySQL%E7%B4%A2%E5%BC%95%E8%AF%A6%E8%A7%A3/" target="_self">
-          <img src="/img/mysql-key.png" srcset="/img/loading.gif" alt="MySQL索引详解">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/06/MySQL%E7%B4%A2%E5%BC%95%E8%AF%A6%E8%A7%A3/">MySQL索引详解</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/06/MySQL%E7%B4%A2%E5%BC%95%E8%AF%A6%E8%A7%A3/">
-          
-          
-            
-          
-          MySQL索引什么是索引？官方定义一种帮助MySQL提高查询效率的数据结构。
-索引的优点大大加快数据的查询速度
-索引的缺点创建索引是为产生索引文件的，占用磁盘空间。索引文件是一个二叉树类型的文件，可想而知我们的DML操作，对表记录的增、删、改操作同样也会对索引文件进行修改，所以性能会相应的有所下降。
-索引的分类(INNODB)
-主键索引将表属性设定为主键后，数据库会自动为主键创建聚簇索引。
-单值索
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-06 20:33" pubdate>
-              2021-04-06
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/MySQL/">MySQL</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/04/06/ThreadLocal%E8%AF%A6%E8%A7%A3/" target="_self">
-          <img src="/img/threadLocal.png" srcset="/img/loading.gif" alt="ThreadLocal详解">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/06/ThreadLocal%E8%AF%A6%E8%A7%A3/">ThreadLocal详解</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/06/ThreadLocal%E8%AF%A6%E8%A7%A3/">
-          
-          
-            
-          
-          ThreadLocalThreadLocal 主要用来提供线程局部变量，将参数储存在线程中，然后在该线程运行的任何阶段都能从线程中获取。多线程环境下，每个线程都可以通过set()和get()来对本线程局部变量进行操作，不会和其他线程的局部变量发生冲突，实现了线程间的数据隔离。
-原理
-
-每一个Thread对象都包含一个ThreadLocalMap类型的成员变量threadLocals，它存储了本线程
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-06 20:19" pubdate>
-              2021-04-06
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Java/">Java</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/JUC/">JUC</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/" target="_self">
-          <img src="/img/zookeeper.jpg" srcset="/img/loading.gif" alt="Zookeeper入门学习">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/">Zookeeper入门学习</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/05/Zookeeper%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/">
-          
-          
-            
-          
-          Apache ZooKeeperZK简介一个分布式的，开源的分布式应用程序协调服务，是Google的分布式锁服务Chubby的一个开源实现，是Hadoop和Hbase的重要组件。ZK由Java编写，但是支持Java和C两种编程语言。
-
-在Dubbo、SpringCloud中，担任服务注册中心的角色
-在Hadoop、Hbase等大数据的组件中，担任集群管理者的角色
-在Redis分布式开发中，担任实现
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-05 16:00" pubdate>
-              2021-04-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Zookeeper/">Zookeeper</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/01/25/leetcode%E9%A2%98%E8%A7%A3%E4%B9%8B%E6%95%B0%E7%BB%84/" target="_self">
-          <img src="/img/%E6%95%B0%E7%BB%84.png" srcset="/img/loading.gif" alt="leetcode题解之数组">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/25/leetcode%E9%A2%98%E8%A7%A3%E4%B9%8B%E6%95%B0%E7%BB%84/">leetcode题解之数组</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/25/leetcode%E9%A2%98%E8%A7%A3%E4%B9%8B%E6%95%B0%E7%BB%84/">
-          
-          
-            
-          
-          1480.一维数组的运行和题解class Solution &#123;
-    int sum = 0;
-    public int[] runningSum(int[] nums) &#123;
-        for (int i = 0; i &lt; nums.length; i++)&#123;
-            sum += nums[i];
-            nums
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-25 19:44" pubdate>
-              2021-01-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/leetcode/">leetcode</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
